@@ -1,0 +1,148 @@
+{
+    "datasets": [
+        {
+            "label": "2019 Kernenergie CH",
+            "data": "0.05 - 0.07;-1"
+        },
+        {
+            "label": "2019 Photovoltaik CH",
+            "data": "11.00 - 13.00;0"
+        },
+        {
+            "label": "2019 Photovoltaik CH nms",
+            "data": "14.00 - 16.00;0"
+        },
+        {
+            "label": "2019 Photovoltaik EU",
+            "data": "0.48 - 0.58;-2"
+        },
+        {
+            "label": "2019 Wasserkraft CH",
+            "data": "0.75 - 0.95;-2"
+        },
+        {
+            "label": "2019 Wasserkraft CH nms",
+            "data": "10.30 - 12.30;-1"
+        },
+        {
+            "label": "2019 Wasserkraft EU",
+            "data": "0.38 - 0.48;-1"
+        },
+        {
+            "label": "2019 Windenergie CH nms",
+            "data": "41.00 - 45.00;-1"
+        },
+        {
+            "label": "2019 Windenergie EU",
+            "data": "0.45 - 0.55;-2"
+        },
+        {
+            "label": "2020 Kernenergie CH",
+            "data": "0.07 - 0.09;-1"
+        },
+        {
+            "label": "2020 Photovoltaik CH",
+            "data": "12.00 - 14.00;0"
+        },
+        {
+            "label": "2020 Photovoltaik CH nms",
+            "data": "15.00 - 17.00;0"
+        },
+        {
+            "label": "2020 Photovoltaik EU",
+            "data": "1.12 - 1.32;-1"
+        },
+        {
+            "label": "2020 Wasserkraft CH",
+            "data": "1.98 - 2.18;-1"
+        },
+        {
+            "label": "2020 Wasserkraft CH nms",
+            "data": "11.00 - 13.00;0"
+        },
+        {
+            "label": "2020 Wasserkraft EU",
+            "data": "0.80 - 0.90;1"
+        },
+        {
+            "label": "2020 Windenergie CH nms",
+            "data": "41.00 - 45.00;-1"
+        },
+        {
+            "label": "2020 Windenergie EU",
+            "data": "0.84 - 1.04;-1"
+        },
+        {
+            "label": "2021 Kernenergie CH",
+            "data": "0.09 - 0.11;-1"
+        },
+        {
+            "label": "2021 Photovoltaik CH",
+            "data": "12.00 - 14.00;0"
+        },
+        {
+            "label": "2021 Photovoltaik CH nms",
+            "data": "15.00 - 17.00;0"
+        },
+        {
+            "label": "2021 Photovoltaik EU",
+            "data": "1.17 - 1.37;-1"
+        },
+        {
+            "label": "2021 Wasserkraft CH",
+            "data": "2.17 - 2.37;-1"
+        },
+        {
+            "label": "2021 Wasserkraft CH nms",
+            "data": "11.20- 13.20;-1"
+        },
+        {
+            "label": "2021 Wasserkraft EU",
+            "data": "0.88 - 0.98;1"
+        },
+        {
+            "label": "2021 Windenergie CH nms",
+            "data": "41.00 - 45.00;-1"
+        },
+        {
+            "label": "2021 Windenergie EU",
+            "data": "0.95 - 1.15;0"
+        },
+        {
+            "label": "2022 Kernenergie CH",
+            "data": "0.12 - 0.14;0"
+        },
+        {
+            "label": "2022 Photovoltaik CH",
+            "data": "12.00 - 14.00;0"
+        },
+        {
+            "label": "2022 Photovoltaik CH nms",
+            "data": "15.00 - 17.00;0"
+        },
+        {
+            "label": "2022 Photovoltaik EU",
+            "data": "1.22 - 1.42;-1"
+        },
+        {
+            "label": "2022 Wasserkraft CH",
+            "data": "2.22 - 2.42;-1"
+        },
+        {
+            "label": "2022 Wasserkraft CH nms",
+            "data": "11.50 - 13.50;-1"
+        },
+        {
+            "label": "2022 Wasserkraft EU",
+            "data": "0.92 - 1.07;1"
+        },
+        {
+            "label": "2022 Windenergie CH nms",
+            "data": "41.00 - 45.00;-1"
+        },
+        {
+            "label": "2022 Windenergie EU",
+            "data": "1.06 - 1.26;-1"
+        }
+    ]
+}

@@ -1,0 +1,50 @@
+import Home from "../pages/Home";
+import Login from "../pages/Login";
+import Dashboard from "../pages/Dashboard";
+import NoMatch from "../pages/NoMatch";
+import Prueba from "../pages/Prueba";
+import Gracias from "../pages/Gracias";
+import Panel from "../pages/Panel";
+const routes = [
+    {
+        path: "/",
+        exact: true,
+        auth: true,
+        component: Dashboard,
+        fallback: Home
+    },
+    {
+        path: "/login",
+        exact: true,
+        auth: false,
+        component: Login
+    },
+    {
+        path: "/gracias",
+        exact: true,
+        auth: false,
+        component: Gracias
+    },
+    {
+        path: "/prueba/:id",
+        exact: false,
+        auth: true,
+        component: Prueba,
+        fallback: Home
+    },
+    {
+        path: "/panel",
+        exact: false,
+        auth: true,
+        component: Panel,
+        fallback: Home
+    },
+    {
+        path: "",
+        exact: false,
+        auth: false,
+        component: NoMatch
+    }
+];
+
+export default routes;

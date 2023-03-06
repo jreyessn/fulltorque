@@ -1,0 +1,40 @@
+{
+    "datasets": [
+        {
+            "label": "CO2 EUA Dez. 2019 [EURO/t]",
+            "data": "24.08;0"
+        },
+        {
+            "label": "CO2 EUA Dez. 2020 [EURO/t]",
+            "data": "24.28;0"
+        },
+        {
+            "label": "GAS NCG Folgejahr [EURO/MWh]",
+            "data": "18.4;0"
+        },
+        {
+            "label": "GAS NCG Folgemonat [EURO/MWh]",
+            "data": "16.44;1"
+        },
+        {
+            "label": "GAS NCG Folgequartal [EURO/MWh]",
+            "data": "18.92;1"
+        },
+        {
+            "label": "Kohle UK  API#2 Folgejahr [US$/t]",
+            "data": "84.15;1"
+        },
+        {
+            "label": "Kohle UK  API#2 Folgemonat [US$/t]",
+            "data": "60.85;1"
+        },
+        {
+            "label": "Kohle UK  API#2 Folgequartal [US$/t]",
+            "data": "66.85;1"
+        },
+        {
+            "label": "Oel ICE Brent [US$/Barrel]",
+            "data": "58.65;0"
+        }
+    ]
+}

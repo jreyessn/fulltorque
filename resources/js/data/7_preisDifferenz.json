@@ -1,0 +1,16 @@
+{
+    "datasets": [
+        {
+            "label": "2020 Nordgrenze Base",
+            "data": "4.591087;1"
+        },
+        {
+            "label": "2021 Nordgrenze Base",
+            "data": "1.722579;1"
+        },
+        {
+            "label": "2022 Nordgrenze Base",
+            "data": "1.394037;1"
+        }
+    ]
+}
