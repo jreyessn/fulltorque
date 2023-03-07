@@ -839,11 +839,13 @@ dt {
 .topbar .topbar-left {
     background-color: #30419b;
     float: left;
-    text-align: center;
     height: 70px;
     position: relative;
     width: 240px;
     z-index: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .topbar .topbar-left .logo {

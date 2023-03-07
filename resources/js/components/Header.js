@@ -2,11 +2,14 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { Scrollbars } from "react-custom-scrollbars";
-import * as actions from "../store/actions";
 import Notificaciones from "./Notificaciones";
 import { logout } from "../services/authService";
 
 class Header extends Component {
+    componentDidUpdate(){
+        console.log(this.props.user)
+    }
+
     componentDidMount() {
         $(".slimscroll-menu").slimscroll({
             height: "auto",
@@ -89,7 +92,7 @@ class Header extends Component {
 
     render() {
         return (
-            <Scrollbars>
+            <>
                 {this.props.isAuthenticated && (
                     <>
                         <div className="topbar">
@@ -188,19 +191,30 @@ class Header extends Component {
                                     <ul className="metismenu" id="side-menu">
                                         <li className="menu-title">Menú</li>
                                         {this.props.user.is_admin ? (
-                                            <li>
-                                                <Link
-                                                    key="uniqueIdLinkPrueba"
-                                                    to={`/panel`}
-                                                    className="waves-effect"
-                                                >
-                                                    <i className="fas fa-user-circle"></i>
+                                            <>
+                                                <li>
+                                                    <a
+                                                        href="/panel"
+                                                        className="waves-effect"
+                                                    >
+                                                        <i className="fas fa-home"></i>
 
-                                                    <span>Panel</span>
-                                                </Link>
-                                            </li>
-                                            
-                                        ) : (
+                                                        <span>Panel</span>
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a
+                                                        href="/usuarios"
+                                                        className="waves-effect"
+                                                    >
+                                                        <i className="fas fa-users"></i>
+
+                                                        <span>Usuarios</span>
+                                                    </a>
+                                                </li>
+                                            </>
+                                        ) 
+                                        : (
                                             ""
                                         )}
 
@@ -215,7 +229,7 @@ class Header extends Component {
                                                 >
                                                     <i className="fas fa-file-signature"></i>
 
-                                                    <span>Test</span>
+                                                    <span>Prueba</span>
                                                 </Link>
                                             </li>
                                         )}
@@ -226,7 +240,7 @@ class Header extends Component {
                         </div>
                     </>
                 )}
-            </Scrollbars>
+            </>
         );
     }
 }

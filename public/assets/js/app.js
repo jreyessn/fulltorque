@@ -16,8 +16,6 @@
             (this.$menuItem = $(".has_sub > a"));
     };
 
-    console.log(MainApp);
-
     (MainApp.prototype.intSlimscrollmenu = function() {
         $(".slimscroll-menu").slimscroll({
             height: "auto",

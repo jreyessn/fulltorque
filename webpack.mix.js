@@ -12,4 +12,6 @@ const mix = require('laravel-mix');
  */
 
 mix.react('resources/js/app.js', 'public/js')
+    .react('resources/js/blade/header-standalone.js', 'public/js/blade')
+    .react('resources/js/blade/footer-standalone.js', 'public/js/blade')
     .sass('resources/sass/app.scss', 'public/css');

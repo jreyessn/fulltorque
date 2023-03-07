@@ -1,4 +1,6 @@
 {
     "/js/app.js": "/js/app.js",
-    "/css/app.css": "/css/app.css"
+    "/css/app.css": "/css/app.css",
+    "/js/blade/footer-standalone.js": "/js/blade/footer-standalone.js",
+    "/js/blade/header-standalone.js": "/js/blade/header-standalone.js"
 }
