@@ -199,6 +199,7 @@ class Header extends Component {
                                                     <span>Panel</span>
                                                 </Link>
                                             </li>
+                                            
                                         ) : (
                                             ""
                                         )}

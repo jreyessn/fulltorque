@@ -46,7 +46,7 @@ class JWTAuthController extends ApiController
         ]);
 
         $response = Route::dispatch(Request::create('/oauth/token', 'POST'));
-        dd(User::first()->createToken('Personal Access Token'));
+     //   dd(User::first()->createToken('Personal Access Token'));
         $data = json_decode($response->getContent(), true);
 
         if (!$response->isOk()) {
