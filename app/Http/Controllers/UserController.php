@@ -9,7 +9,7 @@ use Yajra\DataTables\DataTables;
 class UserController extends Controller
 {
   
-    public function index(Request $request)
+ public function index(Request $request)
 {
 	//dd($request->ajax());
    if ($request->ajax()) {

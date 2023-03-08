@@ -77,6 +77,8 @@
 
 @section('scripts')
     <script>
+   
+
         $(document).ready(function() {
 
             $('#users-table').DataTable({
@@ -115,19 +117,29 @@
                         data: 'created_at', 
                         name: 'created_at',
                         render: function(data) {
-                            var date = new Date(data);
-                            var day = date.getDate().toString().padStart(2, '0');
-                            var month = (date.getMonth() + 1).toString().padStart(2, '0');
-                            var year = date.getFullYear();
-                            return day + '/' + month + '/' + year;
-                        }
+                            const fecha = new Date(data);
+                            const dia = ('0' + fecha.getDate()).slice(-2);
+                            const mes = ('0' + (fecha.getMonth() + 1)).slice(-2);
+                            const anio = fecha.getFullYear();
+                            const horas = ('0' + fecha.getHours()).slice(-2);
+                            const minutos = ('0' + fecha.getMinutes()).slice(-2);
+                            const am_pm = horas >= 12 ? 'PM' : 'AM';
+                            const hora12 = horas % 12 || 12;
+
+                            const fechaFormateada = `${dia}-${mes}-${anio} ${hora12}:${minutos} ${am_pm}`;
+
+                            return fechaFormateada
+                        },
                     },
                     {data: 'actions', name: 'actions', orderable: false, searchable: false},
                 ]
             });
+      
         });
 
 
 
     </script>
+
+  
 @endsection
