@@ -18,4 +18,17 @@ class RespuestasUsuario extends Model
     {
         return $this->hasMany(User::class, 'id', 'id_usuario');
     }
+
+    public function pregunta(){
+        return $this->belongsTo(Pregunta::class, "id_pregunta")->orderBy("numero_pregunta_prueba", "asc");
+    }
+    
+    public function respuesta_correcta(){
+        return $this->hasOneThrough(Alternativa::class, RespuestasPrueba::class, "id_pregunta", "id", "id_pregunta", "id_alternativa_correcta");
+    }
+        
+    public function respuesta_usuario(){
+        return $this->hasOne(Alternativa::class, "id", "id_alternativa");
+    }
+    
 }

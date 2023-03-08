@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\PruebaRendidaUsuario;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -24,5 +25,18 @@ class HomeController extends Controller
     public function index()
     {
         return view('panel');
+    }
+
+    /**
+     * Show the application dashboard.
+     *
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
+    public function resultadosServerside($id)
+    {
+        $resultado_prueba = PruebaRendidaUsuario::obtenerResultadosUsuario($id);
+        $prueba = app(PruebaController::class)->getResultadoOnePrueba($id);
+
+        return view('resultados', compact("prueba", "resultado_prueba"));
     }
 }

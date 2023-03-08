@@ -31,7 +31,7 @@ Route::group([
 
 });
 
-Route::get('prueba/resultados_pruebas','PruebaController@getResultadosPruebas');
+Route::get('prueba/resultados_pruebas','PruebaController@getResultadosPruebas')->name('prueba.resultados');
 
 /**
  * API
@@ -55,10 +55,6 @@ Route::group(['middleware' => 'api'], function () {
     Route::get('prueba/guardar_respuesta/{id_respuesta}','PruebaController@storeRespuesta');
     Route::get('prueba/guardar_prueba_rendida/{id_prueba}','PruebaController@storePruebaRendida');
     Route::get('prueba/resultado_prueba/{id_prueba}','PruebaController@getResultadoPrueba');
-
-
-   
-
 });
 
 Route::group(['middleware' => 'auth:api'], function() {

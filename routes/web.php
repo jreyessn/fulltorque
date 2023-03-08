@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/panel', 'HomeController@index');
+Route::get('/panel/resultados/{id}', 'HomeController@resultadosServerside');
 Route::get('/usuarios', 'UserController@index')->name('usuarios.index');
 Route::post('/register', [UserController::class, 'store'])->name('usuarios.register');
 Route::get('/users/{user}/edit', 'UserController@edit')->name('users.edit');
