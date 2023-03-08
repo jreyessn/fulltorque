@@ -11,4 +11,8 @@ class RespuestasPrueba extends Model
         'id_pregunta', 
         'id_alternativa_correcta'
     ];
+
+    public function alternativa_correcta(){
+        return $this->belongsTo(Alternativa::class, "id_alternativa_correcta");
+    }
 }

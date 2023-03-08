@@ -13,6 +13,7 @@ use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Yajra\DataTables\DataTables;
 
 class PruebaController extends Controller
 {
@@ -117,27 +118,58 @@ class PruebaController extends Controller
         return response()->json($res);
     }
 
+    public function getResultadoOnePrueba($id_prueba_rendida_usuario = null)
+    {
+        $preguntas_prueba = DB::select("
+            SELECT 
+                p.id,
+                u.name,
+                COUNT(rp.id_pregunta) AS total_preguntas,
+                SUM(rp.id_alternativa_correcta = ru.id_alternativa) AS respuestas_correctas,
+                SUM(rp.id_alternativa_correcta != ru.id_alternativa) AS respuestas_incorrectas,
+                (SUM(rp.id_alternativa_correcta = ru.id_alternativa) / COUNT(rp.id_pregunta)) * 100 AS porcentaje_respuestas_correctas,
+                p.created_at
+            FROM `prueba_rendida_usuarios` p
+            LEFT JOIN users u ON u.id = p.id_usuario
+            LEFT JOIN respuestas_usuarios ru ON ru.id_prueba = p.id
+            LEFT JOIN respuestas_pruebas rp ON rp.id_pregunta = ru.id_pregunta
+            WHERE p.id = {$id_prueba_rendida_usuario}
+            GROUP BY p.id, u.id
+            ORDER BY p.created_at DESC;
+        ");
+
+        $item = $preguntas_prueba[0]; 
+        $item->estado_aprobado = $item->porcentaje_respuestas_correctas > 80? true : false;
+        
+        return $item;
+   }
 
     public function getResultadosPruebas()
     {
-        
-        $preguntas_prueba = DB::select('SELECT
-        preguntas.id as id,
-        COUNT( rp.id_alternativa_correcta ) AS correctas,
-        users.`name`,
-        subquery1.preguntas 
-    FROM
-        preguntas,
-        respuestas_usuarios AS respuestas
-        RIGHT JOIN respuestas_pruebas AS rp ON respuestas.id_alternativa = rp.id_alternativa_correcta
-        INNER JOIN users ON respuestas.id_usuario = users.id,
-        ( SELECT COUNT( r.id_pregunta ) AS preguntas FROM respuestas_pruebas AS r ) AS subquery1 
-    WHERE
-        preguntas.id = respuestas.id_pregunta 
-    GROUP BY
-        users.id');
-        
-        return response()->json($preguntas_prueba);
+        $preguntas_prueba = DB::select("
+            SELECT 
+                p.id,
+                u.name,
+                COUNT(rp.id_pregunta) AS total_preguntas,
+                SUM(rp.id_alternativa_correcta = ru.id_alternativa) AS respuestas_correctas,
+                SUM(rp.id_alternativa_correcta != ru.id_alternativa) AS respuestas_incorrectas,
+                (SUM(rp.id_alternativa_correcta = ru.id_alternativa) / COUNT(rp.id_pregunta)) * 100 AS porcentaje_respuestas_correctas,
+                p.created_at
+            FROM `prueba_rendida_usuarios` p
+            LEFT JOIN users u ON u.id = p.id_usuario
+            LEFT JOIN respuestas_usuarios ru ON ru.id_prueba = p.id
+            LEFT JOIN respuestas_pruebas rp ON rp.id_pregunta = ru.id_pregunta
+            GROUP BY p.id, u.id
+            ORDER BY p.created_at DESC;
+        ");
+        $preguntas_prueba = collect($preguntas_prueba)->map(function($item){
+            $item->estado_aprobado = $item->porcentaje_respuestas_correctas > 80? true : false;
+            return $item;
+        });
+
+        return Datatables::of($preguntas_prueba)
+            ->addIndexColumn()
+            ->make(true);
     }
 
 
