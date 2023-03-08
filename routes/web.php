@@ -19,7 +19,7 @@ Route::post('/register', [UserController::class, 'store'])->name('usuarios.regis
 Route::get('/users/{user}/edit', 'UserController@edit')->name('users.edit');
 Route::delete('/users/{user}', 'UserController@destroy')->name('users.destroy');
 Route::put('/users/{user}', 'UserController@update')->name('users.update');
-
+Route::get('users/{id}', 'UserController@show')->name('users.show');
 
 /*Route::get('/users', [UserController::class, 'index']);
 Route::get('/users/create', [UserController::class, 'create']);
