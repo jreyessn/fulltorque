@@ -42,7 +42,6 @@ export function logout() {
         return Http.delete("/api/logout")
             .then(() => {
                 dispatch(action.authLogout());
-                console.log("ff");
                 return (window.location.href = "/");
             })
             .catch(err => {

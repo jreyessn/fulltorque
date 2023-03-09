@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import Http from "../Http";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
+// import { Link, Redirect } from "react-router-dom";
 
 class Dashboard extends Component {
     constructor(props) {
@@ -31,7 +32,10 @@ class Dashboard extends Component {
 
     render() {
         const { data, error } = this.state;
-
+        console.log(data)
+        const panelRoute = {
+            pathname: "/panel"
+        }
         return (
             <div>
                 {this.props.user.is_admin == 0 ? (
@@ -131,7 +135,9 @@ class Dashboard extends Component {
                         </div>
                     )
                 ) : (
-                    ""
+                    <>
+                        <Redirect to={panelRoute} />
+                    </>
                 )}
             </div>
         );

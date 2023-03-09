@@ -6,7 +6,6 @@ const initialState = {
 };
 
 const authLogin = (state, payload) => {
-    console.log(payload);
     localStorage.setItem('access_token', payload);
     
     Http.defaults.headers.common['Authorization'] = `Bearer ${payload}`;

@@ -78131,9 +78131,7 @@ var Header = /*#__PURE__*/function (_Component) {
 
   _createClass(Header, [{
     key: "componentDidUpdate",
-    value: function componentDidUpdate() {
-      console.log(this.props.user);
-    }
+    value: function componentDidUpdate() {}
   }, {
     key: "componentDidMount",
     value: function componentDidMount() {
@@ -78155,7 +78153,6 @@ var Header = /*#__PURE__*/function (_Component) {
       $("#side-menu").metisMenu();
       $(".button-menu-mobile").on("click", function (event) {
         event.preventDefault();
-        console.log(event);
         $("body").toggleClass("enlarged");
       });
 
@@ -78272,13 +78269,15 @@ var Header = /*#__PURE__*/function (_Component) {
         id: "side-menu"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
         className: "menu-title"
-      }, "Men\xFA"), this.props.user.is_admin ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
-        href: "/panel",
+      }, "Men\xFA"), this.props.user.is_admin ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Link"], {
+        key: "uniqueIdLinkPrueba",
+        to: "/panel",
         className: "waves-effect"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
         className: "fas fa-home"
-      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "Panel"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
-        href: "/usuarios",
+      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "Panel"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Link"], {
+        key: "uniqueIdLinkPrueba",
+        to: "/usuarios",
         className: "waves-effect"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
         className: "fas fa-users"
@@ -78651,7 +78650,6 @@ function logout() {
   return function (dispatch) {
     return _Http__WEBPACK_IMPORTED_MODULE_0__["default"]["delete"]("/api/logout").then(function () {
       dispatch(_store_actions__WEBPACK_IMPORTED_MODULE_1__["authLogout"]());
-      console.log("ff");
       return window.location.href = "/";
     })["catch"](function (err) {
       console.log(err);
@@ -78709,7 +78707,6 @@ function authLogin(payload) {
   };
 }
 function notification(payload) {
-  console.log(payload);
   return {
     type: _action_types__WEBPACK_IMPORTED_MODULE_0__["NOTIFICATION"],
     payload: payload
@@ -78781,7 +78778,6 @@ var initialState = {
 };
 
 var authLogin = function authLogin(state, payload) {
-  console.log(payload);
   localStorage.setItem('access_token', payload);
   _Http__WEBPACK_IMPORTED_MODULE_1__["default"].defaults.headers.common['Authorization'] = "Bearer ".concat(payload);
   var stateObj = Object.assign({}, state, {

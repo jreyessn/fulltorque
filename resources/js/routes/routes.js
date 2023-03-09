@@ -5,6 +5,8 @@ import NoMatch from "../pages/NoMatch";
 import Prueba from "../pages/Prueba";
 import Gracias from "../pages/Gracias";
 import Panel from "../pages/Panel";
+import Usuarios from "../pages/Usuarios";
+
 const routes = [
     {
         path: "/",
@@ -37,6 +39,13 @@ const routes = [
         exact: false,
         auth: true,
         component: Panel,
+        fallback: Home
+    },    
+    {
+        path: "/usuarios",
+        exact: false,
+        auth: true,
+        component: Usuarios,
         fallback: Home
     },
     {

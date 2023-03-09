@@ -8,7 +8,6 @@ export function authLogin(payload) {
 }
 
 export function notification(payload) {
-    console.log(payload);
     return {
         type: ActionTypes.NOTIFICATION,
         payload

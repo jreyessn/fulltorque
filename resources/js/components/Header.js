@@ -6,9 +6,7 @@ import Notificaciones from "./Notificaciones";
 import { logout } from "../services/authService";
 
 class Header extends Component {
-    componentDidUpdate(){
-        console.log(this.props.user)
-    }
+    componentDidUpdate(){}
 
     componentDidMount() {
         $(".slimscroll-menu").slimscroll({
@@ -32,7 +30,6 @@ class Header extends Component {
 
         $(".button-menu-mobile").on("click", function(event) {
             event.preventDefault();
-            console.log(event);
             $("body").toggleClass("enlarged");
         });
 
@@ -193,24 +190,26 @@ class Header extends Component {
                                         {this.props.user.is_admin ? (
                                             <>
                                                 <li>
-                                                    <a
-                                                        href="/panel"
+                                                    <Link
+                                                        key="uniqueIdLinkPrueba"
+                                                        to={`/panel`}
                                                         className="waves-effect"
                                                     >
                                                         <i className="fas fa-home"></i>
 
                                                         <span>Panel</span>
-                                                    </a>
+                                                    </Link>
                                                 </li>
                                                 <li>
-                                                    <a
-                                                        href="/usuarios"
+                                                    <Link
+                                                        key="uniqueIdLinkPrueba"
+                                                        to={`/usuarios`}
                                                         className="waves-effect"
                                                     >
                                                         <i className="fas fa-users"></i>
 
                                                         <span>Usuarios</span>
-                                                    </a>
+                                                    </Link>
                                                 </li>
                                             </>
                                         ) 
