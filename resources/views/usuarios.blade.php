@@ -43,9 +43,9 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form id="addUserForm">
+                <form id="addUserForm" action="{{ route('users.store') }}">
                     @csrf
-
+                    <input type="hidden" name="id" id="id_usuario">
                     {{-- Se ocultan para evitar el autocomplete de chrome --}}
                     <div class="form-group" style="display:none">
                         <label for="email">Correo electrónico Hidden</label>
@@ -100,6 +100,7 @@
                     success: function(data) {
                         $("#name").val(data.name);
                         $("#email").val(data.email);
+                        $("#id_usuario").val(datos.id_usuario)
                     },
                     error: function(jqXHR, textStatus, errorThrown) {
                         console.log(textStatus, errorThrown);
@@ -112,13 +113,99 @@
         });
 
         $("#addUserBtn").on("click", function(event){
-            alert("guardame")
+            event.preventDefault(); // Evitar que se envíe el formulario por defecto
+
+            var form = $("#addUserForm");
+            var url = form.attr('action');
+            var data = form.serialize();
+
+            $.ajax({
+                method: "POST",
+                url: url,
+                data: data,
+                success: function(response){
+                    if(response.success){
+                        swal({
+                            title: 'Confirmación',
+                            text: 'Guardado con Exito',
+                            type: 'success',
+                            confirmButtonText: "Aceptar"
+                        })
+                        // Cerrar la modal
+                        $('#addUserModal').modal('hide');
+
+                        // Actualizar la tabla de datos
+                        $('#usersTable').DataTable().ajax.reload();
+                    } else {
+                        var errors = "";
+                        $.each(response.errors, function(key, value){
+                            errors += value[0] + "\n";
+                        });
+                        swal({
+                            title: 'Error',
+                            text: errors,
+                            type: 'error',
+                            confirmButtonText: 'Aceptar'
+                        });
+                    }
+                },
+                error: function(response){
+                    swal({
+                        title: 'Error',
+                        text: 'revise los mensajes de error e intente nuevamente',
+                        type: 'error',
+                        confirmButtonText: 'Aceptar'
+                    });
+                }
+            });
         })
+
     }
     
-    function deleteUser(user_id){
-        alert("eliminame")
-    }
+  function deleteUser(user_id){
+      user_id = user_id.replace(/.*\//, '');
+    swal({
+        title: "Eliminar Usuario",
+        text: "¿Realmente deseas eliminar la cuenta del usuario?",
+        type: "warning",
+        showCancelButton: true,
+        cancelButtonText: "No",
+        confirmButtonText: "Si",
+        closeOnConfirm: false
+    }).then(function () {
+        $.ajax({
+             method: "DELETE",
+             url: '/users/' + user_id,
+            data: {
+                _token: '{{ csrf_token() }}', // Token CSRF generado por Laravel
+                id: user_id // ID del usuario a eliminar
+            },
+            success: function(response){
+                swal(
+                    'Eliminado!',
+                    'El usuario ha sido eliminado.',
+                    'success'
+                );
+                $('#users-table').DataTable().draw();
+            },
+            error: function(response){
+                swal(
+                    'Error',
+                    'Ha ocurrido un error al intentar eliminar al usuario.',
+                    'error'
+                );
+            }
+        });
+    }, function (dismiss) {
+        if (dismiss === 'cancel') {
+            swal(
+                'Cancelado',
+                'El usuario no ha sido eliminado.',
+                'error'
+            )
+        }
+    });
+}
 
     $(document).ready(function() {
         $('#users-table').DataTable({

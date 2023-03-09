@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\User;
 use Yajra\DataTables\DataTables;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
+
 
 class UserController extends Controller
 {
@@ -53,10 +56,36 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
-        //
+ public function store(Request $request)
+{
+    $id = $request->input('id');
+    $validator = $this->validateUser($request, $id);
+   
+
+    if ($validator->fails()) {
+        return response()->json(['errors' => $validator->errors()]);
+    } else {
+        if ($id) {
+            // Actualizar un registro existente
+            $user = User::findOrFail($id);
+        } else {
+            // Crear un nuevo registro
+            $user = new User();
+        }
+
+        $user->name = $request->input('name');
+        $user->email = $request->input('email');
+
+        if ($request->filled('password')) {
+            $user->password = bcrypt($request->input('password'));
+        }
+
+        $user->save();
+
+        return response()->json(['success' => true]);
     }
+}
+
 
     /**
      * Display the specified resource.
@@ -99,6 +128,30 @@ class UserController extends Controller
             return response()->json(['success' => false]);
         }
     }
+
+  protected function validateUser(Request $request, $id)
+{
+   
+   return $validator = Validator::make($request->all(), [
+        'name' => 'required',
+        'email' => [
+            'required',
+            'email',
+            Rule::unique('users')->ignore($id),
+        ],
+        'password' => $id ? 'nullable|min:6|confirmed' : 'required|min:6|confirmed',
+    ], [
+        'name.required' => 'El nombre es obligatorio.',
+        'email.required' => 'El correo electrónico es obligatorio.',
+        'email.email' => 'El correo electrónico debe ser una dirección válida.',
+        'email.unique' => 'Este correo electrónico ya ha sido registrado.',
+        'password.required' => 'La contraseña es obligatoria.',
+        'password.min' => 'La contraseña debe tener al menos :min caracteres.',
+        'password.confirmed' => 'Las contraseñas no coinciden.',
+    ]);
+
+    
+}
 
 
 }

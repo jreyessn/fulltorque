@@ -48,6 +48,7 @@
         <!-- Responsive examples -->
         <script src="{{ asset("assets/plugins/datatables/dataTables.responsive.min.js") }}"></script>
         <script src="{{ asset("assets/plugins/datatables/responsive.bootstrap4.min.js") }}"></script>
+         <script src="{{ asset("assets/plugins/sweet-alert2/sweetalert2.min.js") }}"></script>
      
     </body>
 </html>

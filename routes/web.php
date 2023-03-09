@@ -20,9 +20,12 @@ Route::get('/usuarios_content', 'UserController@index');
 Route::get('/panel/resultados/{id}', 'HomeController@resultadosServerside');
 
 // Rutas para usuarios
-Route::get('/usuarios/datatable', 'UserController@datatable')->name('usuarios.index');
+Route::get('/users/datatable', 'UserController@datatable')->name('usuarios.index');
 Route::post('/register', [UserController::class, 'store'])->name('usuarios.register');
-Route::delete('/users/{user}', 'UserController@destroy')->name('users.destroy');
+//Route::post('/users', 'UserController@store')->name('users.store');
+Route::post('/users/store/{id?}', 'UserController@store')->name('users.store');
+
+Route::delete('/users/{id}', 'UserController@destroy')->name('users.destroy');
 Route::put('/users/{user}', 'UserController@update')->name('users.update');
 Route::get('users/{id}', 'UserController@show')->name('users.show');
 
