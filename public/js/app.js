@@ -111828,7 +111828,8 @@ var Dashboard = /*#__PURE__*/function (_Component) {
 
     _this.state = {
       error: false,
-      pruebas: []
+      pruebas: [],
+      hasRedirect: false
     }; // API endpoint.
 
     _this.api = "/api/prueba/list_detalles";
@@ -111851,12 +111852,18 @@ var Dashboard = /*#__PURE__*/function (_Component) {
       });
     }
   }, {
+    key: "componentDidUpdate",
+    value: function componentDidUpdate(prevProps) {
+      if (this.props.user.id && !prevProps.user.id) {
+        this.setState({
+          hasRedirect: true
+        });
+      }
+    }
+  }, {
     key: "render",
     value: function render() {
-      var _this$state = this.state,
-          data = _this$state.data,
-          error = _this$state.error;
-      console.log(data);
+      var hasRedirect = this.state.hasRedirect;
       var panelRoute = {
         pathname: "/panel"
       };
@@ -111936,9 +111943,9 @@ var Dashboard = /*#__PURE__*/function (_Component) {
           },
           className: "btn btn-primary btn-lg btn-block waves-effect waves-light"
         }, "Comenzar"));
-      }))))) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["Redirect"], {
+      }))))) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, hasRedirect ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["Redirect"], {
         to: panelRoute
-      })));
+      }) : ""));
     }
   }]);
 

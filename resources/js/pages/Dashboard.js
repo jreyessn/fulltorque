@@ -11,7 +11,8 @@ class Dashboard extends Component {
         // Initial state.
         this.state = {
             error: false,
-            pruebas: []
+            pruebas: [],
+            hasRedirect: false
         };
 
         // API endpoint.
@@ -30,9 +31,14 @@ class Dashboard extends Component {
             });
     }
 
+    componentDidUpdate(prevProps){
+        if (this.props.user.id && !prevProps.user.id) {            
+            this.setState({ hasRedirect: true })
+        }
+    }
+
     render() {
-        const { data, error } = this.state;
-        console.log(data)
+        const { hasRedirect } = this.state;
         const panelRoute = {
             pathname: "/panel"
         }
@@ -136,7 +142,10 @@ class Dashboard extends Component {
                     )
                 ) : (
                     <>
-                        <Redirect to={panelRoute} />
+                       {
+                        hasRedirect? ( <Redirect to={panelRoute} /> ) : 
+                        ""
+                       } 
                     </>
                 )}
             </div>
