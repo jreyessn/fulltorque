@@ -29,20 +29,9 @@ class UserController extends Controller
      */
     public function datatable(Request $request){
         if ($request->ajax()) {
-            $users = User::latest()->get();
+            $users = User::get();
             return Datatables::of($users)
                 ->addIndexColumn()
-                ->addColumn('actions', function($row) {
-                    $deleteUrl = route('users.destroy', $row->id);
-
-                    $actions = <<<EOT
-                        <a data-toggle="modal" data-target="#addUserModal" data-title-modal="Editar Usuario" data-id_usuario="{$row->id}" class="btn btn-primary"><i class="fas fa-edit"></i></a>
-                        <button type="button" class="btn btn-danger" onclick="deleteUser('{$deleteUrl}')"><i class="fas fa-trash"></i></button>
-
-                    EOT;
-                    return $actions;
-                })
-                ->rawColumns(['actions'])
                 ->make(true);
 
         }

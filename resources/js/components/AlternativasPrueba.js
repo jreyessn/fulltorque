@@ -113,14 +113,14 @@ export default class AlternativasPrueba extends Component {
         }
 
         return (
-            <>
+            <div>
                 {this.state.cargando ? (
                     <Spinner />
                 ) : (
                     this.state.alternativas.map(alternativa => (
                         <div
                             key={alternativa.id}
-                            className="custom-control custom-radio"
+                            className="custom-control custom-checkbox"
                             onClick={e => this.handleClick(alternativa.id, e)}
                         >
                             <AlternativaChecked
@@ -135,7 +135,7 @@ export default class AlternativasPrueba extends Component {
                         </div>
                     ))
                 )}
-            </>
+            </div>
         );
     }
 }

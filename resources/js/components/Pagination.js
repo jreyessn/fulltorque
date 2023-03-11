@@ -99,7 +99,11 @@ export class Pagination extends Component {
             return null;
         }
         return (
-            <nav aria-label="Page navigation example" className="mt-2">
+            <nav aria-label="Page navigation example" className="mt-2" style={{
+                'position': 'absolute',
+                'bottom': '1rem',
+                'right': '1rem'
+            }}>
                 <ul className="pagination justify-content-end">
                     <li
                         className={

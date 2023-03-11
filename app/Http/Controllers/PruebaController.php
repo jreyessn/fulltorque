@@ -124,14 +124,15 @@ class PruebaController extends Controller
             SELECT 
                 p.id,
                 u.name,
-                COUNT(rp.id_pregunta) AS total_preguntas,
+                (SELECT COUNT(id) FROM preguntas WHERE preguntas.id_prueba = p.id_prueba) as total_preguntas,
+                COUNT(rp.id_pregunta) AS total_respuestas,
                 SUM(rp.id_alternativa_correcta = ru.id_alternativa) AS respuestas_correctas,
                 SUM(rp.id_alternativa_correcta != ru.id_alternativa) AS respuestas_incorrectas,
                 (SUM(rp.id_alternativa_correcta = ru.id_alternativa) / COUNT(rp.id_pregunta)) * 100 AS porcentaje_respuestas_correctas,
                 p.created_at
             FROM `prueba_rendida_usuarios` p
             LEFT JOIN users u ON u.id = p.id_usuario
-            LEFT JOIN respuestas_usuarios ru ON ru.id_prueba = p.id
+            LEFT JOIN respuestas_usuarios ru ON ru.id_prueba = p.id_prueba AND ru.id_usuario = p.id_usuario
             LEFT JOIN respuestas_pruebas rp ON rp.id_pregunta = ru.id_pregunta
             WHERE p.id = {$id_prueba_rendida_usuario}
             GROUP BY p.id, u.id
@@ -150,14 +151,15 @@ class PruebaController extends Controller
             SELECT 
                 p.id,
                 u.name,
-                COUNT(rp.id_pregunta) AS total_preguntas,
+                (SELECT COUNT(id) FROM preguntas WHERE preguntas.id_prueba = p.id_prueba) as total_preguntas,
+                COUNT(rp.id_pregunta) AS total_respuestas,
                 SUM(rp.id_alternativa_correcta = ru.id_alternativa) AS respuestas_correctas,
                 SUM(rp.id_alternativa_correcta != ru.id_alternativa) AS respuestas_incorrectas,
                 (SUM(rp.id_alternativa_correcta = ru.id_alternativa) / COUNT(rp.id_pregunta)) * 100 AS porcentaje_respuestas_correctas,
                 p.created_at
             FROM `prueba_rendida_usuarios` p
             LEFT JOIN users u ON u.id = p.id_usuario
-            LEFT JOIN respuestas_usuarios ru ON ru.id_prueba = p.id
+            LEFT JOIN respuestas_usuarios ru ON ru.id_prueba = p.id_prueba AND ru.id_usuario = p.id_usuario
             LEFT JOIN respuestas_pruebas rp ON rp.id_pregunta = ru.id_pregunta
             GROUP BY p.id, u.id
             ORDER BY p.created_at DESC;

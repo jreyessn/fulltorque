@@ -104,11 +104,9 @@ class Temporizador extends Component {
         let hours = ("0" + Math.floor((timerTime / 3600000) % 60)).slice(-2);
 
         return (
-            <div>
-                <h4>
-                    {hours} : {minutes} : {seconds}
-                </h4>
-            </div>
+            <>
+                {hours} : {minutes} : {seconds}
+            </>
         );
     }
 }

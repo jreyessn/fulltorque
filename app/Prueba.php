@@ -13,9 +13,13 @@ class Prueba extends Model
         'id_estado_prueba'
     ];
 
+    protected $with = [
+        "encabezado_prueba"
+    ];
+
     public function encabezado_prueba() 
     {
-        return $this->hasMany(Clase::class);
+        return $this->hasOne(EncabezadoPrueba::class, "id", "id_encabezado_prueba");
     }
 }
 

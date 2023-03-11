@@ -224,18 +224,9 @@ export const EnviarPrueba = ({
         <div>
             <Loader loaded={active} />
             <button
-                style={{
-                    marginRight: "8%",
-                    marginLeft: "38%",
-                    paddingTop: "4px",
-                    paddingBottom: "4px",
-                    width: "24%",
-                    textAlign: "center"
-                }}
                 type="button"
-                className="botonPrueba"
                 onClick={() => enviarPruebaClick(pruebaLink)}
-                className="btn btn-primary btn-lg btn-block waves-effect waves-light"
+                className="m-t-30 btn btn-success rounded btn-custom btn-block waves-effect waves-light"
             >
                 Finalizar Prueba
             </button>

@@ -32,6 +32,7 @@
             </tr>
         </thead>
     </table>
+    <div style="padding: 20px 30px 20px; width: 100%"></div>
 </div>
 <div class="modal fade" id="addUserModal" tabindex="-1" aria-labelledby="addUserModalLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -135,7 +136,7 @@
                         $('#addUserModal').modal('hide');
 
                         // Actualizar la tabla de datos
-                        $('#usersTable').DataTable().ajax.reload();
+                        $('#usersTable').DataTable().draw();
                     } else {
                         var errors = "";
                         $.each(response.errors, function(key, value){
@@ -162,50 +163,50 @@
 
     }
     
-  function deleteUser(user_id){
-      user_id = user_id.replace(/.*\//, '');
-    swal({
-        title: "Eliminar Usuario",
-        text: "¿Realmente deseas eliminar la cuenta del usuario?",
-        type: "warning",
-        showCancelButton: true,
-        cancelButtonText: "No",
-        confirmButtonText: "Si",
-        closeOnConfirm: false
-    }).then(function () {
-        $.ajax({
-             method: "DELETE",
-             url: '/users/' + user_id,
-            data: {
-                _token: '{{ csrf_token() }}', // Token CSRF generado por Laravel
-                id: user_id // ID del usuario a eliminar
-            },
-            success: function(response){
+    function deleteUser(user_id){
+        user_id = user_id.replace(/.*\//, '');
+        swal({
+            title: "Eliminar Usuario",
+            text: "¿Realmente deseas eliminar la cuenta del usuario?",
+            type: "warning",
+            showCancelButton: true,
+            cancelButtonText: "No",
+            confirmButtonText: "Si",
+            closeOnConfirm: false
+        }).then(function () {
+            $.ajax({
+                method: "DELETE",
+                url: '/users/' + user_id,
+                data: {
+                    _token: '{{ csrf_token() }}', // Token CSRF generado por Laravel
+                    id: user_id // ID del usuario a eliminar
+                },
+                success: function(response){
+                    swal(
+                        'Eliminado!',
+                        'El usuario ha sido eliminado.',
+                        'success'
+                    );
+                    $('#users-table').DataTable().draw();
+                },
+                error: function(response){
+                    swal(
+                        'Error',
+                        'Ha ocurrido un error al intentar eliminar al usuario.',
+                        'error'
+                    );
+                }
+            });
+        }, function (dismiss) {
+            if (dismiss === 'cancel') {
                 swal(
-                    'Eliminado!',
-                    'El usuario ha sido eliminado.',
-                    'success'
-                );
-                $('#users-table').DataTable().draw();
-            },
-            error: function(response){
-                swal(
-                    'Error',
-                    'Ha ocurrido un error al intentar eliminar al usuario.',
+                    'Cancelado',
+                    'El usuario no ha sido eliminado.',
                     'error'
-                );
+                )
             }
         });
-    }, function (dismiss) {
-        if (dismiss === 'cancel') {
-            swal(
-                'Cancelado',
-                'El usuario no ha sido eliminado.',
-                'error'
-            )
-        }
-    });
-}
+    }
 
     $(document).ready(function() {
         $('#users-table').DataTable({
@@ -244,7 +245,7 @@
                     data: 'presento', 
                     name: 'presento',
                     render: function(data){
-                        return data.presento? "Si" : "No"
+                        return data == 1? "Si" : "No"
                     }
                 },
                 {
@@ -265,7 +266,19 @@
                         return fechaFormateada
                     },
                 },
-                {data: 'actions', name: 'actions', orderable: false, searchable: false},
+                {
+                    data: 'created_at', 
+                    name: 'created_at', 
+                    orderable: false, 
+                    searchable: false,
+                    render: function(data, type, row){
+                        return `
+                            <a data-toggle="modal" data-target="#addUserModal" data-title-modal="Editar Usuario" data-id_usuario="${row.id}" class="btn btn-primary"><i class="fas fa-edit"></i></a>
+                            <button type="button" class="btn btn-danger" onclick="deleteUser('/users/${row.id}')"><i class="fas fa-trash"></i></button>
+                        
+                        `
+                    }
+                },
             ]
         });
 

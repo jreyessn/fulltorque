@@ -2,9 +2,12 @@ import React, { useEffect, useState } from "react";
 import Temporizador from "./Temporizador";
 import Http from "../Http";
 import LinearProgress from "@material-ui/core/LinearProgress";
+import { EnviarPrueba } from "./EnviarPrueba";
+import { connect } from "react-redux";
 
 const ResumenPrueba = props => {
     const [resultados, setResultados] = useState([]);
+    const { guardarRevision, setPosts } = props
 
     useEffect(() => {
         const interval = setInterval(() => {
@@ -21,30 +24,32 @@ const ResumenPrueba = props => {
     }, []);
 
     return (
-        <div className="col-sm-12 col-xl-3 pl-lg-2">
-            <div
-                className="card mb-0"
-                style={{
-                    height: "100%",
-                    marginBottom: "0px !important"
-                }}
-            >
-                <div className="card-heading p-4">
-                    <div className="mini-stat-icon float-right">
-                        <i className="mdi mdi-briefcase-check bg-success text-white"></i>
-                    </div>
-                    <div>
-                        <h5 className="font-16">Resumen Prueba</h5>
-                    </div>
-                    {resultados
-                        ? resultados.map(resumen => (
-                              <h3 key={resumen} className="mt-4">
-                                  {resumen.respuestas_usuario}/
-                                  {resumen.cantidad_preguntas}
-                              </h3>
-                          ))
-                        : ""}
-
+        <div className="preguntas-block-resume">
+            <div className="card">
+                <h6 className="m-t-10">Resumen Prueba</h6>
+    
+                <div className="mail-list m-t-10">
+                    <a href="#"> <span className="float-right"></span> <i className="ti-user mr-2"></i> {props.user?.name || ''} </a>
+                    <a href="#"> 
+                        <span className="float-right">
+                            {resultados
+                                ? resultados.map(resumen => (
+                                    <span key={resumen}>
+                                        {resumen.respuestas_usuario}/ {resumen.cantidad_preguntas}
+                                    </span>
+                                ))
+                                : ""}
+                        </span> 
+                        <i className="ti-check mr-2"></i> Respuestas </a>
+                    <a href="#" className="text-primary">
+                        <span className="float-right"><Temporizador /></span>
+                    <i className="ti-time mr-2"></i> Tiempo</a>
+    
+                </div>
+    
+                <h6 className="m-t-20">Progreso</h6>
+    
+                <div className="mail-list m-t-10">
                     {resultados
                         ? resultados.map(resumen => (
                               <LinearProgress
@@ -57,33 +62,42 @@ const ResumenPrueba = props => {
                               />
                           ))
                         : ""}
-
                     {resultados
                         ? resultados.map(resumen => (
-                              <p className="text-muted mt-2 mb-0" key={resumen}>
-                                  Completado
-                                  <span className="float-right">
-                                      {(
-                                          (100 / resumen.cantidad_preguntas) *
-                                          resumen.respuestas_usuario
-                                      ).toFixed()}{" "}
-                                      %
-                                  </span>
-                              </p>
-                          ))
+                            <p className="text-primary font-bold mt-2 mb-0" key={resumen}>
+                                Completado
+                                <span className="float-right">
+                                    {(
+                                        (100 / resumen.cantidad_preguntas) *
+                                        resumen.respuestas_usuario
+                                    ).toFixed()}{" "}
+                                    %
+                                </span>
+                            </p>
+                        ))
                         : ""}
-                    <Temporizador />
                 </div>
+    
+                <EnviarPrueba
+                    pruebaLink={props.id_prueba}
+                    guardarRevision={guardarRevision}
+                    setPosts={setPosts}
+                />
             </div>
         </div>
     );
 };
 
-export default ResumenPrueba;
-{
+const mapStateToProps = state => ({
+    isAuthenticated: state.Auth.isAuthenticated,
+    user: state.user
+});
+
+export default connect(mapStateToProps)(ResumenPrueba);
+
     /* 
 
-class ResumenPrueba extends React.Component {
+className ResumenPrueba extends React.Component {
     constructor(props) {
         super(props);
         this.state = { resultados: [], id_prueba: this.props.id_prueba };
@@ -116,4 +130,3 @@ class ResumenPrueba extends React.Component {
 
 export default ResumenPrueba;
 */
-}

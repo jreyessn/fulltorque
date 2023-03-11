@@ -23,6 +23,7 @@
                 </tr>
             </thead>
         </table>
+        <div style="padding: 20px 30px 20px; width: 100%"></div>
     </div>
 
 
@@ -100,7 +101,9 @@
                                     </button> 
                                     <b>${data}</b>
                                 </div>
-                                <p class="text-muted">Ha obtenido un <b class="text-warning">${parseFloat(row.porcentaje_respuestas_correctas || 0).toFixed(2)}%</b> de respuestas correctas</p>
+                                <p class="text-muted">Ha obtenido un 
+                                    <b class="${row.estado_aprobado? 'text-success' : 'text-danger'}">${parseFloat(row.porcentaje_respuestas_correctas || 0).toFixed(2)}%</b> del total
+                                </p>
                             `
                         }
                     },
@@ -110,13 +113,16 @@
                         render: function(data, type, row, meta) {
                             return `
                                 <div>
-                                    <b class="text-primary">Respondidas:</b> <span>${row.total_preguntas}</span>
+                                    <b class="text-secondary">Total Preguntas:</b> <span>${row.total_preguntas}</span>
+                                </div>                               
+                                <div>
+                                    <b class="text-primary">Respondidas:</b> <span>${row.total_respuestas}</span>
                                 </div>
                                 <div>
                                     <b class="text-success">Correctas:</b> <span>${row.respuestas_correctas || 0}</span>
                                 </div>
                                 <div>
-                                    <b class="text-secondary">Incorrectas:</b> <span>${row.respuestas_incorrectas || 0}</span>
+                                    <b class="text-danger">Incorrectas:</b> <span>${row.respuestas_incorrectas || 0}</span>
                                 </div>
                             `
                          },

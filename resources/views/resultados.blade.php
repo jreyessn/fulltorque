@@ -4,16 +4,19 @@
         <div class="text-center">
             <h5>{{ $prueba->name }}</h5>
             <p class="text-muted">
-                Ha obtenido un <b class="text-warning">{{ round($prueba->porcentaje_respuestas_correctas ?? 0, 2) }}%</b> de respuestas correctas.
+                Ha obtenido un <b class="text-danger">{{ round($prueba->porcentaje_respuestas_correctas ?? 0, 2) }}%</b> del total.
             </p>
             <div>
-                <b class="text-primary">Respondidas:</b> <span>{{ $prueba->total_preguntas ?? 0 }}</span>
+                <b class="text-secondary">Total Preguntas:</b> <span>{{ $prueba->total_preguntas ?? 0 }}</span>
+            </div>            
+            <div>
+                <b class="text-primary">Respondidas:</b> <span>{{ $prueba->total_respuestas ?? 0 }}</span>
             </div>
             <div>
                 <b class="text-success">Correctas:</b> <span>{{ $prueba->respuestas_correctas ?? 0 }}</span>
             </div>
             <div>
-                <b class="text-secondary">Incorrectas:</b> <span>{{ $prueba->respuestas_incorrectas ?? 0 }}</span>
+                <b class="text-danger">Incorrectas:</b> <span>{{ $prueba->respuestas_incorrectas ?? 0 }}</span>
             </div>
             <div>
                 <span class="badge {{ $prueba->estado_aprobado? 'badge-success' : 'badge-danger' }}">

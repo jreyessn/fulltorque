@@ -1,8 +1,9 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import CabeceraPrueba from "../components/CabeceraPrueba";
 import ResumenPrueba from "../components/ResumenPrueba";
 import { connect } from "react-redux";
 import { fetchUser } from "../services/authService";
+import Http from "../Http";
 
 function Prueba(props) {
     const {
@@ -11,6 +12,29 @@ function Prueba(props) {
         dispatch,
         match: { params }
     } = props;
+
+    const [revision, guardarRevision] = useState({
+        revisada: false
+    });
+    const [posts, setPosts] = useState([]);
+    const [loading, setLoading] = useState(false);
+
+    //Si cambiamos el state a true mostramos las incorrectas
+    const { revisada } = revision;
+
+    useEffect(() => {
+        const fetchPosts = async () => {
+            setLoading(true);
+            const res = await Http.get(
+                "/api/prueba/preguntas_prueba/" + params.id
+            );
+            setPosts(res.data);
+            setLoading(false);
+        };
+
+        fetchPosts();
+
+    }, []);
 
     useEffect(() => {
         if (isAuthenticated && !user.id) {
@@ -25,10 +49,18 @@ function Prueba(props) {
                     ""
                 ) : (
                     <>
-                        <div className="col-sm-12 col-xl-9 pr-lg-0 mb-3">
-                            <CabeceraPrueba id_prueba={params.id} />
+                        <div className="col-12 grid-preguntas">
+                            <CabeceraPrueba 
+                                id_prueba={params.id} 
+                                revisada={revisada}
+                                posts={posts}
+                            />
+                            <ResumenPrueba 
+                                id_prueba={params.id} 
+                                guardarRevision={guardarRevision}
+                                setPosts={setPosts}  
+                            />
                         </div>
-                        <ResumenPrueba id_prueba={params.id} />
                     </>
                 )}
             </div>
