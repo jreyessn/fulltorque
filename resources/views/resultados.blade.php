@@ -37,7 +37,7 @@
                 <div class="card-body p-2">
                     <h5 class="mb-1">
                         <span class="{{ $is_correct? "text-success" : "text-danger" }}">
-                            {{ $item_respuesta["pregunta"]["numero_pregunta_prueba"] ?? "" }}.
+                            {{ $key + 1 }}.
                         </span>
                         <span class="font-14 mb-2 mt-2">{{ $item_respuesta["pregunta"]["enunciado_pregunta"] ?? "" }}</span> 
                     </h5>

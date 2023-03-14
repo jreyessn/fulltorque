@@ -37,9 +37,16 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    protected $with = [
+        "temarios"
+    ];
 
     public function RespuestasUsuario()
     {
         return $this->hasMany(RespuestasUsuario::class, 'id_usuario', 'id');
+    }
+
+    public function temarios(){
+        return $this->belongsToMany(Temarios::class, "users_temarios", "user_id", "temario_id");
     }
 }

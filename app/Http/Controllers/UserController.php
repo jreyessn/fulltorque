@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Temarios;
 use Illuminate\Http\Request;
 use App\User;
 use Yajra\DataTables\DataTables;
@@ -19,7 +20,9 @@ class UserController extends Controller
      */
     public function index()
     {
-        return view('usuarios');
+        $temarios = Temarios::all();
+
+        return view('usuarios', compact("temarios"));
     }
 
     /**
@@ -49,7 +52,6 @@ class UserController extends Controller
 {
     $id = $request->input('id');
     $validator = $this->validateUser($request, $id);
-   
 
     if ($validator->fails()) {
         return response()->json(['errors' => $validator->errors()]);
@@ -69,6 +71,9 @@ class UserController extends Controller
             $user->password = bcrypt($request->input('password'));
         }
 
+        $temarios_id = $request->get("temarios_id", []);
+
+        $user->temarios()->sync($temarios_id);
         $user->save();
 
         return response()->json(['success' => true]);

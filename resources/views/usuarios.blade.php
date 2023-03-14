@@ -56,23 +56,48 @@
                         <label for="password">Contraseña Hidden</label>
                         <input type="password" class="form-control">
                     </div>
+                    <div>
+                        <h4 class="mt-0 header-title">Datos Generales</h4>
+                        <div class="dropdown-divider"></div>
 
-                    {{-- Aqui está el verdadero form --}}
-                    <div class="form-group">
-                        <label for="name">Nombres </label>
-                        <input type="text" class="form-control" id="name" name="name">
+                        <div class="mt-2">
+                            {{-- Aqui está el verdadero form --}}
+                            <div class="form-group">
+                                <label for="name">Nombres </label>
+                                <input type="text" class="form-control" id="name" name="name">
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Correo electrónico</label>
+                                <input type="email" class="form-control" id="email" name="email">
+                            </div>
+                            <div class="form-group">
+                                <label for="password">Contraseña</label>
+                                <input type="password" class="form-control" id="password" name="password">
+                            </div>
+                            <div class="form-group">
+                                <label for="password_confirmation">Confirmar Contraseña</label>
+                                <input type="password" class="form-control" id="password_confirmation" name="password_confirmation">
+                            </div>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label for="email">Correo electrónico</label>
-                        <input type="email" class="form-control" id="email" name="email">
-                    </div>
-                    <div class="form-group">
-                        <label for="password">Contraseña</label>
-                        <input type="password" class="form-control" id="password" name="password">
-                    </div>
-                    <div class="form-group">
-                        <label for="password_confirmation">Confirmar Contraseña</label>
-                        <input type="password" class="form-control" id="password_confirmation" name="password_confirmation">
+                    <div>
+                        <h4 class="mt-0 header-title">Temarios</h4>
+                        <div class="dropdown-divider"></div>
+
+                        <div class="mt-2">
+                            <div class="form-group">
+                                <label>Temarios Disponibles</label>
+                                <div>
+                                    @foreach ($temarios as $key => $temario)                       
+                                        <div class="custom-control custom-checkbox">
+                                            <input type="checkbox" value="{{ $temario->id }}" name="temarios_id[]" class="custom-control-input" id="temario-{{ $key }}">
+                                            <label class="custom-control-label" for="temario-{{ $key }}">{{ $temario->name }}</label>
+                                        </div>
+                                    @endforeach
+                                </div>
+                            </div>
+
+                        </div>
                     </div>
                 </form>
             </div>
@@ -102,6 +127,15 @@
                         $("#name").val(data.name);
                         $("#email").val(data.email);
                         $("#id_usuario").val(datos.id_usuario)
+
+                        const temariosIds = data.temarios.map(temario => temario.id)
+                        $('input[name="temarios_id[]"]').each(function() {
+                            const checkboxValue = $(this).val();
+                            if (temariosIds.includes(parseInt(checkboxValue))) {
+                                $(this).prop('checked', true);
+                            }
+                        });
+
                     },
                     error: function(jqXHR, textStatus, errorThrown) {
                         console.log(textStatus, errorThrown);

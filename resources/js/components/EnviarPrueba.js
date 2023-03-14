@@ -226,7 +226,7 @@ export const EnviarPrueba = ({
             <button
                 type="button"
                 onClick={() => enviarPruebaClick(pruebaLink)}
-                className="m-t-30 btn btn-success rounded btn-custom btn-block waves-effect waves-light"
+                className="mt-2 btn btn-success rounded btn-custom btn-block waves-effect waves-light"
             >
                 Finalizar Prueba
             </button>

@@ -25,8 +25,8 @@ const ResumenPrueba = props => {
 
     return (
         <div className="preguntas-block-resume">
-            <div className="card">
-                <h6 className="m-t-10">Resumen Prueba</h6>
+            <div className="card px-3 pt-1 mb-6">
+                <h6 className="mt-2 mb-0">Resumen Prueba</h6>
     
                 <div className="mail-list m-t-10">
                     <a href="#"> <span className="float-right"></span> <i className="ti-user mr-2"></i> {props.user?.name || ''} </a>
@@ -42,14 +42,14 @@ const ResumenPrueba = props => {
                         </span> 
                         <i className="ti-check mr-2"></i> Respuestas </a>
                     <a href="#" className="text-primary">
-                        <span className="float-right"><Temporizador /></span>
+                        <span className="float-right"><Temporizador id_prueba={props.id_prueba} /></span>
                     <i className="ti-time mr-2"></i> Tiempo</a>
     
                 </div>
     
-                <h6 className="m-t-20">Progreso</h6>
+                <h6 className="mt-2">Progreso</h6>
     
-                <div className="mail-list m-t-10">
+                <div className="mail-list mt-1">
                     {resultados
                         ? resultados.map(resumen => (
                               <LinearProgress

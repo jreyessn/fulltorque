@@ -9,7 +9,9 @@ class PruebaRendidaUsuario extends Model
     protected $fillable=[
         'id',
         'id_usuario', 
-        'id_prueba'
+        'id_prueba',
+        'start_at',
+        'end_at'
     ];
 
     public static function obtenerResultadosUsuario($id_encuesta)
@@ -19,8 +21,9 @@ class PruebaRendidaUsuario extends Model
         if(is_null($prueba_rendida)){
             return null;
         }
-
-        return $prueba_rendida->respuestas_usuarios->load(["pregunta", "respuesta_correcta", "respuesta_usuario"])->toArray();
+        $respuestas_usuarios = RespuestasUsuario::where(["id_usuario" => $prueba_rendida->id_usuario, "id_prueba" => $prueba_rendida->id_prueba])->get();
+        
+        return $respuestas_usuarios->load(["pregunta", "respuesta_correcta", "respuesta_usuario"])->toArray();
     }
 
     // =============================================================
@@ -29,10 +32,6 @@ class PruebaRendidaUsuario extends Model
 
     public function user(){
         return $this->belongsTo(User::class, "id_usuario");
-    }
-
-    public function respuestas_usuarios(){
-        return $this->hasMany(RespuestasUsuario::class, "id_usuario")->where(["id_usuario" => $this->id_usuario, "id_prueba" => $this->id_prueba]);
     }
     
 }

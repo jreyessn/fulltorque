@@ -53,7 +53,11 @@ Route::group(['middleware' => 'api'], function () {
     Route::get('alternativa/list','AlternativaController@index');
     Route::get('prueba/alternativas_pregunta/{id_pregunta}','AlternativaController@show');
     Route::get('prueba/guardar_respuesta/{id_respuesta}','PruebaController@storeRespuesta');
+
+    Route::put('prueba/start_prueba/{id_prueba}','PruebaController@startPrueba');
+    Route::get('prueba/time/{id_prueba}','PruebaController@pruebaTime');
     Route::get('prueba/guardar_prueba_rendida/{id_prueba}','PruebaController@storePruebaRendida');
+
     Route::get('prueba/resultado_prueba/{id_prueba}','PruebaController@getResultadoPrueba');
 });
 

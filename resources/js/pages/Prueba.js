@@ -17,22 +17,36 @@ function Prueba(props) {
         revisada: false
     });
     const [posts, setPosts] = useState([]);
-    const [loading, setLoading] = useState(false);
 
     //Si cambiamos el state a true mostramos las incorrectas
     const { revisada } = revision;
 
     useEffect(() => {
         const fetchPosts = async () => {
-            setLoading(true);
             const res = await Http.get(
                 "/api/prueba/preguntas_prueba/" + params.id
             );
             setPosts(res.data);
-            setLoading(false);
         };
 
         fetchPosts();
+
+    }, []);
+
+    useEffect(() => {
+        const fetchStart = async () => {
+            const res_time = await Http.get(
+                "/api/prueba/time/" + params.id
+            );
+
+            if(res_time.data?.start_status == false){
+                await Http.put(
+                    "/api/prueba/start_prueba/" + params.id
+                );                
+            }
+        };
+
+        fetchStart();
 
     }, []);
 

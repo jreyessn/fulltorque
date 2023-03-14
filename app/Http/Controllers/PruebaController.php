@@ -10,6 +10,7 @@ use App\PruebaRendidaUsuario;
 use App\RespuestasPrueba;
 use App\RespuestasUsuario;
 use App\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -84,12 +85,12 @@ class PruebaController extends Controller
 
     public function getResultadoPrueba($id)
     {
-        $prueba = Prueba::findOrFail($id);
-
-        $preguntas_prueba = Pregunta::where('id_prueba',$id)->get();
-        $cant_preguntas_prueba = Pregunta::where('id_prueba',$id)->count();
+        $user   = request()->user();
+        $preguntas_prueba = Pregunta::where('id_prueba',$id)->when($user, function($query) use ($user){
+            $query->whereIn("temario_id", $user->temarios->pluck("id"));
+        })->get();
+        $cant_preguntas_prueba = $preguntas_prueba->count();
         $respuestas_correctas = 0;
-        $lista_preguntas=[];
 
         foreach ($preguntas_prueba as $pregunta){
 
@@ -161,6 +162,7 @@ class PruebaController extends Controller
             LEFT JOIN users u ON u.id = p.id_usuario
             LEFT JOIN respuestas_usuarios ru ON ru.id_prueba = p.id_prueba AND ru.id_usuario = p.id_usuario
             LEFT JOIN respuestas_pruebas rp ON rp.id_pregunta = ru.id_pregunta
+            WHERE u.presento = 1
             GROUP BY p.id, u.id
             ORDER BY p.created_at DESC;
         ");
@@ -177,7 +179,10 @@ class PruebaController extends Controller
 
     public function getListPreguntasPrueba($id)
     {
-        $preguntas_prueba = Pregunta::where('id_prueba',$id)->get();
+        $user = request()->user();
+        $preguntas_prueba = Pregunta::where('id_prueba',$id)->when($user, function($query) use ($user){
+            $query->whereIn("temario_id", $user->temarios->pluck("id"));
+        })->get();
         $lista_preguntas=[];
 
         $respuesta_user = RespuestasUsuario::get()->pluck('id_alternativa'); 
@@ -186,7 +191,7 @@ class PruebaController extends Controller
 
             $id_pregunta = $pregunta['id'];
             $temp_pregunta_prueba['id_pregunta'] = $pregunta['id'];
-            $temp_pregunta_prueba['numero_pregunta_prueba'] = $pregunta['numero_pregunta_prueba'];
+            $temp_pregunta_prueba['numero_pregunta_prueba'] = $key + 1;//$pregunta['numero_pregunta_prueba'];
             $temp_pregunta_prueba['enunciado_pregunta'] = $pregunta['enunciado_pregunta'];
             
 			//prueba correcta
@@ -252,23 +257,62 @@ class PruebaController extends Controller
         }    
     }
 
+    public function startPrueba($id){
+        $prueba = Prueba::where('id', $id)->get()->first();
+
+        PruebaRendidaUsuario::create([
+            'id_usuario' => Auth::user()->id,
+            'id_prueba'  => $prueba['id'],
+            'presento'   => 0,
+            'start_at'   => now()
+        ]);
+
+        return response()->json(["message" => "Prueba Iniciada"], 201);
+    }
+
+    public function pruebaTime($id){
+        $prueba = Prueba::where('id', $id)->get()->first();
+
+        $prueba_rendida = PruebaRendidaUsuario::where([
+            'id_usuario' => Auth::user()->id,
+            'id_prueba'  => $prueba['id'],
+        ])->first();
+
+        if($prueba_rendida){
+            $start_at = \Carbon\Carbon::parse($prueba_rendida->start_at);
+            $seconds_left = $start_at->diffInSeconds(now());
+            return response()->json([
+                "time" => $seconds_left,
+                "start_status" => true
+            ], 200);
+        }
+        return response()->json([
+            "start_status" => false,
+            "time" => 0
+        ], 200);
+    }
+
     public function storePruebaRendida($id)
     {
         if (auth()->user()->presento == true) {
             return response()->json(['message' => 'Ya presento la prueba no puedes volver a presentarla'], 403);
         } else {
             $prueba = Prueba::where('id', $id)->get()->first();
-
-            PruebaRendidaUsuario::create([
+            
+            PruebaRendidaUsuario::updateOrCreate([
                 'id_usuario' => Auth::user()->id,
-                'id_prueba' => $prueba['id']
+                'id_prueba'  => $prueba['id']
+            ], [
+                'id_usuario' => Auth::user()->id,
+                'id_prueba'  => $prueba['id'],
+                'end_at'     => now()
             ]);
 
-            $user = User::findOrFail(auth()->user()->id);
+            $user = request()->user();
             $user->presento = 1;
             $user->save();
 
-         return response()->json(['user' => $user->fresh()], 201);
+            return response()->json(['message' => "Prueba terminada"], 200);
         }
            
     }
