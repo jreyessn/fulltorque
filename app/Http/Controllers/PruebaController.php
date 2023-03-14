@@ -125,7 +125,16 @@ class PruebaController extends Controller
             SELECT 
                 p.id,
                 u.name,
-                (SELECT COUNT(id) FROM preguntas WHERE preguntas.id_prueba = p.id_prueba) as total_preguntas,
+                (
+                    SELECT COUNT(id) 
+                    FROM preguntas 
+                    WHERE preguntas.id_prueba = p.id_prueba
+                    AND preguntas.temario_id in (
+                        SELECT temario_id
+                        FROM users_temarios
+                        WHERE users_temarios.user_id = u.id
+                    )
+                ) as total_preguntas,
                 COUNT(rp.id_pregunta) AS total_respuestas,
                 SUM(rp.id_alternativa_correcta = ru.id_alternativa) AS respuestas_correctas,
                 SUM(rp.id_alternativa_correcta != ru.id_alternativa) AS respuestas_incorrectas,
@@ -152,7 +161,16 @@ class PruebaController extends Controller
             SELECT 
                 p.id,
                 u.name,
-                (SELECT COUNT(id) FROM preguntas WHERE preguntas.id_prueba = p.id_prueba) as total_preguntas,
+                (
+                    SELECT COUNT(id) 
+                    FROM preguntas 
+                    WHERE preguntas.id_prueba = p.id_prueba
+                    AND preguntas.temario_id in (
+                        SELECT temario_id
+                        FROM users_temarios
+                        WHERE users_temarios.user_id = u.id
+                    )
+                ) as total_preguntas,
                 COUNT(rp.id_pregunta) AS total_respuestas,
                 SUM(rp.id_alternativa_correcta = ru.id_alternativa) AS respuestas_correctas,
                 SUM(rp.id_alternativa_correcta != ru.id_alternativa) AS respuestas_incorrectas,

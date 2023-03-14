@@ -30,8 +30,17 @@
 <div class="row m-t-30">
     @foreach ($resultado_prueba as $key => $item_respuesta)
         @php
-           $is_correct = ($item_respuesta["respuesta_correcta"]["id"] ?? false) == ($item_respuesta["respuesta_usuario"]["id"] ?? true)
+           $is_correct   = ($item_respuesta["respuesta_correcta"]["id"] ?? false) == ($item_respuesta["respuesta_usuario"]["id"] ?? true);
+           $temario      = $item_respuesta["pregunta"]["temario"]["name"] ?? null;
+           $prev_temario = ($resultado_prueba[$key - 1] ?? null)? $resultado_prueba[$key - 1]["pregunta"]["temario"]["name"] : null;
         @endphp
+
+        @if ($temario != $prev_temario)
+            <div class="col-lg-12">
+                <h5 class="header-title">{{ $temario }}</h5>
+            </div>
+        @endif
+
         <div class="col-lg-12">
             <div class="card faq-box {{ $is_correct? "border-success" : "border-danger" }} p-2 mb-1">
                 <div class="card-body p-2">

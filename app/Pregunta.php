@@ -16,4 +16,8 @@ class Pregunta extends Model
         'enunciado_pregunta'
     ];
 
+    public function temario(){
+        return $this->belongsTo(Temarios::class, "temario_id");
+    }
+
 }

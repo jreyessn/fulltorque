@@ -23,7 +23,7 @@ class PruebaRendidaUsuario extends Model
         }
         $respuestas_usuarios = RespuestasUsuario::where(["id_usuario" => $prueba_rendida->id_usuario, "id_prueba" => $prueba_rendida->id_prueba])->get();
         
-        return $respuestas_usuarios->load(["pregunta", "respuesta_correcta", "respuesta_usuario"])->toArray();
+        return $respuestas_usuarios->load(["pregunta.temario", "respuesta_correcta", "respuesta_usuario"])->toArray();
     }
 
     // =============================================================
