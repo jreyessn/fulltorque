@@ -36,8 +36,8 @@ class HomeController extends Controller
     {
         $resultado_prueba = PruebaRendidaUsuario::obtenerResultadosUsuario($id);
         $prueba = app(PruebaController::class)->getResultadoOnePrueba($id);
+        $resultados_temarios = collect($resultado_prueba)->groupBy("pregunta.temario.name");
 
-        // dd($resultado_prueba[1]["pregunta"]["temario"]["name"]);
-        return view('resultados', compact("prueba", "resultado_prueba"));
+        return view('resultados', compact("prueba", "resultados_temarios"));
     }
 }

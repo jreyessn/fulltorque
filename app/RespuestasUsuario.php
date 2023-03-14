@@ -20,7 +20,7 @@ class RespuestasUsuario extends Model
     }
 
     public function pregunta(){
-        return $this->belongsTo(Pregunta::class, "id_pregunta")->orderBy("numero_pregunta_prueba", "asc");
+        return $this->belongsTo(Pregunta::class, "id_pregunta")->orderBy("temario_id", "asc");
     }
     
     public function respuesta_correcta(){

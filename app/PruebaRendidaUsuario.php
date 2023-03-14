@@ -22,8 +22,12 @@ class PruebaRendidaUsuario extends Model
             return null;
         }
         $respuestas_usuarios = RespuestasUsuario::where(["id_usuario" => $prueba_rendida->id_usuario, "id_prueba" => $prueba_rendida->id_prueba])->get();
-        
-        return $respuestas_usuarios->load(["pregunta.temario", "respuesta_correcta", "respuesta_usuario"])->toArray();
+
+        $respuestas_usuarios = $respuestas_usuarios->load(["pregunta.temario", "respuesta_correcta", "respuesta_usuario"])->toArray();
+
+        $respuestas_usuarios = collect($respuestas_usuarios)->sortBy("pregunta.temario_id")->toArray();
+
+        return $respuestas_usuarios;
     }
 
     // =============================================================
