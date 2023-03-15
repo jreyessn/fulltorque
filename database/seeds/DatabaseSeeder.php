@@ -17,7 +17,5 @@ class DatabaseSeeder extends Seeder
         $this->call(TipoPruebaSeeder::class);
         $this->call(UserSeeder::class);
         $this->call(PreguntaSeeder::class);
-        $this->call(AlternativaSeeder::class);
-        $this->call(RespuestasPruebaSeeder::class);
     }
 }

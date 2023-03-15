@@ -91,24 +91,22 @@ class PruebaController extends Controller
         })->get();
         $cant_preguntas_prueba = $preguntas_prueba->count();
         $respuestas_correctas = 0;
-
+        
         foreach ($preguntas_prueba as $pregunta){
 
             $id_pregunta = $pregunta['id'];
-            $respuesta_pregunta  = RespuestasPrueba::where('id_pregunta', $id_pregunta)->get()->first();
-            $respuesta_usuario = RespuestasUsuario::where('id_pregunta', $id_pregunta)->where('id_usuario', Auth::user()->id)->get()->first();
-
+            $respuesta_pregunta  = RespuestasPrueba::where('id_pregunta', $id_pregunta)->first();
+            $respuesta_usuario = RespuestasUsuario::where('id_pregunta', $id_pregunta)->where('id_usuario', $user->id)->first();
+            
             if (isset($respuesta_usuario)) {
-                if($respuesta_pregunta['id_alternativa_correcta'] == $respuesta_usuario['id_alternativa']){
+                if($respuesta_pregunta->id_alternativa_correcta == $respuesta_usuario->id_alternativa){
                     $respuestas_correctas++;
                 }
             }
             
-            
-            
-
         }
-        $respuestas_usuario = RespuestasUsuario::where('id_prueba', $id)->where('id_usuario', Auth::user()->id)->get()->count();
+
+        $respuestas_usuario = RespuestasUsuario::where('id_prueba', $id)->where('id_usuario', $user->id)->get()->count();
 
         $resultado_prueba['cantidad_preguntas'] = $cant_preguntas_prueba;
         $resultado_prueba['respuestas_usuario'] = $respuestas_usuario;
