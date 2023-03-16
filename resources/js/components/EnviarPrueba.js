@@ -14,12 +14,6 @@ export const EnviarPrueba = ({
 }) => {
     const [resultados, setResultados] = useState([]);
     const [intento, setIntentos] = useState({ intento: 0 });
-    const [loaded, setLoaded] = useState({
-        cagar: false
-    });
-    const [titlePrimary, setTitlePrimary] = useState({
-        title: ""
-    });
     let history = useHistory();
     const [active, setActive] = useState(false);
     useEffect(() => {

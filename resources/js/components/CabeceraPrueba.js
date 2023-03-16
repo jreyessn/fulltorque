@@ -6,7 +6,7 @@ import { isMobile } from 'react-device-detect';
 
 const CabeceraPrueba = props => {
     const { 
-        loading,
+        revisada,
         id_prueba,
         posts
     } = props
@@ -45,8 +45,8 @@ const CabeceraPrueba = props => {
 
                 <div className="scroll-preguntas">
                     <Preguntas
+                            revisada={revisada}
                             preguntas={isMobile? posts : pageOfItems}
-                            loading={loading}
                             id_prueba={id_prueba}
                         />
 

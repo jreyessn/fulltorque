@@ -73,8 +73,8 @@ class UserController extends Controller
 
         $temarios_id = $request->get("temarios_id", []);
 
-        $user->temarios()->sync($temarios_id);
         $user->save();
+        $user->temarios()->sync($temarios_id);
 
         return response()->json(['success' => true]);
     }

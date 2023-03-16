@@ -108402,7 +108402,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 var CabeceraPrueba = function CabeceraPrueba(props) {
-  var loading = props.loading,
+  var revisada = props.revisada,
       id_prueba = props.id_prueba,
       posts = props.posts;
 
@@ -108465,8 +108465,8 @@ var CabeceraPrueba = function CabeceraPrueba(props) {
   }, cabeza.titulo_prueba || ''))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
     className: "scroll-preguntas"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_Preguntas__WEBPACK_IMPORTED_MODULE_2__["default"], {
+    revisada: revisada,
     preguntas: react_device_detect__WEBPACK_IMPORTED_MODULE_5__["isMobile"] ? posts : pageOfItems,
-    loading: loading,
     id_prueba: id_prueba
   }), react_device_detect__WEBPACK_IMPORTED_MODULE_5__["isMobile"] ? "" : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
     className: "mt-0"
@@ -108544,26 +108544,12 @@ var EnviarPrueba = function EnviarPrueba(_ref) {
       intento = _useState4[0],
       setIntentos = _useState4[1];
 
-  var _useState5 = Object(react__WEBPACK_IMPORTED_MODULE_1__["useState"])({
-    cagar: false
-  }),
-      _useState6 = _slicedToArray(_useState5, 2),
-      loaded = _useState6[0],
-      setLoaded = _useState6[1];
-
-  var _useState7 = Object(react__WEBPACK_IMPORTED_MODULE_1__["useState"])({
-    title: ""
-  }),
-      _useState8 = _slicedToArray(_useState7, 2),
-      titlePrimary = _useState8[0],
-      setTitlePrimary = _useState8[1];
-
   var history = Object(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["useHistory"])();
 
-  var _useState9 = Object(react__WEBPACK_IMPORTED_MODULE_1__["useState"])(false),
-      _useState10 = _slicedToArray(_useState9, 2),
-      active = _useState10[0],
-      setActive = _useState10[1];
+  var _useState5 = Object(react__WEBPACK_IMPORTED_MODULE_1__["useState"])(false),
+      _useState6 = _slicedToArray(_useState5, 2),
+      active = _useState6[0],
+      setActive = _useState6[1];
 
   Object(react__WEBPACK_IMPORTED_MODULE_1__["useEffect"])(function () {
     var interval = setInterval(function () {
@@ -109322,12 +109308,7 @@ var Pagination = /*#__PURE__*/function (_Component) {
 
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("nav", {
         "aria-label": "Page navigation example",
-        className: "mt-2",
-        style: {
-          'position': 'absolute',
-          'bottom': '1rem',
-          'right': '1rem'
-        }
+        className: "mt-2"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
         className: "pagination justify-content-end"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
@@ -109401,7 +109382,7 @@ var Preguntas = function Preguntas(_ref) {
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", null, preguntas.map(function (pregunta) {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_1___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
       key: pregunta.numero_pregunta_prueba,
-      className: "pr-3 pl-3 pt-2 ".concat(revisada ? pregunta.correcta ? "border border-success" : "border border-danger" : "")
+      className: "pr-3 pl-3 pt-2 mt-1 ".concat(revisada ? pregunta.correcta ? "border border-success" : "border border-danger" : "")
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("h6", {
       className: "title"
     }, pregunta.numero_pregunta_prueba, ". ", pregunta.enunciado_pregunta), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
@@ -110178,7 +110159,7 @@ var Dashboard = /*#__PURE__*/function (_Component) {
             marginRight: "35%",
             width: "30%"
           },
-          className: "btn btn-primary btn-lg btn-block waves-effect waves-light"
+          className: "btn-sm text-center btn-primary btn-lg btn-block waves-effect waves-light"
         }, "Comenzar"));
       }))))) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, hasRedirect ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["Redirect"], {
         to: panelRoute

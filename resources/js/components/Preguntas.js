@@ -20,7 +20,7 @@ const Preguntas = ({ preguntas, revisada }) => {
                 <>
                     <div 
                         key={pregunta.numero_pregunta_prueba}
-                        className={`pr-3 pl-3 pt-2 ${
+                        className={`pr-3 pl-3 pt-2 mt-1 ${
                             revisada
                                 ? pregunta.correcta
                                     ? "border border-success"

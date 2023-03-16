@@ -129,7 +129,7 @@ class Dashboard extends Component {
                                                         marginRight: "35%",
                                                         width: "30%"
                                                     }}
-                                                    className="btn btn-primary btn-lg btn-block waves-effect waves-light"
+                                                    className="btn-sm text-center btn-primary btn-lg btn-block waves-effect waves-light"
                                                 >
                                                     Comenzar
                                                 </div>
