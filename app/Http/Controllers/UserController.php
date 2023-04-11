@@ -131,7 +131,16 @@ class UserController extends Controller
         'email' => [
             'required',
             'email',
-            Rule::unique('users')->ignore($id),
+            function ($attribute, $value, $fail) use ($id) {
+                $users = User::where('email', $value)
+                    ->whereNull('deleted_at')
+                    ->where('id', '<>', $id)
+                    ->count();
+    
+                if ($users > 0) {
+                    $fail("El valor $attribute ya está en uso.");
+                }
+            },
         ],
         'password' => $id ? 'nullable|min:6|confirmed' : 'required|min:6|confirmed',
     ], [

@@ -16,7 +16,7 @@ class RespuestasUsuario extends Model
 
     public function user()
     {
-        return $this->hasMany(User::class, 'id', 'id_usuario');
+        return $this->hasMany(User::class, 'id', 'id_usuario')->withTrashed();
     }
 
     public function pregunta(){

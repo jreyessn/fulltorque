@@ -78195,7 +78195,7 @@ var Header = /*#__PURE__*/function (_Component) {
         src: "/images/logo-dark.png",
         alt: "Fulltorque",
         style: {
-          height: "36px"
+          height: "50px"
         }
       })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
         className: "logo-sm"
@@ -78203,7 +78203,7 @@ var Header = /*#__PURE__*/function (_Component) {
         src: "/images/tuerca-light.png",
         alt: "La Tuerca",
         style: {
-          height: "36px"
+          height: "50px"
         }
       })))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("nav", {
         className: "navbar-custom"

@@ -5,7 +5,7 @@ import * as actions from "../store/actions";
 import Http from "../Http";
 
 function Temporizador(props) {
-    const [remainingSeconds, setRemainingSeconds] = useState(3600);
+    const [remainingSeconds, setRemainingSeconds] = useState(1800);
     const dispatch = useDispatch();
 
     useEffect(() => {

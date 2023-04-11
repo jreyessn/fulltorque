@@ -120,7 +120,7 @@ class Home extends Component {
                                     <img
                                         src="/images/logo-dark.png"
                                         style={{
-                                            height: "30px"
+                                            height: "50px"
                                         }}
                                     ></img>
                                 </a>

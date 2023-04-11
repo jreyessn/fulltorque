@@ -108904,7 +108904,7 @@ var Header = /*#__PURE__*/function (_Component) {
         src: "/images/logo-dark.png",
         alt: "Fulltorque",
         style: {
-          height: "36px"
+          height: "50px"
         }
       })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
         className: "logo-sm"
@@ -108912,7 +108912,7 @@ var Header = /*#__PURE__*/function (_Component) {
         src: "/images/tuerca-light.png",
         alt: "La Tuerca",
         style: {
-          height: "36px"
+          height: "50px"
         }
       })))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("nav", {
         className: "navbar-custom"
@@ -109625,7 +109625,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 function Temporizador(props) {
-  var _useState = Object(react__WEBPACK_IMPORTED_MODULE_1__["useState"])(3600),
+  var _useState = Object(react__WEBPACK_IMPORTED_MODULE_1__["useState"])(1800),
       _useState2 = _slicedToArray(_useState, 2),
       remainingSeconds = _useState2[0],
       setRemainingSeconds = _useState2[1];
@@ -110528,7 +110528,7 @@ var Home = /*#__PURE__*/function (_Component) {
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
         src: "/images/logo-dark.png",
         style: {
-          height: "30px"
+          height: "50px"
         }
       }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
         className: "form-horizontal m-t-30",

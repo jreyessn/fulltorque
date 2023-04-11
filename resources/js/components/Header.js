@@ -100,7 +100,7 @@ class Header extends Component {
                                             src="/images/logo-dark.png"
                                             alt="Fulltorque"
                                             style={{
-                                                height: "36px"
+                                                height: "50px"
                                             }}
                                         />
                                     </span>
@@ -109,7 +109,7 @@ class Header extends Component {
                                             src="/images/tuerca-light.png"
                                             alt="La Tuerca"
                                             style={{
-                                                height: "36px"
+                                                height: "50px"
                                             }}
                                         />
                                     </span>
