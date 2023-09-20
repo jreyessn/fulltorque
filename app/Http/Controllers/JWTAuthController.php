@@ -3,9 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Route;
 
 class JWTAuthController extends ApiController
@@ -37,23 +38,24 @@ class JWTAuthController extends ApiController
             'email.exists' => 'The user credentials were incorrect.',
         ]);
 
-        request()->request->add([
-            'grant_type' => 'password',
-            'client_id' => env('PASSWORD_CLIENT_ID'),
-            'client_secret' => env('PASSWORD_CLIENT_SECRET'),
-            'username' => $input['email'],
-            'password' => $input['password'],
-        ]);
+        $isAuth = Auth::attempt($input);
 
-        $response = Route::dispatch(Request::create('/oauth/token', 'POST'));
-     //   dd(User::first()->createToken('Personal Access Token'));
-        $data = json_decode($response->getContent(), true);
-
-        if (!$response->isOk()) {
-            return response()->json($data, 401);
+        if ($isAuth == false) {
+            return response(["message" => "Acceso no autorizado"], 401);
         }
 
-        return $data;
+        $user = $request->user();
+
+        $tokenResult = $user->createToken('Personal Access Token');
+        $token = $tokenResult->token;
+        $token->save();
+
+        return response()->json([
+            'access_token'  => $tokenResult->accessToken,
+            'token_type'    => 'Bearer',
+            'expires_in'    => $tokenResult->token->expires_at
+        ]);
+
     }
 
 
