@@ -203,6 +203,17 @@ class Header extends Component {
                                                 <li>
                                                     <Link
                                                         key="uniqueIdLinkPrueba"
+                                                        to={`/grupos_usuarios`}
+                                                        className="waves-effect"
+                                                    >
+                                                        <i className="fas fa-cubes"></i>
+
+                                                        <span>Grupos</span>
+                                                    </Link>
+                                                </li>
+                                                <li>
+                                                    <Link
+                                                        key="uniqueIdLinkPrueba"
                                                         to={`/usuarios`}
                                                         className="waves-effect"
                                                     >
