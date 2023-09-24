@@ -6,6 +6,7 @@ import Prueba from "../pages/Prueba";
 import Gracias from "../pages/Gracias";
 import Panel from "../pages/Panel";
 import Usuarios from "../pages/Usuarios";
+import Grupos from "../pages/Grupos";
 
 const routes = [
     {
@@ -39,6 +40,13 @@ const routes = [
         exact: false,
         auth: true,
         component: Panel,
+        fallback: Home
+    },
+    {
+        path: "/grupos_usuarios",
+        exact: false,
+        auth: true,
+        component: Grupos,
         fallback: Home
     },    
     {

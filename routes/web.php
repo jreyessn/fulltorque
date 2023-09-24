@@ -17,6 +17,8 @@ use Illuminate\Support\Facades\Route;
 // HTML para cargarlo desde React
 Route::get('/panel_content', 'HomeController@index');
 Route::get('/usuarios_content', 'UserController@index');
+Route::get('/grupos_content', 'GruposUsuariosController@index');
+
 Route::get('/panel/resultados/{id}', 'HomeController@resultadosServerside');
 
 // Rutas para usuarios
