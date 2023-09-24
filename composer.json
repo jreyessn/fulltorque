@@ -16,6 +16,7 @@
         "laravel/passport": "^9.3",
         "laravel/tinker": "^2.0",
         "laravel/ui": "^2.1",
+        "livewire/livewire": "^2.12",
         "yajra/laravel-datatables-oracle": "^9.21"
     },
     "require-dev": {
