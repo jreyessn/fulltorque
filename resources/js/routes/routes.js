@@ -7,6 +7,7 @@ import Gracias from "../pages/Gracias";
 import Panel from "../pages/Panel";
 import Usuarios from "../pages/Usuarios";
 import Grupos from "../pages/Grupos";
+import Gestion_usuarios from "../pages/Grupos_usuarios";
 
 const routes = [
     {
@@ -48,6 +49,13 @@ const routes = [
         auth: true,
         component: Grupos,
         fallback: Home
+    },
+    {
+        path: "/gestion_usuarios/:id",
+        exact: false,
+        auth: true,
+        component: Gestion_usuarios,
+        fallback: Home
     },    
     {
         path: "/usuarios",
@@ -56,6 +64,7 @@ const routes = [
         component: Usuarios,
         fallback: Home
     },
+
     {
         path: "",
         exact: false,

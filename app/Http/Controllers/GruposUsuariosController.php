@@ -2,6 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Temarios;
+use Illuminate\Http\Request;
+use App\Grupos_usuarios;
+use App\Grupos;
+use App\User;
+use Yajra\DataTables\DataTables;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\DB;
+
+
 
 class GruposUsuariosController extends Controller
 {
@@ -11,10 +22,107 @@ class GruposUsuariosController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($id)
     {
-        return view('grupos');
+        $grupo = Grupos::select('grupos.*')->where('grupos.id', $id)->get();
+        
+        $grupos_usuarios = Grupos_usuarios::select('grupos_usuarios.*', 'users.name as nombre_usuario', 'users.email', 'users.id as id_usuario')->where('grupos_usuarios.grupo_id', $id)->where('users.deleted_at', null)->join('users', 'grupos_usuarios.users_id', '=', 'users.id')->get();
+
+        $users_temarios = Grupos_usuarios::select('users_temarios.temario_id', 'users_temarios.user_id')->where('grupos_usuarios.grupo_id', $id)->where('users.deleted_at', null)->join('users', 'grupos_usuarios.users_id', '=', 'users.id')->join('users_temarios', 'grupos_usuarios.users_id', '=', 'users_temarios.user_id')->get();
+        $temarios = Temarios::all();
+
+        return view('grupos_usuarios', compact('grupo','grupos_usuarios','temarios', 'users_temarios'));
     }
+
+    public function store(Request $request)
+{
+    $id = $request->input('id');
+    $validator = $this->validateUser($request, $id);
+
+    if ($validator->fails()) {
+        return response()->json(['errors' => $validator->errors()]);
+    } else {
+        if ($id) {
+            // Actualizar un registro existente
+            $user = User::findOrFail($id);
+        } else {
+            // Crear un nuevo registro
+            $user = new User();
+        }
+
+        $user->name = $request->input('name');
+        $user->email = $request->input('email');
+
+        if ($request->filled('password')) {
+            $user->password = bcrypt($request->input('password'));
+        }
+        $temarios_id = $request->get("temarios_id", []);
+
+        $user->save();
+        $user->temarios()->sync($temarios_id);
+
+        $ultimo_id = User::latest('id')->first();
+        $ultimo_id = $ultimo_id->id;
+
+        if(!$id){
+            $grupos_usuarios = new Grupos_usuarios();
+            $grupos_usuarios->grupo_id = $request->input('grupo_id');
+            $grupos_usuarios->users_id = $ultimo_id;
+            $grupos_usuarios->save();
+        }
+
+        return response()->json(['success' => true, 'id_usuario' => $ultimo_id]);
+    }
+}
+
+ protected function validateUser(Request $request, $id)
+{
+   
+   return $validator = Validator::make($request->all(), [
+        'name' => 'required',
+        'email' => [
+            'required',
+            'email',
+            function ($attribute, $value, $fail) use ($id) {
+                $users = User::where('email', $value)
+                    ->whereNull('deleted_at')
+                    ->where('id', '<>', $id)
+                    ->count();
+    
+                if ($users > 0) {
+                    $fail("El valor $attribute ya está en uso.");
+                }
+            },
+        ],
+        'password' => $id ? 'nullable|min:6|confirmed' : 'required|min:6|confirmed',
+    ], [
+        'name.required' => 'El nombre es obligatorio.',
+        'email.required' => 'El correo electrónico es obligatorio.',
+        'email.email' => 'El correo electrónico debe ser una dirección válida.',
+        'email.unique' => 'Este correo electrónico ya ha sido registrado.',
+        'password.required' => 'La contraseña es obligatoria.',
+        'password.min' => 'La contraseña debe tener al menos :min caracteres.',
+        'password.confirmed' => 'Las contraseñas no coinciden.',
+    ]);
+
+    
+}
+
+    public function destroy($id)
+    {
+        $grupo_usuario = Grupos_usuarios::where('users_id', $id);
+        if ($grupo_usuario) {
+            $grupo_usuario->delete();
+        }
+        $user = User::find($id);
+        if ($user) {
+            $user->delete();
+            return response()->json(['success' => true]);
+        } else {
+            return response()->json(['success' => false]);
+        }
+    }
+
 
 
 }
