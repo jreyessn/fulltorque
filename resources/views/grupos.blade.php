@@ -33,15 +33,15 @@ $total = $total - 1;
             @foreach ($grupos as $key => $grupo)
             @if($key == $total && $key%2==0) 
             <tr>
-                <td style="width:50%">
+                <td rowspan="2" style="width:50%">
                     <div class="col-sm-12 grupos_card">
                         <input type="hidden" name="id_card" class="id_card" value="{{$grupo->id}}">
                     <div class="card"> 
                     <div class="card-header" style="background-color:#30419b; height:30px;">
                     <div class="dropdown" style="margin-left:95%; margin-top: -2%;">
-                            <a class="btn" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="">
+                        <a class="btn" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="">
                             <i class="fas fa-ellipsis-h lg" style="color:white;"></i>
-                            </a>
+                        </a>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                         <a class="dropdown-item" data-toggle="modal" data-target="#addGruposModal" data-title-modal="Editar Grupo" data-id_grupo="{{$grupo->id}}" href="#"><i class="fas fa-edit"></i> Editar</a>
                         <a class="dropdown-item" href="{{ url('/gestion_usuarios/'.$grupo->id)}}"><i class="fas fa-tasks"></i> Gesti&oacute;n</a>
@@ -51,7 +51,7 @@ $total = $total - 1;
                     </div>
                 </div>        
                 <div class="card-body" style="font-size: 14px;">
-                      <h5 class="card-title text-uppercase"> {{ $grupo->nombre }}</h5>
+                      <h5 class="card-title text-uppercase">{{ $grupo->nombre }}</h5>
                       <p class="text-capitalize">
                       <strong><i class="fas fa-chalkboard-teacher"></i> Tutor:</strong> {{ $grupo->tutor }}<br>
                       <strong><i class="fas fa-book"></i> Curso:</strong> {{ $grupo->curso }}<br>
@@ -60,6 +60,9 @@ $total = $total - 1;
                 </div>
                 </div>
               </td>
+            </tr>
+            <tr>
+                <td></td>
             </tr>
             @else
             <tr>
@@ -69,9 +72,9 @@ $total = $total - 1;
                     <div class="card"> 
                     <div class="card-header" style="background-color:#30419b; height:30px;">
                     <div class="dropdown" style="margin-left:95%; margin-top: -2%;">
-                            <a class="btn" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="">
+                        <a class="btn" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="">
                             <i class="fas fa-ellipsis-h lg" style="color:white;"></i>
-                            </a>
+                        </a>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                         <a class="dropdown-item" data-toggle="modal" data-target="#addGruposModal" data-title-modal="Editar Grupo" data-id_grupo="{{$grupo->id}}" href="#"><i class="fas fa-edit"></i> Editar</a>
                         <a class="dropdown-item" href="{{ url('/gestion_usuarios/'.$grupo->id)}}"><i class="fas fa-tasks"></i> Gesti&oacute;n</a>
@@ -81,7 +84,7 @@ $total = $total - 1;
                     </div>
                 </div>        
                 <div class="card-body" style="font-size: 14px;">
-                      <h5 class="card-title text-uppercase"> {{ $grupo->nombre }}</h5>
+                      <h5 class="card-title text-uppercase">{{ $grupo->nombre }}</h5>
                       <p class="text-capitalize">
                       <strong><i class="fas fa-chalkboard-teacher"></i> Tutor:</strong> {{ $grupo->tutor }}<br>
                       <strong><i class="fas fa-book"></i> Curso:</strong> {{ $grupo->curso }}<br>
@@ -91,6 +94,7 @@ $total = $total - 1;
                 </div>
               </td>
             </tr>
+            
             @endif
             @endforeach           
         </tbody>
@@ -299,6 +303,8 @@ $total = $total - 1;
    $(document).ready(function() {
         listeners()
         $('#grupos-table').DataTable({
+            ordering: false,
+
             language: {
                 "sProcessing": "Procesando...",
                 "sLengthMenu": "Mostrar _MENU_ registros",
