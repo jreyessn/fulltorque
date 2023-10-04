@@ -78277,6 +78277,12 @@ var Header = /*#__PURE__*/function (_Component) {
         className: "fas fa-home"
       }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "Panel"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Link"], {
         key: "uniqueIdLinkPrueba",
+        to: "/grupos_usuarios",
+        className: "waves-effect"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+        className: "fas fa-cubes"
+      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "Grupos"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Link"], {
+        key: "uniqueIdLinkPrueba",
         to: "/usuarios",
         className: "waves-effect"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
@@ -79025,7 +79031,7 @@ var Model = /*#__PURE__*/function () {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /home/jreyes/Descargas/fulltorque/resources/js/blade/header-standalone.js */"./resources/js/blade/header-standalone.js");
+module.exports = __webpack_require__(/*! C:\xampp4\htdocs\fulltorque\resources\js\blade\header-standalone.js */"./resources/js/blade/header-standalone.js");
 
 
 /***/ })

@@ -9607,7 +9607,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, ".sk-circle {\n    margin: 100px auto;\n    width: 40px;\n    height: 40px;\n    position: relative;\n  }\n  .sk-circle .sk-child {\n    width: 100%;\n    height: 100%;\n    position: absolute;\n    left: 0;\n    top: 0;\n  }\n  .sk-circle .sk-child:before {\n    content: '';\n    display: block;\n    margin: 0 auto;\n    width: 15%;\n    height: 15%;\n    background-color: rgb(127, 224, 237);\n    border-radius: 100%;\n    -webkit-animation: sk-circleBounceDelay 1.2s infinite ease-in-out both;\n            animation: sk-circleBounceDelay 1.2s infinite ease-in-out both;\n  }\n  .sk-circle .sk-circle2 {\n    transform: rotate(30deg); }\n  .sk-circle .sk-circle3 {\n    transform: rotate(60deg); }\n  .sk-circle .sk-circle4 {\n    transform: rotate(90deg); }\n  .sk-circle .sk-circle5 {\n    transform: rotate(120deg); }\n  .sk-circle .sk-circle6 {\n    transform: rotate(150deg); }\n  .sk-circle .sk-circle7 {\n    transform: rotate(180deg); }\n  .sk-circle .sk-circle8 {\n    transform: rotate(210deg); }\n  .sk-circle .sk-circle9 {\n    transform: rotate(240deg); }\n  .sk-circle .sk-circle10 {\n    transform: rotate(270deg); }\n  .sk-circle .sk-circle11 {\n    transform: rotate(300deg); }\n  .sk-circle .sk-circle12 {\n    transform: rotate(330deg); }\n  .sk-circle .sk-circle2:before {\n    -webkit-animation-delay: -1.1s;\n            animation-delay: -1.1s; }\n  .sk-circle .sk-circle3:before {\n    -webkit-animation-delay: -1s;\n            animation-delay: -1s; }\n  .sk-circle .sk-circle4:before {\n    -webkit-animation-delay: -0.9s;\n            animation-delay: -0.9s; }\n  .sk-circle .sk-circle5:before {\n    -webkit-animation-delay: -0.8s;\n            animation-delay: -0.8s; }\n  .sk-circle .sk-circle6:before {\n    -webkit-animation-delay: -0.7s;\n            animation-delay: -0.7s; }\n  .sk-circle .sk-circle7:before {\n    -webkit-animation-delay: -0.6s;\n            animation-delay: -0.6s; }\n  .sk-circle .sk-circle8:before {\n    -webkit-animation-delay: -0.5s;\n            animation-delay: -0.5s; }\n  .sk-circle .sk-circle9:before {\n    -webkit-animation-delay: -0.4s;\n            animation-delay: -0.4s; }\n  .sk-circle .sk-circle10:before {\n    -webkit-animation-delay: -0.3s;\n            animation-delay: -0.3s; }\n  .sk-circle .sk-circle11:before {\n    -webkit-animation-delay: -0.2s;\n            animation-delay: -0.2s; }\n  .sk-circle .sk-circle12:before {\n    -webkit-animation-delay: -0.1s;\n            animation-delay: -0.1s; }\n  \n  @-webkit-keyframes sk-circleBounceDelay {\n    0%, 80%, 100% {\n      transform: scale(0);\n    } 40% {\n      transform: scale(1);\n    }\n  }\n  \n  @keyframes sk-circleBounceDelay {\n    0%, 80%, 100% {\n      transform: scale(0);\n    } 40% {\n      transform: scale(1);\n    }\n  }", ""]);
+exports.push([module.i, ".sk-circle {\r\n    margin: 100px auto;\r\n    width: 40px;\r\n    height: 40px;\r\n    position: relative;\r\n  }\r\n  .sk-circle .sk-child {\r\n    width: 100%;\r\n    height: 100%;\r\n    position: absolute;\r\n    left: 0;\r\n    top: 0;\r\n  }\r\n  .sk-circle .sk-child:before {\r\n    content: '';\r\n    display: block;\r\n    margin: 0 auto;\r\n    width: 15%;\r\n    height: 15%;\r\n    background-color: rgb(127, 224, 237);\r\n    border-radius: 100%;\r\n    -webkit-animation: sk-circleBounceDelay 1.2s infinite ease-in-out both;\r\n            animation: sk-circleBounceDelay 1.2s infinite ease-in-out both;\r\n  }\r\n  .sk-circle .sk-circle2 {\r\n    transform: rotate(30deg); }\r\n  .sk-circle .sk-circle3 {\r\n    transform: rotate(60deg); }\r\n  .sk-circle .sk-circle4 {\r\n    transform: rotate(90deg); }\r\n  .sk-circle .sk-circle5 {\r\n    transform: rotate(120deg); }\r\n  .sk-circle .sk-circle6 {\r\n    transform: rotate(150deg); }\r\n  .sk-circle .sk-circle7 {\r\n    transform: rotate(180deg); }\r\n  .sk-circle .sk-circle8 {\r\n    transform: rotate(210deg); }\r\n  .sk-circle .sk-circle9 {\r\n    transform: rotate(240deg); }\r\n  .sk-circle .sk-circle10 {\r\n    transform: rotate(270deg); }\r\n  .sk-circle .sk-circle11 {\r\n    transform: rotate(300deg); }\r\n  .sk-circle .sk-circle12 {\r\n    transform: rotate(330deg); }\r\n  .sk-circle .sk-circle2:before {\r\n    -webkit-animation-delay: -1.1s;\r\n            animation-delay: -1.1s; }\r\n  .sk-circle .sk-circle3:before {\r\n    -webkit-animation-delay: -1s;\r\n            animation-delay: -1s; }\r\n  .sk-circle .sk-circle4:before {\r\n    -webkit-animation-delay: -0.9s;\r\n            animation-delay: -0.9s; }\r\n  .sk-circle .sk-circle5:before {\r\n    -webkit-animation-delay: -0.8s;\r\n            animation-delay: -0.8s; }\r\n  .sk-circle .sk-circle6:before {\r\n    -webkit-animation-delay: -0.7s;\r\n            animation-delay: -0.7s; }\r\n  .sk-circle .sk-circle7:before {\r\n    -webkit-animation-delay: -0.6s;\r\n            animation-delay: -0.6s; }\r\n  .sk-circle .sk-circle8:before {\r\n    -webkit-animation-delay: -0.5s;\r\n            animation-delay: -0.5s; }\r\n  .sk-circle .sk-circle9:before {\r\n    -webkit-animation-delay: -0.4s;\r\n            animation-delay: -0.4s; }\r\n  .sk-circle .sk-circle10:before {\r\n    -webkit-animation-delay: -0.3s;\r\n            animation-delay: -0.3s; }\r\n  .sk-circle .sk-circle11:before {\r\n    -webkit-animation-delay: -0.2s;\r\n            animation-delay: -0.2s; }\r\n  .sk-circle .sk-circle12:before {\r\n    -webkit-animation-delay: -0.1s;\r\n            animation-delay: -0.1s; }\r\n  \r\n  @-webkit-keyframes sk-circleBounceDelay {\r\n    0%, 80%, 100% {\r\n      transform: scale(0);\r\n    } 40% {\r\n      transform: scale(1);\r\n    }\r\n  }\r\n  \r\n  @keyframes sk-circleBounceDelay {\r\n    0%, 80%, 100% {\r\n      transform: scale(0);\r\n    } 40% {\r\n      transform: scale(1);\r\n    }\r\n  }", ""]);
 
 // exports
 
@@ -108986,6 +108986,12 @@ var Header = /*#__PURE__*/function (_Component) {
         className: "fas fa-home"
       }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "Panel"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Link"], {
         key: "uniqueIdLinkPrueba",
+        to: "/grupos_usuarios",
+        className: "waves-effect"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+        className: "fas fa-cubes"
+      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "Grupos"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Link"], {
+        key: "uniqueIdLinkPrueba",
         to: "/usuarios",
         className: "waves-effect"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
@@ -109555,7 +109561,7 @@ constructor(props) {
     super(props);
     this.state = { resultados: [], id_prueba: this.props.id_prueba };
 }
- componentDidMount() {
+  componentDidMount() {
     this.inter = setInterval(() => {
         Http.get(`api/prueba/resultado_prueba/${this.state.id_prueba}`)
             .then(response => {
@@ -109568,10 +109574,10 @@ constructor(props) {
             });
     }, 2000);
 }
- componentWillUnmount() {
+  componentWillUnmount() {
     clearInterval(this.inter);
 }
- render() {
+  render() {
     return (
         
     );
@@ -110311,6 +110317,63 @@ var mapStateToProps = function mapStateToProps(state) {
 
 /***/ }),
 
+/***/ "./resources/js/pages/Grupos.js":
+/*!**************************************!*\
+  !*** ./resources/js/pages/Grupos.js ***!
+  \**************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return AcccessibleTable; });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+
+function AcccessibleTable() {
+  // Cargar vista de blade
+  Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(function () {
+    $('#renderLaravelBlade').load("/grupos_content");
+  }, []);
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    id: "renderLaravelBlade"
+  }));
+}
+
+/***/ }),
+
+/***/ "./resources/js/pages/Grupos_usuarios.js":
+/*!***********************************************!*\
+  !*** ./resources/js/pages/Grupos_usuarios.js ***!
+  \***********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+
+
+function Gestion_usuarios(props) {
+  var isAuthenticated = props.isAuthenticated,
+      user = props.user,
+      dispatch = props.dispatch,
+      params = props.match.params;
+  var id = params.id; // Cargar vista de blade
+
+  Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(function () {
+    $('#renderLaravelBlade').load('/gestion_content/' + id);
+  }, []);
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    id: "renderLaravelBlade"
+  }));
+}
+
+/* harmony default export */ __webpack_exports__["default"] = (Gestion_usuarios);
+
+/***/ }),
+
 /***/ "./resources/js/pages/Home.js":
 /*!************************************!*\
   !*** ./resources/js/pages/Home.js ***!
@@ -110957,7 +111020,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 
 function AcccessibleTable() {
-  // Si te da flojera usar react porque crees que el anterior programador se mamó haciendolo asi, carga tus plantillas de blade esta manera xd
+  // Cargar vista de blade
   Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(function () {
     $('#renderLaravelBlade').load("/panel_content");
   }, []);
@@ -111129,10 +111192,10 @@ function Prueba(props) {
               avanza: false
           });
   }
-   componentDidMount() {
+    componentDidMount() {
       localStorage.setItem("avanza", true);
   }
-   render() {
+    render() {
       const {
           match: { params }
       } = this.props;
@@ -111414,6 +111477,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _pages_Gracias__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../pages/Gracias */ "./resources/js/pages/Gracias.js");
 /* harmony import */ var _pages_Panel__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../pages/Panel */ "./resources/js/pages/Panel.js");
 /* harmony import */ var _pages_Usuarios__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../pages/Usuarios */ "./resources/js/pages/Usuarios.js");
+/* harmony import */ var _pages_Grupos__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../pages/Grupos */ "./resources/js/pages/Grupos.js");
+/* harmony import */ var _pages_Grupos_usuarios__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../pages/Grupos_usuarios */ "./resources/js/pages/Grupos_usuarios.js");
+
+
 
 
 
@@ -111449,6 +111516,18 @@ var routes = [{
   exact: false,
   auth: true,
   component: _pages_Panel__WEBPACK_IMPORTED_MODULE_6__["default"],
+  fallback: _pages_Home__WEBPACK_IMPORTED_MODULE_0__["default"]
+}, {
+  path: "/grupos_usuarios",
+  exact: false,
+  auth: true,
+  component: _pages_Grupos__WEBPACK_IMPORTED_MODULE_8__["default"],
+  fallback: _pages_Home__WEBPACK_IMPORTED_MODULE_0__["default"]
+}, {
+  path: "/gestion_usuarios/:id",
+  exact: false,
+  auth: true,
+  component: _pages_Grupos_usuarios__WEBPACK_IMPORTED_MODULE_9__["default"],
   fallback: _pages_Home__WEBPACK_IMPORTED_MODULE_0__["default"]
 }, {
   path: "/usuarios",
@@ -111921,8 +112000,8 @@ var Model = /*#__PURE__*/function () {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /home/jreyes/Descargas/fulltorque/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /home/jreyes/Descargas/fulltorque/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\xampp4\htdocs\fulltorque\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\xampp4\htdocs\fulltorque\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

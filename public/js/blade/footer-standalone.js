@@ -28654,7 +28654,7 @@ function Footer() {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /home/jreyes/Descargas/fulltorque/resources/js/blade/footer-standalone.js */"./resources/js/blade/footer-standalone.js");
+module.exports = __webpack_require__(/*! C:\xampp4\htdocs\fulltorque\resources\js\blade\footer-standalone.js */"./resources/js/blade/footer-standalone.js");
 
 
 /***/ })
