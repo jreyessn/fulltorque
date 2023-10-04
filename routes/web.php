@@ -47,7 +47,7 @@ Route::get('/grupo_usuario/excel/{id?}', 'GruposUsuariosController@excel')->name
 Route::delete('/grupo_usuario/{id}', 'GruposUsuariosController@destroy')->name('grupo_usuario.destroy');
 
 Route::get('/excel/{id}', function ($id) {
-   return Excel::download(new UsersExport($id), 'users.xlsx');
+   return Excel::download(new UsersExport($id), 'Reporte.xlsx');
 });
 
 

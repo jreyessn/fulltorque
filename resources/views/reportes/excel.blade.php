@@ -86,7 +86,7 @@
             <td align="center" bgcolor="#4A86E8">Hora Entrega</td>    
         </tr>    
     </thead> 
-    <tbody borde="1px solid">
+    <tbody>
           @foreach($grupos_usuarios as $value) 
         <tr bgcolor="red">
             <td></td>
@@ -120,6 +120,15 @@
             </td>
         </tr> 
         @endforeach
+        <tr></tr>
+        <tr></tr>
+        <tr></tr>
+        <tr></tr>
+        <tr></tr>
+        <tr>
+          <td></td>
+          <td align="center" colspan="10">Powered by Publigital - www.publigital.cl</td>
+        </tr>
     </tbody>   
 </table>
 </html>
