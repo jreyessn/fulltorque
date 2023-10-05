@@ -40,7 +40,7 @@ class GruposController extends Controller
         $grupo->cliente = $request->input('cliente');
         $grupo->tutor = $request->input('tutor');
         $grupo->fecha = $request->input('fecha');
-        $grupo->hora = $request->input('fecha');
+        $grupo->hora = $request->input('hora');
         $grupo->save();
         return response()->json(['success' => true]);
     }
