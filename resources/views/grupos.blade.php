@@ -53,18 +53,40 @@ $total = $total - 1;
                 <div class="card-body" style="font-size: 14px;">
                       <h5 class="card-title text-uppercase">{{ $grupo->nombre }}</h5>
                       <p class="text-capitalize">
-                      <strong><i class="fas fa-chalkboard-teacher"></i> Tutor:</strong> {{ $grupo->tutor }}<br>
-                      <strong><i class="fas fa-book"></i> Curso:</strong> {{ $grupo->curso }}<br>
-                      <strong><i class="fas fa-user"></i> Usuarios: </strong><span class="cantidad_usuarios"></span></p>
-                </div>
-                </div>
-                </div>
-              </td>
-            </tr>
-            <tr>
-                <td></td>
-            </tr>
-            @else
+                      <div class="row">
+                        <div class="col-sm-4">
+                            <strong><i class="fas fa-chalkboard-teacher"></i> Tutor:</strong> {{ $grupo->tutor }}    
+                        </div>
+                        <div class="col-sm-4">
+                            <strong><i class="fas fa-user"></i> Cliente:</strong> {{ $grupo->cliente }}    
+                        </div>  
+                      </div>
+                      <div class="row">
+                        <div class="col-sm-4">
+                            <strong><i class="fas fa-book"></i> Curso:</strong> {{ $grupo->curso }}    
+                        </div>
+                        <div class="col-sm-4">
+                            <strong><i class="fas fa-calendar"></i> Fecha:</strong> {{ date("d/m/Y", strtotime($grupo->fecha)) }}    
+                        </div>  
+                      </div>
+                      <div class="row">
+                        <div class="col-sm-4">
+                            <strong><i class="fas fa-clock"></i> Hora:</strong> {{ date("g:i a", strtotime($grupo->hora)) }}   
+                        </div>
+                        <div class="col-sm-4">
+                            <strong><i class="fas fa-user-friends"></i> Usuarios:</strong>  <span class="cantidad_usuarios"></span>    
+                        </div>  
+                      </div>
+                      </p>
+                  </div>
+              </div>
+          </div>
+        </td>
+        </tr>
+        <tr>
+            <td></td>
+        </tr>
+        @else
             <tr>
                 <td rowspan="2" style="width:50%">
                     <div class="col-sm-12 grupos_card">
@@ -86,9 +108,31 @@ $total = $total - 1;
                 <div class="card-body" style="font-size: 14px;">
                       <h5 class="card-title text-uppercase">{{ $grupo->nombre }}</h5>
                       <p class="text-capitalize">
-                      <strong><i class="fas fa-chalkboard-teacher"></i> Tutor:</strong> {{ $grupo->tutor }}<br>
-                      <strong><i class="fas fa-book"></i> Curso:</strong> {{ $grupo->curso }}<br>
-                      <strong><i class="fas fa-user"></i> Usuarios: </strong><span class="cantidad_usuarios"></span></p>
+                      <div class="row">
+                        <div class="col-sm-4">
+                            <strong><i class="fas fa-chalkboard-teacher"></i> Tutor:</strong> {{ $grupo->tutor }}    
+                        </div>
+                        <div class="col-sm-4">
+                            <strong><i class="fas fa-user"></i> Cliente:</strong> {{ $grupo->cliente }}    
+                        </div>  
+                      </div>
+                      <div class="row">
+                        <div class="col-sm-4">
+                            <strong><i class="fas fa-book"></i> Curso:</strong> {{ $grupo->curso }}    
+                        </div>
+                        <div class="col-sm-4">
+                            <strong><i class="fas fa-calendar"></i> Fecha:</strong> {{ date("d/m/Y", strtotime($grupo->fecha)) }}    
+                        </div>  
+                      </div>
+                      <div class="row">
+                        <div class="col-sm-4">
+                            <strong><i class="fas fa-clock"></i> Hora:</strong> {{ date("g:i a", strtotime($grupo->hora)) }}   
+                        </div>
+                        <div class="col-sm-4">
+                            <strong><i class="fas fa-user-friends"></i> Usuarios:</strong>  <span class="cantidad_usuarios"></span>    
+                        </div>  
+                      </div>
+                      </p>
                 </div>
                 </div>
                 </div>
