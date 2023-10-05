@@ -229,7 +229,7 @@
              }
         });
         $('#users-table').DataTable({
-            
+            ordering: false,
             language: {
                 "sProcessing": "Procesando...",
                 "sLengthMenu": "Mostrar _MENU_ registros",
