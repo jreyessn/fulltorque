@@ -68,8 +68,7 @@
     <table id="users-table" class="table table-striped dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%; text-align: center;">
         <thead style="text-align:center;">
             <tr>
-                <th><i class="fas fa-info-circle lg"></i></th>
-                <th >Nombre</th>
+                <th>Nombre</th>
                 <th>Correo electrónico</th>
                 <th>Contraseña</th>
                 <th>Confirmar Contraseña</th>
@@ -80,10 +79,8 @@
         <tbody>
             @foreach($grupos_usuarios as $value)
                 <tr>
-                    <td>
-                        <input type="checkbox"><input type="hidden" id="id" name="id" value="{{$value->id_usuario}}">
-                    </td>
                     <td style="width:23%">
+                        <input type="hidden" id="id" name="id" value="{{$value->id_usuario}}">
                         <input type="text" class="form-control" id="name" name="name" value="{{$value->nombre_usuario}}">
                     </td>
                     <td>
@@ -137,9 +134,8 @@
         $('#users-table').DataTable().destroy();
         $("#users-table > tbody").append(`
             <tr style="text-align:center">
-            <td><input type="checkbox"><input type="hidden" id="id" name="id">
-            </td>
             <td style="width:23%">
+            <input type="hidden" id="id" name="id">
             <input type="text" class="form-control" id="name" name="name"></td>
             <td><input type="email" class="form-control" id="email" name="email"></td>
             <td style="width:15%"><input type="password" class="form-control" id="password" name="password"></td>
