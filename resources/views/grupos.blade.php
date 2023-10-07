@@ -1,3 +1,6 @@
+<style type="text/css">
+   
+</style>
 <div class="page-title-box mx-4">
     <div class="row align-items-center">
         <div class="col-sm-6">
@@ -19,128 +22,15 @@
        
     </div>
 </div>
-<?php $total = count($grupos);
-$total = $total - 1; 
-?>
 <div class="">
     <table id="grupos-table" class="table table-striped dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
         <thead>
             <tr>
-                <th></th>             
+                <th></th> 
             </tr>
         </thead>
         <tbody>
-            @foreach ($grupos as $key => $grupo)
-            @if($key == $total && $key%2==0) 
-            <tr>
-                <td rowspan="2" style="width:50%">
-                    <div class="col-sm-12 grupos_card">
-                        <input type="hidden" name="id_card" class="id_card" value="{{$grupo->id}}">
-                    <div class="card"> 
-                    <div class="card-header" style="background-color:#30419b; height:30px;">
-                    <div class="dropdown" style="margin-left:95%; margin-top: -2%;">
-                        <a class="btn" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="">
-                            <i class="fas fa-ellipsis-h lg" style="color:white;"></i>
-                        </a>
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        <a class="dropdown-item" data-toggle="modal" data-target="#addGruposModal" data-title-modal="Editar Grupo" data-id_grupo="{{$grupo->id}}" href="#"><i class="fas fa-edit"></i> Editar</a>
-                        <a class="dropdown-item" href="{{ url('/gestion_usuarios/'.$grupo->id)}}"><i class="fas fa-tasks"></i> Gesti&oacute;n</a>
-                        <a class="dropdown-item" href="{{ url('/excel/'.$grupo->id) }}"><i class="fas fa-regular fa-file-excel"></i> Reporte</a>
-                        <a class="dropdown-item" href="#" onclick="deleteGrupo('/grupos/{{$grupo->id}}')"><i class="fas fa-trash-alt"></i> Eliminar</a>
-                      </div>
-                    </div>
-                </div>        
-                <div class="card-body" style="font-size: 14px;">
-                      <h5 class="card-title text-uppercase">{{ $grupo->nombre }}</h5>
-                      <p class="text-capitalize">
-                      <div class="row">
-                        <div class="col-sm-4">
-                            <strong><i class="fas fa-chalkboard-teacher"></i> Tutor:</strong> {{ $grupo->tutor }}    
-                        </div>
-                        <div class="col-sm-4">
-                            <strong><i class="fas fa-user"></i> Cliente:</strong> {{ $grupo->cliente }}    
-                        </div>  
-                      </div>
-                      <div class="row">
-                        <div class="col-sm-4">
-                            <strong><i class="fas fa-book"></i> Curso:</strong> {{ $grupo->curso }}    
-                        </div>
-                        <div class="col-sm-4">
-                            <strong><i class="fas fa-calendar"></i> Fecha:</strong> {{ date("d/m/Y", strtotime($grupo->fecha)) }}    
-                        </div>  
-                      </div>
-                      <div class="row">
-                        <div class="col-sm-4">
-                            <strong><i class="fas fa-clock"></i> Hora:</strong> {{ date("g:i a", strtotime($grupo->hora)) }}   
-                        </div>
-                        <div class="col-sm-4">
-                            <strong><i class="fas fa-user-friends"></i> Usuarios:</strong>  <span class="cantidad_usuarios"></span>    
-                        </div>  
-                      </div>
-                      </p>
-                  </div>
-              </div>
-          </div>
-        </td>
-        </tr>
-        <tr>
-            <td></td>
-        </tr>
-        @else
-            <tr>
-                <td rowspan="2" style="width:50%">
-                    <div class="col-sm-12 grupos_card">
-                        <input type="hidden" name="id_card" class="id_card" value="{{$grupo->id}}">
-                    <div class="card"> 
-                    <div class="card-header" style="background-color:#30419b; height:30px;">
-                    <div class="dropdown" style="margin-left:95%; margin-top: -2%;">
-                        <a class="btn" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="">
-                            <i class="fas fa-ellipsis-h lg" style="color:white;"></i>
-                        </a>
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        <a class="dropdown-item" data-toggle="modal" data-target="#addGruposModal" data-title-modal="Editar Grupo" data-id_grupo="{{$grupo->id}}" href="#"><i class="fas fa-edit"></i> Editar</a>
-                        <a class="dropdown-item" href="{{ url('/gestion_usuarios/'.$grupo->id)}}"><i class="fas fa-tasks"></i> Gesti&oacute;n</a>
-                        <a class="dropdown-item" href="{{ url('/excel/'.$grupo->id) }}"><i class="fas fa-regular fa-file-excel"></i> Reporte</a>
-                        <a class="dropdown-item" href="#" onclick="deleteGrupo('/grupos/{{$grupo->id}}')"><i class="fas fa-trash-alt"></i> Eliminar</a>
-                      </div>
-                    </div>
-                </div>        
-                <div class="card-body" style="font-size: 14px;">
-                      <h5 class="card-title text-uppercase">{{ $grupo->nombre }}</h5>
-                      <p class="text-capitalize">
-                      <div class="row">
-                        <div class="col-sm-4">
-                            <strong><i class="fas fa-chalkboard-teacher"></i> Tutor:</strong> {{ $grupo->tutor }}    
-                        </div>
-                        <div class="col-sm-4">
-                            <strong><i class="fas fa-user"></i> Cliente:</strong> {{ $grupo->cliente }}    
-                        </div>  
-                      </div>
-                      <div class="row">
-                        <div class="col-sm-4">
-                            <strong><i class="fas fa-book"></i> Curso:</strong> {{ $grupo->curso }}    
-                        </div>
-                        <div class="col-sm-4">
-                            <strong><i class="fas fa-calendar"></i> Fecha:</strong> {{ date("d/m/Y", strtotime($grupo->fecha)) }}    
-                        </div>  
-                      </div>
-                      <div class="row">
-                        <div class="col-sm-4">
-                            <strong><i class="fas fa-clock"></i> Hora:</strong> {{ date("g:i a", strtotime($grupo->hora)) }}   
-                        </div>
-                        <div class="col-sm-4">
-                            <strong><i class="fas fa-user-friends"></i> Usuarios:</strong>  <span class="cantidad_usuarios"></span>    
-                        </div>  
-                      </div>
-                      </p>
-                </div>
-                </div>
-                </div>
-              </td>
-            </tr>
-            
-            @endif
-            @endforeach           
+                
         </tbody>
     </table>
    
@@ -252,10 +142,8 @@ $total = $total - 1;
                         })
                         // Cerrar la modal
                         $('#addGruposModal').modal('hide');
-                        location.reload()
-
                         // Actualizar la tabla de datos
-                       // $('#usersTable').DataTable().draw();
+                       $('#grupos-table').DataTable().draw();
                     } else {
                         var errors = "";
                         $.each(response.errors, function(key, value){
@@ -307,7 +195,7 @@ $total = $total - 1;
                         'El Grupo ha sido eliminado.',
                         'success'
                     );
-                    location.reload()
+                    $('#grupos-table').DataTable().draw();
                 },
                 error: function(response){
                     swal(
@@ -345,10 +233,10 @@ $total = $total - 1;
     
 
    $(document).ready(function() {
-        listeners()
         $('#grupos-table').DataTable({
+            processing: true,
+            serverSide: true,
             ordering: false,
-
             language: {
                 "sProcessing": "Procesando...",
                 "sLengthMenu": "Mostrar _MENU_ registros",
@@ -372,24 +260,79 @@ $total = $total - 1;
                     "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
                     "sSortDescending": ": Activar para ordenar la columna de manera descendente"
                 }
-            }
-    });
-        var cantidad_usuarios = [];
-        $(".grupos_card").each(function(key, value){
-            var id_card = $(this).find('input[name="id_card"]').val();
-            $.ajax({
-                method: "POST",
-                url: "{{ route('grupos.total_usuarios') }}",
-                data : {
-                    _token: '{{ csrf_token() }}', 
-                    id: id_card
+            },
+            ajax: "{{ route('grupos.index') }}",
+            columns: [
+               
+                {
+                    data: 'id', 
+                    name: 'id',
+                        render: function(data, type, row, meta) {
+                        var fecha = ""
+                        let date = new Date(row.fecha)
+                        let day = date.getDate()
+                        let month = date.getMonth() + 1
+                        let year = date.getFullYear()
+                        if(month < 10){
+                           fecha = `${day}/0${month}/${year}`
+                        }else{
+                           fecha =`${day}/${month}/${year}`
+                        }
+                        return '<div class="col-sm-6 grupos_card">'+
+                    '<input type="hidden" name="id_card" class="id_card" value='+row.id+'>'+
+                    '<div class="card">'+ 
+                    '<div class="card-header" style="background-color:#30419b; height:30px;">'+
+                    '<div class="dropdown" style="margin-left:95%; margin-top: -2%;">'+
+                        '<a class="btn" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="">'+
+                            '<i class="fas fa-ellipsis-h lg" style="color:white;"></i>'+
+                        '</a>'+
+                    '<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">'+
+                        '<a class="dropdown-item" data-toggle="modal" data-target="#addGruposModal" data-title-modal="Editar Grupo" data-id_grupo='+row.id+' href="#"><i class="fas fa-edit"></i> Editar</a>'+
+                        '<a class="dropdown-item" href=/gestion_usuarios/'+row.id+'><i class="fas fa-tasks"></i> Gesti&oacute;n</a>'+
+                        '<a class="dropdown-item" href=/excel/'+row.id+'><i class="fas fa-regular fa-file-excel"></i> Reporte</a>'+
+                        `<a class="dropdown-item" href="#" onclick="deleteGrupo('/grupos/${row.id}')"><i class="fas fa-trash-alt"></i> Eliminar</a>`+
+                      '</div>'+
+                    '</div>'+
+                '</div> '+       
+                '<div class="card-body" style="font-size: 14px;">'+
+                      '<h5 class="card-title text-uppercase"> '+row.nombre +'</h5>'+
+                      '<p class="text-capitalize">'+
+                      '<div class="row">'+
+                        '<div class="col-sm-4">'+
+                            '<strong><i class="fas fa-chalkboard-teacher"></i> Tutor:</strong> '+row.tutor+    
+                        '</div>'+
+                        '<div class="col-sm-4">'+
+                            '<strong><i class="fas fa-user"></i> Cliente:</strong> '+ row.cliente+ 
+                        '</div>'+  
+                      '</div>'+
+                      '<div class="row">'+
+                        '<div class="col-sm-4">'+
+                            '<strong><i class="fas fa-book"></i> Curso:</strong> '+ row.curso+   
+                        '</div>'+
+                        '<div class="col-sm-4">'+
+                            '<strong><i class="fas fa-calendar"></i> Fecha:</strong> ' + fecha+  
+                        '</div>'+  
+                      '</div>'+
+                      '<div class="row">'+
+                        '<div class="col-sm-4">'+
+                            '<strong><i class="fas fa-clock"></i> Hora:</strong> '+ row.hora+  
+                        '</div>'+
+                        '<div class="col-sm-4">'+
+                            '<strong><i class="fas fa-user-friends"></i> Usuarios:</strong>  <span class="cantidad_usuarios">'+row.total_usuarios+'</span>'+    
+                        '</div>'+  
+                      '</div>'+
+                      '</p>'+
+                '</div>'+
+                '</div>'+
+                '</div>'
+                    }
+                
                 },
-                success: function(response){
-                $(value).find('.cantidad_usuarios').text(response);
-                },
-            });
-        });
+               
 
+            ]
+        });
+        listeners()
 
     });
 

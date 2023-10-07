@@ -16,7 +16,6 @@ class GruposController extends Controller
 {
     public function index(){
         $temarios = Temarios::all();
-        $grupos   = Grupos::orderBy('id', 'DESC')->get();
         return view('grupos', compact("temarios", "grupos"));
     }
 
@@ -104,4 +103,24 @@ public function gestion_usuarios()
 
         return view('grupos_usuarios');
     }
+
+    public function datatable(Request $request){
+        if ($request->ajax()) {
+            $grupos = Grupos::orderBy('id', 'desc')->get();
+            foreach ($grupos as $key => $value) {
+            /*if (!$key%2==0){
+
+            echo json_encode($value);
+            }*/
+            $value->total_usuarios = Grupos_usuarios::select('grupos_usuarios*')->where('grupos_usuarios.grupo_id', $value->id)->where('users.deleted_at', null)->join('users', 'grupos_usuarios.users_id', '=', 'users.id')->count();
+            }
+            return Datatables::of($grupos)
+                ->addIndexColumn()
+                ->make(true);
+
+        }
+
+        return [];
+    }
+
 }

@@ -13,5 +13,7 @@ class Grupos extends Model
         "curso",
         "cliente",
         "tutor",
+        "fecha",
+        "hora"
     ];
 }
