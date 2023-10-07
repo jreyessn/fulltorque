@@ -77,41 +77,7 @@
             </tr>
         </thead>
         <tbody>
-            @foreach($grupos_usuarios as $value)
-                <tr>
-                    <td style="width:23%">
-                        <input type="hidden" id="id" name="id" value="{{$value->id_usuario}}">
-                        <input type="text" class="form-control" id="name" name="name" value="{{$value->nombre_usuario}}">
-                    </td>
-                    <td>
-                        <input type="email" class="form-control" id="email" name="email" value="{{$value->email}}">
-                    </td>
-                    <td style="width:15%">
-                        <input type="password" class="form-control" id="password" name="password">
-                    </td>
-                    <td style="width:15%">
-                        <input type="password" class="form-control" id="password_confirmation" name="password_confirmation">
-                    </td>
-                    <td>
-                        @foreach ($temarios as $key => $temario)
-                        <?php $checked = "";?>
-                        @foreach ($users_temarios as $key => $temario2) 
-                        <?php if($value->users_id == $temario2->user_id && $temario2->temario_id == $temario->id){
-                            $checked = "checked";
-                        }?>
-                        @endforeach
-                        <div class="custom-control custom-checkbox" style="text-align:left;">
-                            <input type="checkbox" value="{{ $temario->id }}" name="temarios_id[]" {{$checked}}>
-                        <label  for="temario-{{ $key }}">{{ $temario->name }}</label>
-                        </div>
-                        @endforeach
-                    </td>
-                    <td>
-                        <button  type="button" class="btn btn-success addUserBtn" onclick="store(this)"><i class="fas fa-check"></i></button>
-                        <button type="button" class="btn btn-danger" onclick="removeFila(this)"><i class="fas fa-trash"></i></button>
-                    </td>
-                </tr>
-            @endforeach
+           
         </tbody>
     </table>
     <div class="" style="display: flex; justify-content: center">
@@ -130,9 +96,10 @@
     }
 
     function agregar_fila(){
-
-        $('#users-table').DataTable().destroy();
-        $("#users-table > tbody").append(`
+        if ($("#id").length == 0) {
+           $('#users-table > tbody').empty() 
+        }
+        $("#users-table > tbody").prepend(`
             <tr style="text-align:center">
             <td style="width:23%">
             <input type="hidden" id="id" name="id">
@@ -190,9 +157,7 @@
                         'El Usuario ha sido eliminado.',
                         'success'
                     );
-                    location.reload()                
-
-                    //$('#users-table').DataTable().draw();
+                    $('#users-table').DataTable().ajax.reload();
                 },
                 error: function(response){
                     swal(
@@ -212,48 +177,7 @@
         });
     }
 
-    $(document).ready(function() {
-        var usuarios = [];
-        $('#users-table tr .id_usuario').each(function() {
-           var id_usuario = $(this).val();  
-            usuarios.push(id_usuario);
-        });
-        $('#id_usuario option').each(function() {
-            var id_usuario = $(this).val();  
-             if(usuarios.includes(id_usuario) == true){
-                $(this).css("display","none");
-             }
-        });
-        $('#users-table').DataTable({
-            ordering: false,
-            language: {
-                "sProcessing": "Procesando...",
-                "sLengthMenu": "Mostrar _MENU_ registros",
-                "sZeroRecords": "No se encontraron resultados",
-                "sEmptyTable": "Ningún dato disponible en esta tabla",
-                "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
-                "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
-                "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
-                "sInfoPostFix": "",
-                "sSearch": "Buscar:",
-                "sUrl": "",
-                "sInfoThousands": ",",
-                "sLoadingRecords": "Cargando...",
-                "oPaginate": {
-                    "sFirst": "Primero",
-                    "sLast": "Último",
-                    "sNext": "Siguiente",
-                    "sPrevious": "Anterior"
-                },
-                "oAria": {
-                    "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
-                    "sSortDescending": ": Activar para ordenar la columna de manera descendente"
-                }
-            }
-    });
-    });
-
-    function store(button){
+     function store(button){
     let tr = button.closest('tr');
     var name = $(tr).find('[name="name"]').val(); 
     var email = $(tr).find('[name="email"]').val();
@@ -289,8 +213,7 @@
                 })
                 //$(tr).find('input').prop("disabled", true);
                 $(tr).find('[name="id"]').val(response.id_usuario);
-                location.reload()                
-                //$('#usersTable').DataTable().draw();
+                 $('#users-table').DataTable().ajax.reload();
             }else{
                 var errors = "";
                 $.each(response.errors, function(key, value){
@@ -314,6 +237,109 @@
         }
     });
     }
+
+    $(document).ready(function() {
+        $('#users-table').DataTable({
+            ordering: false,
+            language: {
+                "sProcessing": "Procesando...",
+                "sLengthMenu": "Mostrar _MENU_ registros",
+                "sZeroRecords": "No se encontraron resultados",
+                "sEmptyTable": "Ningún dato disponible en esta tabla",
+                "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+                "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
+                "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+                "sInfoPostFix": "",
+                "sSearch": "Buscar:",
+                "sUrl": "",
+                "sInfoThousands": ",",
+                "sLoadingRecords": "Cargando...",
+                "oPaginate": {
+                    "sFirst": "Primero",
+                    "sLast": "Último",
+                    "sNext": "Siguiente",
+                    "sPrevious": "Anterior"
+                },
+                "oAria": {
+                    "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+                    "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                }
+            },
+            ajax :  '/grupo_usuario/datatable/'+$("#grupo_id").val(),
+            columns: [
+            {
+                    data: 'nombre_usuario', 
+                    name: 'nombre_usuario',
+                        render: function(data, type, row, meta) {
+                            return '<input type="hidden" id="id" name="id" value='+row.id_usuario+'>'+
+                            '<input type="text" class="form-control" id="name" name="name" value='+data+'>'
+                    }
+                
+            },
+            {
+                    data: 'email', 
+                    name: 'email',
+                        render: function(data, type, row, meta) {
+                            return '<input type="email" class="form-control" id="email" name="email" value='+data+'>'
+                    }
+                
+            },
+            {
+                    data: 'id', 
+                    name: 'password',
+                        render: function(data, type, row, meta) {
+                            return '<input type="password" class="form-control" id="password" name="password">'
+                    }
+                
+            },
+            {
+                    data: 'id', 
+                    name: 'password_confirmation',
+                        render: function(data, type, row, meta) {
+                            return '<input type="password" class="form-control" id="password_confirmation" name="password_confirmation">'
+                    }
+                
+            },
+            {
+                    data: 'temarios', 
+                    name: 'temarios',
+                        render: function(data, type, row, meta) {
+                            var temarios = row.temarios
+                            var users_temarios = row.users_temarios
+                            var html = ""
+                            $(temarios).each(function(key, value){
+                            var checked = "";
+                                $(users_temarios).each(function(key2, value2){
+                                    if(row.users_id == value2.user_id){
+                                        if(value2.temario_id == value.id){
+                                            checked = "checked";
+                                        }
+                                    }
+                                });
+                            html += '<div class="custom-control custom-checkbox" style="text-align:left;">'+
+                            '<input type="checkbox" value='+value.id+' name="temarios_id[]" '+checked+' > '+
+                            '<label>'+value.name+'</label>'+
+                            '</div>'
+                            });
+
+                            return html;
+                    }
+                
+            },
+            {
+                    data: 'id', 
+                    name: 'button',
+                        render: function(data, type, row, meta) {
+                            return '<button  type="button" class="btn btn-success addUserBtn" onclick="store(this)"><i class="fas fa-check"></i></button>'+
+                            '<button type="button" class="btn btn-danger" onclick="removeFila(this)"><i class="fas fa-trash"></i></button>'
+                    }
+                
+            },
+            ]
+        });
+    });
+
+
 
     
 

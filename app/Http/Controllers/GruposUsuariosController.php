@@ -25,10 +25,6 @@ class GruposUsuariosController extends Controller
     public function index($id)
     {
         $grupo = Grupos::select('grupos.*')->where('grupos.id', $id)->get();
-        
-        $grupos_usuarios = Grupos_usuarios::select('grupos_usuarios.*', 'users.name as nombre_usuario', 'users.email', 'users.id as id_usuario')->where('grupos_usuarios.grupo_id', $id)->where('users.deleted_at', null)->join('users', 'grupos_usuarios.users_id', '=', 'users.id')->get();
-
-        $users_temarios = Grupos_usuarios::select('users_temarios.temario_id', 'users_temarios.user_id')->where('grupos_usuarios.grupo_id', $id)->where('users.deleted_at', null)->join('users', 'grupos_usuarios.users_id', '=', 'users.id')->join('users_temarios', 'grupos_usuarios.users_id', '=', 'users_temarios.user_id')->get();
         $temarios = Temarios::all();
 
         return view('grupos_usuarios', compact('grupo','grupos_usuarios','temarios', 'users_temarios'));
@@ -121,6 +117,23 @@ class GruposUsuariosController extends Controller
         } else {
             return response()->json(['success' => false]);
         }
+    }
+
+    public function datatable($id, Request $request){
+        if ($request->ajax()) {
+        $grupos_usuarios = Grupos_usuarios::select('grupos_usuarios.*', 'users.name as nombre_usuario', 'users.email', 'users.id as id_usuario')->where('grupos_usuarios.grupo_id', $id)->where('users.deleted_at', null)->join('users', 'grupos_usuarios.users_id', '=', 'users.id')->orderBy('grupos_usuarios.id','desc')->get();
+        foreach ($grupos_usuarios as $key => $value) {
+            $value->users_temarios = Grupos_usuarios::select('users_temarios.temario_id', 'users_temarios.user_id')->where('grupos_usuarios.grupo_id', $value->grupo_id)->where('users.deleted_at', null)->join('users', 'grupos_usuarios.users_id', '=', 'users.id')->join('users_temarios', 'grupos_usuarios.users_id', '=', 'users_temarios.user_id')->get();
+            $value->temarios = Temarios::all();
+        }
+
+            return Datatables::of($grupos_usuarios)
+                ->addIndexColumn()
+                ->make(true);
+
+        }
+
+        return [];
     }
 
 
