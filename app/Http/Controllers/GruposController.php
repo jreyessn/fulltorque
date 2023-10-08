@@ -16,7 +16,7 @@ class GruposController extends Controller
 {
     public function index(){
         $temarios = Temarios::all();
-        return view('grupos', compact("temarios", "grupos"));
+        return view('grupos', compact("temarios"));
     }
 
     public function store(Request $request)

@@ -36,7 +36,7 @@ Route::get('prueba/resultados_pruebas','PruebaController@getResultadosPruebas')-
 /**
  * API
  */
-Route::group(['middleware' => 'api'], function () {
+Route::group(['middleware' => 'auth:api'], function () {
     //LISTADO DE PRUEBAS ->
     Route::get('prueba/list','PruebaController@index');
     //LISTADO DETALLADO DE PRUEBAS ->

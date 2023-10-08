@@ -1,4 +1,10 @@
-<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+<style>
+    .grid-check {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+    }
+</style>
+
 <div class="page-title-box mx-4">
     <div class="row align-items-center">
         <div class="col-sm-6">
@@ -63,7 +69,7 @@
     </div>
   </div>
   <div class="col-sm-6">
-        <h5 class="page-title text-uppercase">Usuarios del grupo {{ $grupo[0]->nombre }}</h5>
+        <h5 class="page-title text-uppercase">Usuarios</h5>
     </div><br>
     <table id="users-table" class="table table-striped dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%; text-align: center;">
         <thead style="text-align:center;">
@@ -71,7 +77,6 @@
                 <th>Nombre</th>
                 <th>Correo electrónico</th>
                 <th>Contraseña</th>
-                <th>Confirmar Contraseña</th>
                 <th>Temarios</th>
                 <th><button  onclick="agregar_fila()" class="btn btn-success"><i class="fas fa-plus" style="color: #fff;"></i></button></th>
             </tr>
@@ -99,23 +104,28 @@
         if ($("#id").length == 0) {
            $('#users-table > tbody').empty() 
         }
+        const rand = parseInt(Math.random() * 100)
         $("#users-table > tbody").prepend(`
             <tr style="text-align:center">
             <td style="width:23%">
             <input type="hidden" id="id" name="id">
             <input type="text" class="form-control" id="name" name="name"></td>
             <td><input type="email" class="form-control" id="email" name="email"></td>
-            <td style="width:15%"><input type="password" class="form-control" id="password" name="password"></td>
-            <td style="width:15%"><input type="password" class="form-control" id="password_confirmation" name="password_confirmation"></td>
-            <td> @foreach ($temarios as $key => $temario)                       
+            <td>
+                <input placeholder="Contraseña" type="password" class="form-control" id="password" name="password">
+                <br />
+                <input placeholder="Confirmar Contraseña" type="password" class="form-control" id="password_confirmation" name="password_confirmation">    
+            </td>
+            <td class="grid-check"> @foreach ($temarios as $key => $temario)                       
                     <div class="custom-control custom-checkbox" style="text-align:left;">
-                        <input type="checkbox" value="{{ $temario->id }}" name="temarios_id[]" >
-                        <label for="temario-{{ $key }}">{{ $temario->name }}</label>
+                        <input type="checkbox" value="{{ $temario->id }}" id="temario-{{ $key }}-${rand}" name="temarios_id[]" >
+                        <label for="temario-{{ $key }}-${rand}">{{ $temario->name }}</label>
                     </div>
                 @endforeach
             </td>
             <td><button  type="button" class="btn btn-success addUserBtn" onclick="store(this)"><i class="fas fa-check"></i></button><button type="button" class="btn btn-danger" onclick="removeFila(this)"><i class="fas fa-trash"></i></button></td>
-            </tr>`);
+            </tr>
+        `);
 
         $('#users-table > tbody > tr').each(function(key, value) {
           $(this).attr('id', 'tr'+key);
@@ -288,20 +298,17 @@
                     data: 'id', 
                     name: 'password',
                         render: function(data, type, row, meta) {
-                            return '<input type="password" class="form-control" id="password" name="password">'
-                    }
-                
-            },
-            {
-                    data: 'id', 
-                    name: 'password_confirmation',
-                        render: function(data, type, row, meta) {
-                            return '<input type="password" class="form-control" id="password_confirmation" name="password_confirmation">'
+                            return `
+                                <input placeholder="Contraseña" type="password" class="form-control" id="password" name="password">
+                                <br />
+                                <input placeholder="Confirmar Contraseña" type="password" class="form-control" id="password_confirmation" name="password_confirmation">
+                            `
                     }
                 
             },
             {
                     data: 'temarios', 
+                    className: 'grid-check',
                     name: 'temarios',
                         render: function(data, type, row, meta) {
                             var temarios = row.temarios
@@ -316,10 +323,12 @@
                                         }
                                     }
                                 });
-                            html += '<div class="custom-control custom-checkbox" style="text-align:left;">'+
-                            '<input type="checkbox" value='+value.id+' name="temarios_id[]" '+checked+' > '+
-                            '<label>'+value.name+'</label>'+
-                            '</div>'
+                            html += `
+                                    <div class="custom-control custom-checkbox" style="text-align:left;">
+                                        <input type="checkbox" id="check-${key}-${row.id}" value="${value.id}" name="temarios_id[]" ${checked}>
+                                        <label for="check-${key}-${row.id}">${value.name}</label>
+                                    </div>
+                                `;
                             });
 
                             return html;

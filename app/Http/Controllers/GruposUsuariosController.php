@@ -27,38 +27,40 @@ class GruposUsuariosController extends Controller
         $grupo = Grupos::select('grupos.*')->where('grupos.id', $id)->get();
         $temarios = Temarios::all();
 
-        return view('grupos_usuarios', compact('grupo','grupos_usuarios','temarios', 'users_temarios'));
+        return view('grupos_usuarios', compact('grupo','temarios'));
     }
 
     public function store(Request $request)
-{
-    $id = $request->input('id');
-    $validator = $this->validateUser($request, $id);
+    {
+        $id = $request->input('id');
+        $validator = $this->validateUser($request, $id);
 
-    if ($validator->fails()) {
-        return response()->json(['errors' => $validator->errors()]);
-    } else {
-        if ($id) {
-            // Actualizar un registro existente
-            $user = User::findOrFail($id);
-        } else {
-            // Crear un nuevo registro
-            $user = new User();
-        }
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors()]);
+        } 
+        else {
+            if ($id) {
+                // Actualizar un registro existente
+                $user = User::findOrFail($id);
+            } else {
+                // Crear un nuevo registro
+                $user = new User();
+            }
 
-        $user->name = $request->input('name');
-        $user->email = $request->input('email');
+            $user->name = $request->input('name');
+            $user->email = $request->input('email');
 
-        if ($request->filled('password')) {
-            $user->password = bcrypt($request->input('password'));
-        }
-        $temarios_id = $request->get("temarios_id", []);
+            if ($request->filled('password')) {
+                $user->password = bcrypt($request->input('password'));
+            }
+            
+            $temarios_id = $request->get("temarios_id", []);
 
-        $user->save();
-        $user->temarios()->sync($temarios_id);
+            $user->save();
+            $user->temarios()->sync($temarios_id);
 
-        $ultimo_id = User::latest('id')->first();
-        $ultimo_id = $ultimo_id->id;
+            $ultimo_id = User::latest('id')->first();
+            $ultimo_id = $ultimo_id->id;
 
         if(!$id){
             $grupos_usuarios = new Grupos_usuarios();

@@ -30,9 +30,6 @@ Route::post('/register', [UserController::class, 'store'])->name('usuarios.regis
 //Route::post('/users', 'UserController@store')->name('users.store');
 Route::post('/users/store/{id?}', 'UserController@store')->name('users.store');
 
-Route::delete('/users/{id}', 'UserController@destroy')->name('users.destroy');
-Route::put('/users/{user}', 'UserController@update')->name('users.update');
-Route::get('users/{id}', 'UserController@show')->name('users.show');
 
 Route::get('/grupos/datatable', 'GruposController@datatable')->name('grupos.index');
 //Rutas para Grupos
@@ -43,6 +40,9 @@ Route::delete('/grupos/{id}', 'GruposController@destroy')->name('grupos.destroy'
 Route::put('/grupos/{user}', 'GruposController@update')->name('grupos.update');
 Route::post('/grupos/total_usuarios/{id?}', 'GruposController@total_usuarios')->name('grupos.total_usuarios');
 
+Route::delete('/users/{id}', 'UserController@destroy')->name('users.destroy');
+Route::put('/users/{user}', 'UserController@update')->name('users.update');
+Route::get('users/{id}', 'UserController@show')->name('users.show');
 
 //Rutas para Grupos usuarios
 Route::get('/grupo_usuario/datatable/{id?}', 'GruposUsuariosController@datatable');

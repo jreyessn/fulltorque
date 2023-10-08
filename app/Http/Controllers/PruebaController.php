@@ -98,6 +98,7 @@ class PruebaController extends Controller
             $respuesta_pregunta  = RespuestasPrueba::where('id_pregunta', $id_pregunta)->first();
             $respuesta_usuario = RespuestasUsuario::where('id_pregunta', $id_pregunta)->where('id_usuario', $user->id)->first();
             
+
             if (isset($respuesta_usuario)) {
                 if($respuesta_pregunta->id_alternativa_correcta == $respuesta_usuario->id_alternativa){
                     $respuestas_correctas++;

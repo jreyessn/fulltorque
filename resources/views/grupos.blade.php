@@ -22,7 +22,7 @@
        
     </div>
 </div>
-<div class="">
+<div class="table-responsive">
     <table id="grupos-table" class="table table-striped dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
         <thead>
             <tr>
@@ -281,53 +281,55 @@
                         }else{
                            fecha =`${day}/${month}/${year}`
                         }
-                        return '<div class="col-sm-12  grupos_card">'+
-                    '<input type="hidden" name="id_card" class="id_card" value='+row.id+'>'+
-                    '<div class="card">'+ 
-                    '<div class="card-header" style="background-color:#30419b; height:30px;">'+
-                    '<div class="dropdown" style="margin-left:95%; margin-top: -2%;">'+
-                        '<a class="btn" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="">'+
-                            '<i class="fas fa-ellipsis-h lg" style="color:white;"></i>'+
-                        '</a>'+
-                    '<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">'+
-                        '<a class="dropdown-item" data-toggle="modal" data-target="#addGruposModal" data-title-modal="Editar Grupo" data-id_grupo='+row.id+' href="#"><i class="fas fa-edit"></i> Editar</a>'+
-                        '<a class="dropdown-item" href=/gestion_usuarios/'+row.id+'><i class="fas fa-tasks"></i> Gesti&oacute;n</a>'+
-                        '<a class="dropdown-item" href=/excel/'+row.id+'><i class="fas fa-regular fa-file-excel"></i> Reporte</a>'+
-                        `<a class="dropdown-item" href="#" onclick="deleteGrupo('/grupos/${row.id}')"><i class="fas fa-trash-alt"></i> Eliminar</a>`+
-                      '</div>'+
-                    '</div>'+
-                '</div> '+       
-                '<div class="card-body" style="font-size: 14px;">'+
-                      '<h5 class="card-title text-uppercase"> '+row.nombre +'</h5>'+
-                      '<p class="text-capitalize">'+
-                      '<div class="row">'+
-                        '<div class="col-sm-4">'+
-                            '<strong><i class="fas fa-chalkboard-teacher"></i> Tutor:</strong> '+row.tutor+    
-                        '</div>'+
-                        '<div class="col-sm-4">'+
-                            '<strong><i class="fas fa-user"></i> Cliente:</strong> '+ row.cliente+ 
-                        '</div>'+  
-                      '</div>'+
-                      '<div class="row">'+
-                        '<div class="col-sm-4">'+
-                            '<strong><i class="fas fa-book"></i> Curso:</strong> '+ row.curso+   
-                        '</div>'+
-                        '<div class="col-sm-4">'+
-                            '<strong><i class="fas fa-calendar"></i> Fecha:</strong> ' + fecha+  
-                        '</div>'+  
-                      '</div>'+
-                      '<div class="row">'+
-                        '<div class="col-sm-4">'+
-                            '<strong><i class="fas fa-clock"></i> Hora:</strong> '+ row.hora+  
-                        '</div>'+
-                        '<div class="col-sm-4">'+
-                            '<strong><i class="fas fa-user-friends"></i> Usuarios:</strong>  <span class="cantidad_usuarios">'+row.total_usuarios+'</span>'+    
-                        '</div>'+  
-                      '</div>'+
-                      '</p>'+
-                '</div>'+
-                '</div>'+
-                '</div>'
+                        return `
+                            <div class="col-sm-12 grupos_card">
+                                <input type="hidden" name="id_card" class="id_card" value=${row.id}>
+                                <div class="card">
+                           
+                                    <div class="card-body">
+                                        <div class="d-flex  flex-column flex-sm-row" style="justify-content: space-between; align-items: center;">
+                                            <h5 class="card-title text-uppercase"> ${row.nombre}</h5>
+                                            
+                                            <div class="d-flex" style="gap: 0.5rem">
+                                                <a data-toggle="modal" data-target="#addGruposModal" data-title-modal="Editar Grupo" data-id_grupo=${row.id} href="#"><i class="fas fa-edit"></i> Editar</a>
+                                                <a href="/gestion_usuarios/${row.id}"><i class="fas fa-tasks"></i> Gestionar Usuarios</a>
+                                                <a class="text-success" href="/excel/${row.id}"><i class="fas fa-regular fa-file-excel"></i> Reporte</a>
+                                                <a class="text-danger" href="#" onclick="deleteGrupo('/grupos/${row.id}')"><i class="fas fa-trash-alt"></i> Eliminar</a>    
+                                            </div>
+
+                                        </div>
+                                        <div class="dropdown-divider"></div>
+                                        <p class="text-capitalize">
+                                            <div class="row">
+                                                <div class="col-sm-4 mb-2">
+                                                    <strong><i class="text-primary fas fa-chalkboard-teacher"></i> Tutor:</strong> ${row.tutor}
+                                                </div>
+                                                <div class="col-sm-4 mb-2">
+                                                    <strong><i class="text-primary fas fa-user"></i> Cliente:</strong> ${row.cliente}
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-sm-4 mb-2">
+                                                    <strong><i class="text-primary fas fa-book"></i> Curso:</strong> ${row.curso}
+                                                </div>
+                                                <div class="col-sm-4 mb-2">
+                                                    <strong><i class="text-primary fas fa-calendar"></i> Fecha:</strong> ${fecha}
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-sm-4 mb-2">
+                                                    <strong><i class="text-primary fas fa-clock"></i> Hora:</strong> ${row.hora}
+                                                </div>
+                                                <div class="col-sm-4 mb-2">
+                                                    <strong><i class="text-primary fas fa-user-friends"></i> Usuarios:</strong>  <span class="cantidad_usuarios">${row.total_usuarios}</span>
+                                                </div>
+                                            </div>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+
                     }
                 
                 },
@@ -347,53 +349,54 @@
                         }else{
                            fecha =`${day}/${month}/${year}`
                         }
-                        return '<div class="col-sm-12  grupos_card">'+
-                    '<input type="hidden" name="id_card" class="id_card" value='+data.id+'>'+
-                    '<div class="card">'+ 
-                    '<div class="card-header" style="background-color:#30419b; height:30px;">'+
-                    '<div class="dropdown" style="margin-left:95%; margin-top: -2%;">'+
-                        '<a class="btn" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="">'+
-                            '<i class="fas fa-ellipsis-h lg" style="color:white;"></i>'+
-                        '</a>'+
-                    '<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">'+
-                        '<a class="dropdown-item" data-toggle="modal" data-target="#addGruposModal" data-title-modal="Editar Grupo" data-id_grupo='+data.id+' href="#"><i class="fas fa-edit"></i> Editar</a>'+
-                        '<a class="dropdown-item" href=/gestion_usuarios/'+data.id+'><i class="fas fa-tasks"></i> Gesti&oacute;n</a>'+
-                        '<a class="dropdown-item" href=/excel/'+data.id+'><i class="fas fa-regular fa-file-excel"></i> Reporte</a>'+
-                        `<a class="dropdown-item" href="#" onclick="deleteGrupo('/grupos/${data.id}')"><i class="fas fa-trash-alt"></i> Eliminar</a>`+
-                      '</div>'+
-                    '</div>'+
-                '</div> '+       
-                '<div class="card-body" style="font-size: 14px;">'+
-                      '<h5 class="card-title text-uppercase"> '+data.nombre +'</h5>'+
-                      '<p class="text-capitalize">'+
-                      '<div class="row">'+
-                        '<div class="col-sm-4">'+
-                            '<strong><i class="fas fa-chalkboard-teacher"></i> Tutor:</strong> '+data.tutor+    
-                        '</div>'+
-                        '<div class="col-sm-4">'+
-                            '<strong><i class="fas fa-user"></i> Cliente:</strong> '+ data.cliente+ 
-                        '</div>'+  
-                      '</div>'+
-                      '<div class="row">'+
-                        '<div class="col-sm-4">'+
-                            '<strong><i class="fas fa-book"></i> Curso:</strong> '+ data.curso+   
-                        '</div>'+
-                        '<div class="col-sm-4">'+
-                            '<strong><i class="fas fa-calendar"></i> Fecha:</strong> ' + fecha+  
-                        '</div>'+  
-                      '</div>'+
-                      '<div class="row">'+
-                        '<div class="col-sm-4">'+
-                            '<strong><i class="fas fa-clock"></i> Hora:</strong> '+ data.hora+  
-                        '</div>'+
-                        '<div class="col-sm-4">'+
-                            '<strong><i class="fas fa-user-friends"></i> Usuarios:</strong>  <span class="cantidad_usuarios">'+data.total_usuarios+'</span>'+    
-                        '</div>'+  
-                      '</div>'+
-                      '</p>'+
-                '</div>'+
-                '</div>'+
-                '</div>'
+                        return `
+                            <div class="col-sm-12 grupos_card">
+                                <input type="hidden" name="id_card" class="id_card" value=${data.id}>
+                                <div class="card">
+                           
+                                    <div class="card-body">
+                                        <div class="d-flex" style="justify-content: space-between; align-items: center;">
+                                            <h5 class="card-title text-uppercase"> ${data.nombre}</h5>
+                                            
+                                            <div class="d-flex" style="gap: 0.5rem">
+                                                <a data-toggle="modal" data-target="#addGruposModal" data-title-modal="Editar Grupo" data-id_grupo=${data.id} href="#"><i class="fas fa-edit"></i> Editar</a>
+                                                <a href="/gestion_usuarios/${data.id}"><i class="fas fa-tasks"></i> Gestionar Usuarios</a>
+                                                <a class="text-success" href="/excel/${data.id}"><i class="fas fa-regular fa-file-excel"></i> Reporte</a>
+                                                <a class="text-danger" href="#" onclick="deleteGrupo('/grupos/${data.id}')"><i class="fas fa-trash-alt"></i> Eliminar</a>    
+                                            </div>
+
+                                        </div>
+                                        <div class="dropdown-divider"></div>
+                                        <p class="text-capitalize">
+                                            <div class="row">
+                                                <div class="col-sm-4 mb-2">
+                                                    <strong><i class="text-primary fas fa-chalkboard-teacher"></i> Tutor:</strong> ${data.tutor}
+                                                </div>
+                                                <div class="col-sm-4 mb-2">
+                                                    <strong><i class="text-primary fas fa-user"></i> Cliente:</strong> ${data.cliente}
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-sm-4 mb-2">
+                                                    <strong><i class="text-primary fas fa-book"></i> Curso:</strong> ${data.curso}
+                                                </div>
+                                                <div class="col-sm-4 mb-2">
+                                                    <strong><i class="text-primary fas fa-calendar"></i> Fecha:</strong> ${fecha}
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-sm-4 mb-2">
+                                                    <strong><i class="text-primary fas fa-clock"></i> Hora:</strong> ${data.hora}
+                                                </div>
+                                                <div class="col-sm-4 mb-2">
+                                                    <strong><i class="text-primary fas fa-user-friends"></i> Usuarios:</strong>  <span class="cantidad_usuarios">${data.total_usuarios}</span>
+                                                </div>
+                                            </div>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        `;
                     }else{
                         return '';
                     }
