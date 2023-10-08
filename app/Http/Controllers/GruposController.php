@@ -108,10 +108,13 @@ public function gestion_usuarios()
         if ($request->ajax()) {
             $grupos = Grupos::orderBy('id', 'desc')->get();
             foreach ($grupos as $key => $value) {
-            /*if (!$key%2==0){
-
-            echo json_encode($value);
-            }*/
+            if ($key%2==0){
+                $key2 = $key + 1;
+                if(isset($grupos[$key2])){
+                $value->siguiente = $grupos[$key2]; 
+                unset($grupos[$key2]);
+                }
+            }
             $value->total_usuarios = Grupos_usuarios::select('grupos_usuarios*')->where('grupos_usuarios.grupo_id', $value->id)->where('users.deleted_at', null)->join('users', 'grupos_usuarios.users_id', '=', 'users.id')->count();
             }
             return Datatables::of($grupos)

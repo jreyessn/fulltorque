@@ -26,6 +26,7 @@
     <table id="grupos-table" class="table table-striped dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
         <thead>
             <tr>
+                <th style="width:50%;"></th> 
                 <th></th> 
             </tr>
         </thead>
@@ -237,6 +238,8 @@
             processing: true,
             serverSide: true,
             ordering: false,
+            pageLength:2,
+            dom:'rtip',
             language: {
                 "sProcessing": "Procesando...",
                 "sLengthMenu": "Mostrar _MENU_ registros",
@@ -278,7 +281,7 @@
                         }else{
                            fecha =`${day}/${month}/${year}`
                         }
-                        return '<div class="col-sm-6 grupos_card">'+
+                        return '<div class="col-sm-12  grupos_card">'+
                     '<input type="hidden" name="id_card" class="id_card" value='+row.id+'>'+
                     '<div class="card">'+ 
                     '<div class="card-header" style="background-color:#30419b; height:30px;">'+
@@ -326,6 +329,75 @@
                 '</div>'+
                 '</div>'
                     }
+                
+                },
+
+                {
+                    data: 'siguiente', 
+                    name: 'siguiente',
+                        render: function(data, type, row, meta) {
+                        if(data){
+                        var fecha = ""
+                        let date = new Date(data.fecha)
+                        let day = date.getDate()
+                        let month = date.getMonth() + 1
+                        let year = date.getFullYear()
+                        if(month < 10){
+                           fecha = `${day}/0${month}/${year}`
+                        }else{
+                           fecha =`${day}/${month}/${year}`
+                        }
+                        return '<div class="col-sm-12  grupos_card">'+
+                    '<input type="hidden" name="id_card" class="id_card" value='+data.id+'>'+
+                    '<div class="card">'+ 
+                    '<div class="card-header" style="background-color:#30419b; height:30px;">'+
+                    '<div class="dropdown" style="margin-left:95%; margin-top: -2%;">'+
+                        '<a class="btn" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="">'+
+                            '<i class="fas fa-ellipsis-h lg" style="color:white;"></i>'+
+                        '</a>'+
+                    '<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">'+
+                        '<a class="dropdown-item" data-toggle="modal" data-target="#addGruposModal" data-title-modal="Editar Grupo" data-id_grupo='+data.id+' href="#"><i class="fas fa-edit"></i> Editar</a>'+
+                        '<a class="dropdown-item" href=/gestion_usuarios/'+data.id+'><i class="fas fa-tasks"></i> Gesti&oacute;n</a>'+
+                        '<a class="dropdown-item" href=/excel/'+data.id+'><i class="fas fa-regular fa-file-excel"></i> Reporte</a>'+
+                        `<a class="dropdown-item" href="#" onclick="deleteGrupo('/grupos/${data.id}')"><i class="fas fa-trash-alt"></i> Eliminar</a>`+
+                      '</div>'+
+                    '</div>'+
+                '</div> '+       
+                '<div class="card-body" style="font-size: 14px;">'+
+                      '<h5 class="card-title text-uppercase"> '+data.nombre +'</h5>'+
+                      '<p class="text-capitalize">'+
+                      '<div class="row">'+
+                        '<div class="col-sm-4">'+
+                            '<strong><i class="fas fa-chalkboard-teacher"></i> Tutor:</strong> '+data.tutor+    
+                        '</div>'+
+                        '<div class="col-sm-4">'+
+                            '<strong><i class="fas fa-user"></i> Cliente:</strong> '+ data.cliente+ 
+                        '</div>'+  
+                      '</div>'+
+                      '<div class="row">'+
+                        '<div class="col-sm-4">'+
+                            '<strong><i class="fas fa-book"></i> Curso:</strong> '+ data.curso+   
+                        '</div>'+
+                        '<div class="col-sm-4">'+
+                            '<strong><i class="fas fa-calendar"></i> Fecha:</strong> ' + fecha+  
+                        '</div>'+  
+                      '</div>'+
+                      '<div class="row">'+
+                        '<div class="col-sm-4">'+
+                            '<strong><i class="fas fa-clock"></i> Hora:</strong> '+ data.hora+  
+                        '</div>'+
+                        '<div class="col-sm-4">'+
+                            '<strong><i class="fas fa-user-friends"></i> Usuarios:</strong>  <span class="cantidad_usuarios">'+data.total_usuarios+'</span>'+    
+                        '</div>'+  
+                      '</div>'+
+                      '</p>'+
+                '</div>'+
+                '</div>'+
+                '</div>'
+                    }else{
+                        return '';
+                    }
+                }
                 
                 },
                
