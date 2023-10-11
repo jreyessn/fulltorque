@@ -71,6 +71,14 @@
                                 <input type="email" class="form-control" id="email" name="email">
                             </div>
                             <div class="form-group">
+                                <label for="telefono">Tel&eacute;fono</label>
+                                <input type="text" class="form-control" id="telefono" name="telefono">
+                            </div>
+                            <div class="form-group">
+                                <label for="rut">Rut</label>
+                                <input type="text" class="form-control" id="rut" name="rut">
+                            </div>
+                            <div class="form-group">
                                 <label for="password">Contraseña</label>
                                 <input type="password" class="form-control" id="password" name="password">
                             </div>
@@ -126,6 +134,8 @@
                     success: function(data) {
                         $("#name").val(data.name);
                         $("#email").val(data.email);
+                        $("#telefono").val(data.telefono);
+                        $("#rut").val(data.rut);
                         $("#id_usuario").val(datos.id_usuario)
 
                         const temariosIds = data.temarios.map(temario => temario.id)

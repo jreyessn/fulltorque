@@ -66,7 +66,8 @@ class UserController extends Controller
 
         $user->name = $request->input('name');
         $user->email = $request->input('email');
-
+        $user->telefono = $request->input('telefono');
+        $user->rut = $request->input('rut');
         if ($request->filled('password')) {
             $user->password = bcrypt($request->input('password'));
         }
@@ -148,6 +149,8 @@ class UserController extends Controller
         'email.required' => 'El correo electrónico es obligatorio.',
         'email.email' => 'El correo electrónico debe ser una dirección válida.',
         'email.unique' => 'Este correo electrónico ya ha sido registrado.',
+        'telefono.required' => 'El telefono es obligatorio.',
+        'rut.required' => 'El rut es obligatorio.',
         'password.required' => 'La contraseña es obligatoria.',
         'password.min' => 'La contraseña debe tener al menos :min caracteres.',
         'password.confirmed' => 'Las contraseñas no coinciden.',
