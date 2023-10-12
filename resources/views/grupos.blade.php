@@ -143,8 +143,13 @@
                         })
                         // Cerrar la modal
                         $('#addGruposModal').modal('hide');
-                        // Actualizar la tabla de datos
-                       $('#grupos-table').DataTable().draw();
+                        if($("#id_grupo").val() == ''){
+                            $(location).attr('href','gestion_usuarios/'+response.ultimo_id);
+                        }else{
+                            // Actualizar la tabla de datos
+                            $('#grupos-table').DataTable().draw();    
+                        }
+                        $("#id_grupo").val('')
                     } else {
                         var errors = "";
                         $.each(response.errors, function(key, value){

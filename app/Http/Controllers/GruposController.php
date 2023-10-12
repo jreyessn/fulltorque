@@ -41,7 +41,10 @@ class GruposController extends Controller
         $grupo->fecha = $request->input('fecha');
         $grupo->hora = $request->input('hora');
         $grupo->save();
-        return response()->json(['success' => true]);
+        
+        $ultimo_id = Grupos::latest('id')->first();
+        $ultimo_id = $ultimo_id->id;
+        return response()->json(['success' => true, 'ultimo_id' => $ultimo_id]);
     }
 }
 
