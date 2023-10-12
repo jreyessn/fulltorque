@@ -48,6 +48,7 @@ Route::get('users/{id}', 'UserController@show')->name('users.show');
 Route::get('/grupo_usuario/datatable/{id?}', 'GruposUsuariosController@datatable');
 
 Route::post('/grupo_usuario/store/{id?}', 'GruposUsuariosController@store')->name('grupo_usuario.store');
+Route::post('/grupo_usuario/getGrupo', 'GruposUsuariosController@getGrupo');
 Route::get('/grupo_usuario/excel/{id?}', 'GruposUsuariosController@excel')->name('grupo_usuario.excel');
 Route::delete('/grupo_usuario/{id}', 'GruposUsuariosController@destroy')->name('grupo_usuario.destroy');
 

@@ -8,7 +8,7 @@
 <div class="page-title-box mx-4">
     <div class="row align-items-center">
         <div class="col-sm-6">
-            <h1 class="page-title text-uppercase">Grupo {{ $grupo[0]->nombre }}</h1>
+            <h1 class="page-title text-uppercase" id="page-title"></h1>
         </div>
         <div class="col-sm-6 d-flex justify-content-end">
             <ol class="breadcrumb float-right">
@@ -32,36 +32,32 @@
     <div class="row">   
      <div class="form-group col">
         <label for="">Curso</label>
-        <div>
-            {{ $grupo[0]->curso }}
+        <div id="div_curso">
+           
         </div>
       </div>
 
       <div class="form-group col">
         <label for="">Cliente</label>
-        <div>
-            {{ $grupo[0]->cliente }}
+        <div id="div_cliente">
         </div>
       </div>
 
       <div class="form-group col">
         <label for="">Tutor</label>
-        <div>
-            {{ $grupo[0]->tutor }}
+        <div id="div_tutor">
         </div>
       </div>
     </div>
     <div class="row">
       <div class="form-group col">
         <label for="">Fecha</label>
-        <div>
-            {{ date("d/m/Y", strtotime($grupo[0]->fecha)) }}
+        <div id="div_fecha">
         </div>
       </div>
       <div class="form-group col">
         <label for="">Hora</label>
-        <div>
-            {{ date("g:i a", strtotime($grupo[0]->hora)) }}
+        <div id="div_hora">
         </div>
       </div>
       <div class="form-group col">
@@ -112,27 +108,27 @@
                         <div class="mt-2">
                             <div class="form-group">
                                 <label for="nombre">Nombre </label>
-                                <input type="text" class="form-control" id="nombre" name="nombre" value="{{ $grupo[0]->nombre }}">
+                                <input type="text" class="form-control" id="nombre" name="nombre">
                             </div>
                             <div class="form-group">
                                 <label for="curso">Curso</label>
-                                <input type="text" class="form-control" id="curso" name="curso" value="{{ $grupo[0]->curso }}">
+                                <input type="text" class="form-control" id="curso" name="curso">
                             </div>
                             <div class="form-group">
                                 <label for="cliente">Cliente</label>
-                                <input type="text" class="form-control" id="cliente" name="cliente" value="{{ $grupo[0]->cliente }}">
+                                <input type="text" class="form-control" id="cliente" name="cliente">
                             </div>
                             <div class="form-group">
                                 <label for="tutor">Tutor</label>
-                                <input type="text" class="form-control" id="tutor" name="tutor" value="{{ $grupo[0]->tutor }}">
+                                <input type="text" class="form-control" id="tutor" name="tutor">
                             </div>
                             <div class="form-group">
                                 <label for="fecha">Fecha</label>
-                                <input type="date" class="form-control" id="fecha" name="fecha" value='{{ date("Y-m-d", strtotime($grupo[0]->fecha)) }}'>
+                                <input type="date" class="form-control" id="fecha" name="fecha">
                             </div>
                             <div class="form-group">
                                 <label for="hora">Hora</label>
-                                <input type="time" class="form-control" id="hora" name="hora" value="{{ $grupo[0]->hora }}">
+                                <input type="time" class="form-control" id="hora" name="hora">
                             </div>
                         </div>
                     </div> 
@@ -152,6 +148,32 @@
 <script>
     var datos = {
         id_usuario: null
+    }
+
+    function listener(){
+        $.ajax({
+            method: "POST",
+            url: '/grupo_usuario/getGrupo',
+            data: {
+                _token: '{{ csrf_token() }}', // Token CSRF generado por Laravel
+                id: $("#id_grupo").val() 
+            },
+            success: function(response){
+                $("#page-title").text('Grupo '+response.nombre)
+                $("#div_curso").text(response.curso)
+                $("#div_cliente").text(response.cliente)
+                $("#div_tutor").text(response.tutor)
+                $("#div_fecha").text(formatDate2(response.fecha))
+                $("#div_hora").text(response.hora)
+                $("#id_grupo").val(response.id)
+                $("#nombre").val(response.nombre)
+                $("#curso").val(response.curso)
+                $("#cliente").val(response.cliente)
+                $("#tutor").val(response.tutor)
+                $("#fecha").val(formatDate(response.fecha))
+                $("#hora").val(response.hora)
+            },
+        });  
     }
 
     function agregar_fila(){
@@ -302,6 +324,34 @@
     });
     }
 
+    function formatDate(date) {
+    var d = new Date(date),
+        month = '' + (d.getMonth() + 1),
+        day = '' + d.getDate(),
+        year = d.getFullYear();
+
+    if (month.length < 2) 
+        month = '0' + month;
+    if (day.length < 2) 
+        day = '0' + day;
+
+    return [year, month, day].join('-');
+    }
+
+    function formatDate2(date) {
+    var d = new Date(date),
+        month = '' + (d.getMonth() + 1),
+        day = '' + d.getDate(),
+        year = d.getFullYear();
+
+    if (month.length < 2) 
+        month = '0' + month;
+    if (day.length < 2) 
+        day = '0' + day;
+
+    return [day, month, year].join('/');
+    }
+
     $("#editGruposBtn").on("click", function(event){
             event.preventDefault(); // Evitar que se envíe el formulario por defecto
 
@@ -321,8 +371,8 @@
                             confirmButtonText: "Aceptar"
                         })
                         // Cerrar la modal
-                        $('#editGruposModal').modal('hide');
-                        location.reload();
+                        $('#editGrupoModal').modal('hide');
+                        listener()
                     } else {
                         var errors = "";
                         $.each(response.errors, function(key, value){
@@ -445,6 +495,8 @@
             },
             ]
         });
+        
+        listener()
     });
 
 

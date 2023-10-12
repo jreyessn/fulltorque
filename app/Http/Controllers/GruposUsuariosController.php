@@ -138,6 +138,14 @@ class GruposUsuariosController extends Controller
         return [];
     }
 
+    public function getGrupo(Request $request)
+    {
+        $id = $request->input('id');
+        $grupo = Grupos::where('id', $id)->get();
+        return $grupo[0];
+
+    }
+
 
 
 }
