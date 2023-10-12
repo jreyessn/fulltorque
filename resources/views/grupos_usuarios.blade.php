@@ -17,6 +17,9 @@
                 <li class="breadcrumb-item active" aria-current="page">Grupos</li>
             </ol>
         </div>
+    </div><br>
+    <div class="col-sm-12 d-flex justify-content-end">
+        <a href="#" class="btn btn-primary text-white" data-toggle="modal" data-target="#editGrupoModal" data-title-modal="Editar Grupo">Editar</a>
     </div>
     <!-- end row -->
     <div class="float-right">
@@ -91,6 +94,57 @@
     </div><br>
     <div style="padding: 20px 30px 20px; width: 100%"></div>
     
+</div>
+<div class="modal fade" id="editGrupoModal" tabindex="-1" aria-labelledby="addGruposModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editGruposModalLabel">Editar Grupo</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="editGruposForm" action="{{ route('grupos.store') }}">
+                    @csrf
+                    <input type="hidden" name="id" id="id_grupo" value="{{ $grupo[0]->id }}">
+                    <div>
+                        <div class="mt-2">
+                            <div class="form-group">
+                                <label for="nombre">Nombre </label>
+                                <input type="text" class="form-control" id="nombre" name="nombre" value="{{ $grupo[0]->nombre }}">
+                            </div>
+                            <div class="form-group">
+                                <label for="curso">Curso</label>
+                                <input type="text" class="form-control" id="curso" name="curso" value="{{ $grupo[0]->curso }}">
+                            </div>
+                            <div class="form-group">
+                                <label for="cliente">Cliente</label>
+                                <input type="text" class="form-control" id="cliente" name="cliente" value="{{ $grupo[0]->cliente }}">
+                            </div>
+                            <div class="form-group">
+                                <label for="tutor">Tutor</label>
+                                <input type="text" class="form-control" id="tutor" name="tutor" value="{{ $grupo[0]->tutor }}">
+                            </div>
+                            <div class="form-group">
+                                <label for="fecha">Fecha</label>
+                                <input type="date" class="form-control" id="fecha" name="fecha" value='{{ date("Y-m-d", strtotime($grupo[0]->fecha)) }}'>
+                            </div>
+                            <div class="form-group">
+                                <label for="hora">Hora</label>
+                                <input type="time" class="form-control" id="hora" name="hora" value="{{ $grupo[0]->hora }}">
+                            </div>
+                        </div>
+                    </div> 
+                </form>
+            </div>
+            
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-primary" id="editGruposBtn">Guardar</button>
+            </div>
+        </div>
+    </div>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
@@ -247,6 +301,51 @@
         }
     });
     }
+
+    $("#editGruposBtn").on("click", function(event){
+            event.preventDefault(); // Evitar que se envíe el formulario por defecto
+
+            var form = $("#editGruposForm");
+            var url = form.attr('action');
+            var data = form.serialize();
+            $.ajax({
+                method: "POST",
+                url: url,
+                data: data,
+                success: function(response){
+                    if(response.success){
+                        swal({
+                            title: 'Confirmación',
+                            text: 'Guardado con Exito',
+                            type: 'success',
+                            confirmButtonText: "Aceptar"
+                        })
+                        // Cerrar la modal
+                        $('#editGruposModal').modal('hide');
+                        location.reload();
+                    } else {
+                        var errors = "";
+                        $.each(response.errors, function(key, value){
+                            errors += value[0] + "\n";
+                        });
+                        swal({
+                            title: 'Error',
+                            text: errors,
+                            type: 'error',
+                            confirmButtonText: 'Aceptar'
+                        });
+                    }
+                },
+                error: function(response){
+                    swal({
+                        title: 'Error',
+                        text: 'revise los mensajes de error e intente nuevamente',
+                        type: 'error',
+                        confirmButtonText: 'Aceptar'
+                    });
+                }
+            });
+        })
 
     $(document).ready(function() {
         $('#users-table').DataTable({
