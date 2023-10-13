@@ -75,8 +75,8 @@
             <tr>
                 <th>Nombre</th>
                 <th>Correo electrónico</th>
-                <th>Contraseña</th>
-                <th>Temarios</th>
+                <th>Tel&eacute;fono</th>
+                <th>Rut</th>
                 <th><button  onclick="agregar_fila()" class="btn btn-success"><i class="fas fa-plus" style="color: #fff;"></i></button></th>
             </tr>
         </thead>
@@ -130,6 +130,30 @@
                                 <label for="hora">Hora</label>
                                 <input type="time" class="form-control" id="hora" name="hora">
                             </div>
+                            <div class="form-group">
+                                <label for="password">Contraseña</label>
+                                <input type="password" class="form-control" id="password" name="password">
+                            </div>
+                            <div class="form-group">
+                                <label for="password_confirmation">Confirmar Contraseña</label>
+                                <input type="password" class="form-control" id="password_confirmation" name="password_confirmation">
+                            </div>
+                            <h4 class="mt-0 header-title">Temarios</h4>
+                        <div class="dropdown-divider"></div>
+
+                        <div class="mt-2">
+                            <div class="form-group">
+                                <label>Temarios Disponibles</label>
+                                <div>
+                                    @foreach ($temarios as $key => $temario)                       
+                                        <div class="custom-control custom-checkbox">
+                                            <input type="checkbox" value="{{ $temario->id }}" name="temarios_id[]" class="custom-control-input" id="temario-{{ $key }}">
+                                            <label class="custom-control-label" for="temario-{{ $key }}">{{ $temario->name }}</label>
+                                        </div>
+                                    @endforeach
+                                </div>
+                            </div>
+                        </div>
                         </div>
                     </div> 
                 </form>
@@ -172,6 +196,13 @@
                 $("#tutor").val(response.tutor)
                 $("#fecha").val(formatDate(response.fecha))
                 $("#hora").val(response.hora)
+                const temariosIds = response.temarios.map(temario => temario.temario_id)
+                $('input[name="temarios_id[]"]').each(function() {
+                const checkboxValue = $(this).val();
+                if (temariosIds.includes(parseInt(checkboxValue))) {
+                    $(this).prop('checked', true);
+                }
+                });
             },
         });  
     }
@@ -188,18 +219,12 @@
             <input type="text" class="form-control" id="name" name="name"></td>
             <td><input type="email" class="form-control" id="email" name="email"></td>
             <td>
-                <input placeholder="Contraseña" type="password" class="form-control" id="password" name="password">
-                <br />
-                <input placeholder="Confirmar Contraseña" type="password" class="form-control" id="password_confirmation" name="password_confirmation">    
+                <input type="text" class="form-control" id="telefono" name="telefono">    
             </td>
-            <td class="grid-check"> @foreach ($temarios as $key => $temario)                       
-                    <div class="custom-control custom-checkbox" style="text-align:left;">
-                        <input type="checkbox" value="{{ $temario->id }}" id="temario-{{ $key }}-${rand}" name="temarios_id[]" >
-                        <label for="temario-{{ $key }}-${rand}">{{ $temario->name }}</label>
-                    </div>
-                @endforeach
+            <td> 
+                <input type="text" class="form-control" id="rut" name="rut">    
             </td>
-            <td><button  type="button" class="btn btn-success addUserBtn" onclick="store(this)"><i class="fas fa-check"></i></button><button type="button" class="btn btn-danger" onclick="removeFila(this)"><i class="fas fa-trash"></i></button></td>
+            <td><button type="button" class="btn btn-danger" onclick="removeFila(this)"><i class="fas fa-trash"></i></button></td>
             </tr>
         `);
 
@@ -444,43 +469,19 @@
                 
             },
             {
-                    data: 'id', 
-                    name: 'password',
+                    data: 'telefono', 
+                    name: 'telefono',
                         render: function(data, type, row, meta) {
-                            return `
-                                <input placeholder="Contraseña" type="password" class="form-control" id="password" name="password">
-                                <br />
-                                <input placeholder="Confirmar Contraseña" type="password" class="form-control" id="password_confirmation" name="password_confirmation">
-                            `
+                            return '<input type="text" class="form-control" id="telefono" name="telefono" value='+data+'>'
+                            
                     }
                 
             },
             {
-                    data: 'temarios', 
-                    className: 'grid-check',
-                    name: 'temarios',
+                    data: 'rut', 
+                    name: 'rut',
                         render: function(data, type, row, meta) {
-                            var temarios = row.temarios
-                            var users_temarios = row.users_temarios
-                            var html = ""
-                            $(temarios).each(function(key, value){
-                            var checked = "";
-                                $(users_temarios).each(function(key2, value2){
-                                    if(row.users_id == value2.user_id){
-                                        if(value2.temario_id == value.id){
-                                            checked = "checked";
-                                        }
-                                    }
-                                });
-                            html += `
-                                    <div class="custom-control custom-checkbox" style="text-align:left;">
-                                        <input type="checkbox" id="check-${key}-${row.id}" value="${value.id}" name="temarios_id[]" ${checked}>
-                                        <label for="check-${key}-${row.id}">${value.name}</label>
-                                    </div>
-                                `;
-                            });
-
-                            return html;
+                            return '<input type="text" class="form-control" id="rut" name="rut" value='+data+'>'
                     }
                 
             },
@@ -488,8 +489,7 @@
                     data: 'id', 
                     name: 'button',
                         render: function(data, type, row, meta) {
-                            return '<button  type="button" class="btn btn-success addUserBtn" onclick="store(this)"><i class="fas fa-check"></i></button>'+
-                            '<button type="button" class="btn btn-danger" onclick="removeFila(this)"><i class="fas fa-trash"></i></button>'
+                            return '<button type="button" class="btn btn-danger" onclick="removeFila(this)"><i class="fas fa-trash"></i></button>'
                     }
                 
             },

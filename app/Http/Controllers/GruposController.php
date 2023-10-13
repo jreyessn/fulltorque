@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Temarios;
 use App\Grupos;
 use App\Grupos_usuarios;
+use App\Grupos_temarios;
 use Yajra\DataTables\DataTables;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
@@ -40,19 +41,28 @@ class GruposController extends Controller
         $grupo->tutor = $request->input('tutor');
         $grupo->fecha = $request->input('fecha');
         $grupo->hora = $request->input('hora');
+        if ($request->filled('password')) {
+            $grupo->password = bcrypt($request->input('password'));
+        }
+        $temarios_id = $request->get("temarios_id", []);
+
         $grupo->save();
-        
+        $grupo->temarios_grupos()->sync($temarios_id);
+
         $ultimo_id = Grupos::latest('id')->first();
         $ultimo_id = $ultimo_id->id;
+
         return response()->json(['success' => true, 'ultimo_id' => $ultimo_id]);
     }
 }
 
 public function show($id)
     {
-        $grupo = Grupos::findOrFail($id);
-
-        return $grupo;
+        $grupo = Grupos::where('id',$id)->get();
+        foreach ($grupo as $key => $value) {
+            $value->temarios = grupos_temarios::where('grupo_id',$id)->get();
+        }
+        return $grupo[0];
     }
 
   public function update(Request $request, $id)
@@ -89,6 +99,8 @@ protected function validateGrupo(Request $request, $id)
         'tutor' => 'required',
         'fecha' => 'required',
         'hora' => 'required',
+        'password' => $id ? 'nullable|min:6|confirmed' : 'required|min:6|confirmed',
+
     ], [
         'nombre.required' => 'El nombre es obligatorio.',
         'curso.required' => 'El curso es obligatorio.',
@@ -96,6 +108,9 @@ protected function validateGrupo(Request $request, $id)
         'tutor.required' => 'El tutor es obligatorio.',
         'fecha.required' => 'La fecha es obligatoria.',
         'hora.required' => 'La hora es obligatoria.',
+        'password.required' => 'La contraseña es obligatoria.',
+        'password.min' => 'La contraseña debe tener al menos :min caracteres.',
+        'password.confirmed' => 'Las contraseñas no coinciden.',
     ]);
 
     

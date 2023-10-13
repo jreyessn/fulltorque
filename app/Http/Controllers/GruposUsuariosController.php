@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Grupos_usuarios;
 use App\Grupos;
 use App\User;
+use App\Grupos_temarios;
 use Yajra\DataTables\DataTables;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
@@ -50,14 +51,14 @@ class GruposUsuariosController extends Controller
             $user->name = $request->input('name');
             $user->email = $request->input('email');
 
-            if ($request->filled('password')) {
+           /* if ($request->filled('password')) {
                 $user->password = bcrypt($request->input('password'));
-            }
+            }*/
             
-            $temarios_id = $request->get("temarios_id", []);
+            //$temarios_id = $request->get("temarios_id", []);
 
             $user->save();
-            $user->temarios()->sync($temarios_id);
+            //$user->temarios()->sync($temarios_id);
 
             $ultimo_id = User::latest('id')->first();
             $ultimo_id = $ultimo_id->id;
@@ -123,7 +124,7 @@ class GruposUsuariosController extends Controller
 
     public function datatable($id, Request $request){
         if ($request->ajax()) {
-        $grupos_usuarios = Grupos_usuarios::select('grupos_usuarios.*', 'users.name as nombre_usuario', 'users.email', 'users.id as id_usuario')->where('grupos_usuarios.grupo_id', $id)->where('users.deleted_at', null)->join('users', 'grupos_usuarios.users_id', '=', 'users.id')->orderBy('grupos_usuarios.id','desc')->get();
+        $grupos_usuarios = Grupos_usuarios::select('grupos_usuarios.*', 'users.name as nombre_usuario', 'users.email', 'users.telefono', 'users.rut', 'users.id as id_usuario')->where('grupos_usuarios.grupo_id', $id)->where('users.deleted_at', null)->join('users', 'grupos_usuarios.users_id', '=', 'users.id')->orderBy('grupos_usuarios.id','desc')->get();
         foreach ($grupos_usuarios as $key => $value) {
             $value->users_temarios = Grupos_usuarios::select('users_temarios.temario_id', 'users_temarios.user_id')->where('grupos_usuarios.grupo_id', $value->grupo_id)->where('users.deleted_at', null)->join('users', 'grupos_usuarios.users_id', '=', 'users.id')->join('users_temarios', 'grupos_usuarios.users_id', '=', 'users_temarios.user_id')->get();
             $value->temarios = Temarios::all();
@@ -142,6 +143,9 @@ class GruposUsuariosController extends Controller
     {
         $id = $request->input('id');
         $grupo = Grupos::where('id', $id)->get();
+        foreach ($grupo as $key => $value) {
+            $value->temarios = grupos_temarios::where('grupo_id',$id)->get();
+        }
         return $grupo[0];
 
     }

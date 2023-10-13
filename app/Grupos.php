@@ -16,4 +16,8 @@ class Grupos extends Model
         "fecha",
         "hora"
     ];
+
+    public function temarios_grupos(){
+        return $this->belongsToMany(Temarios::class, "grupos_temarios", "grupo_id", "temario_id");
+    }
 }
