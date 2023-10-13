@@ -5,6 +5,8 @@ use App\Http\Controllers\UserController;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\UsersExport;
 use Illuminate\Support\Facades\Route;
+use Barryvdh\DomPDF\PDF;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -55,6 +57,11 @@ Route::delete('/grupo_usuario/{id}', 'GruposUsuariosController@destroy')->name('
 //reporte
 Route::get('/excel/{id}', function ($id) {
    return Excel::download(new UsersExport($id), 'Reporte.xlsx');
+
+});
+Route::get('/pdf/{id}', function ($id) {
+   return Excel::download(new UsersExport($id), 'Reporte.pdf', \Maatwebsite\Excel\Excel::DOMPDF);
+
 });
 
 

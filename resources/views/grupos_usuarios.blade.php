@@ -493,7 +493,6 @@
         success: function(response){
             if(response.success){
                 $(tr).find('[name="id"]').val(response.id_usuario);
-                //$('#users-table').DataTable().ajax.reload();
             }else{
                 var errors = "";
                 $.each(response.errors, function(key, value){
@@ -508,6 +507,11 @@
                     text: 'Guardado con Exito',
                     type: 'success',
                     })    
+                    $('#users-table').DataTable().ajax.reload();
+                    setTimeout(function(){
+                        window.history.back();
+                    }, 3000);
+
                 }else{
                     swal({
                     title: 'Error',
