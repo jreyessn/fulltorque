@@ -67,10 +67,10 @@
       </div>
     </div>
   </div>
-  <div class="col-sm-6">
+  <div class="col-sm-6 ml-4">
         <h5 class="page-title text-uppercase">Usuarios</h5>
     </div><br>
-    <table id="users-table" class="table table-striped dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%; text-align: center;">
+    <table id="users-table" class="table table-striped dt-responsive nowrap mx-auto" style="border-collapse: collapse; border-spacing: 0; width: 95%; text-align: center;">
         <thead style="text-align:center;">
             <tr>
                 <th>Nombre</th>
@@ -85,8 +85,8 @@
         </tbody>
     </table>
     <div class="" style="display: flex; justify-content: center">
-        <a href="{{url('/grupos_usuarios')}}" type="button" class="btn btn-secondary">Regresar</a>
-        <!--<button type="button" class="btn btn-primary" onclick="guardar_grupos_usuarios()">Guardar</button>-->
+        <a href="{{url('/grupos_usuarios')}}" type="button" class="btn btn-secondary">Regresar</a>&nbsp;
+        <button type="button" class="btn btn-primary" onclick="validacion()">Guardar</button>
     </div><br>
     <div style="padding: 20px 30px 20px; width: 100%"></div>
     
@@ -131,6 +131,7 @@
                                 <input type="time" class="form-control" id="hora" name="hora">
                             </div>
                             <div class="form-group">
+                                <input type="hidden" name="password_grupo" id="password_grupo" value="{{ $grupo[0]->password }}">
                                 <label for="password">Contraseña</label>
                                 <input type="password" class="form-control" id="password" name="password">
                             </div>
@@ -233,7 +234,7 @@
         });
     }
 
-    function removeFila(e) {
+     function removeFila(e) {
         let tr = e.closest('tr');
         var id = $(tr).find('[name="id"]').val(); 
         if(id != ""){ 
@@ -288,66 +289,6 @@
         });
     }
 
-     function store(button){
-    let tr = button.closest('tr');
-    var name = $(tr).find('[name="name"]').val(); 
-    var email = $(tr).find('[name="email"]').val();
-    var password = $(tr).find('[name="password"]').val(); 
-    var password_confirmation = $(tr).find('[name="password_confirmation"]').val();
-    var temarios_id = [];    
-        $(tr).find('[name="temarios_id[]"]').each(function(){
-            if (this.checked) {
-            temarios_id.push($(this).val());
-            }
-        });  
-    var id = $(tr).find('[name="id"]').val();
-    var grupo_id = $("#grupo_id").val();
-    $.ajax({
-        method: "POST",
-        url: "{{ route('grupo_usuario.store') }}",
-        data: {
-            '_token': '{{ csrf_token() }}',
-            'id':id,
-            'grupo_id': grupo_id,
-            'name':name,
-            'email':email,
-            'password':password,
-            'password_confirmation':password_confirmation,
-            'temarios_id':temarios_id
-        },
-        success: function(response){
-            if(response.success){
-                swal({
-                title: 'Confirmación',
-                text: 'Guardado con Exito',
-                type: 'success',
-                })
-                //$(tr).find('input').prop("disabled", true);
-                $(tr).find('[name="id"]').val(response.id_usuario);
-                 $('#users-table').DataTable().ajax.reload();
-            }else{
-                var errors = "";
-                $.each(response.errors, function(key, value){
-                    errors += value[0] + "\n";
-                });
-                swal({
-                title: 'Error',
-                text: errors,
-                type: 'error',
-                confirmButtonText: 'Aceptar'
-                });
-            }
-        },
-        error: function(response){
-                swal({
-                title: 'Error',
-                text: 'revise los mensajes de error e intente nuevamente',
-                type: 'error',
-                confirmButtonText: 'Aceptar'
-                });
-        }
-    });
-    }
 
     function formatDate(date) {
     var d = new Date(date),
@@ -425,6 +366,7 @@
     $(document).ready(function() {
         $('#users-table').DataTable({
             ordering: false,
+            dom:'rtip',
             language: {
                 "sProcessing": "Procesando...",
                 "sLengthMenu": "Mostrar _MENU_ registros",
@@ -472,6 +414,9 @@
                     data: 'telefono', 
                     name: 'telefono',
                         render: function(data, type, row, meta) {
+                            if(data == null){
+                                data = "";
+                            }
                             return '<input type="text" class="form-control" id="telefono" name="telefono" value='+data+'>'
                             
                     }
@@ -481,6 +426,9 @@
                     data: 'rut', 
                     name: 'rut',
                         render: function(data, type, row, meta) {
+                            if(data == null){
+                                data = "";
+                            }
                             return '<input type="text" class="form-control" id="rut" name="rut" value='+data+'>'
                     }
                 
@@ -499,9 +447,80 @@
         listener()
     });
 
+    function validacion(){
+    var emails = [];
+    $("#users-table #email").each(function(key, value) {
+        emails.push($(this).val())
+    });
+    var repetidos = new Set(emails).size!==emails.length
+    if(repetidos == true){
+    swal(
+        'Error',
+        'Un correo electrónico ha sido repetido',
+        'error'
+    );
+    }else{
+     store_user()
+    }
 
+    }
 
-    
+    function store_user(){
+    var errores = [];
+    var total_columnas = $("#users-table tbody tr").length;
+    $("#users-table tbody tr").each(function(key, value){
+    let tr = $(this).closest('tr');
+    var name = $(tr).find('[name="name"]').val(); 
+    var email = $(tr).find('[name="email"]').val();
+    var telefono = $(tr).find('[name="telefono"]').val(); 
+    var rut = $(tr).find('[name="rut"]').val();
+    var id = $(tr).find('[name="id"]').val();
+    var grupo_id = $("#grupo_id").val();
+    $.ajax({
+        method: "POST",
+        url: "{{ route('grupo_usuario.store') }}",
+        data: {
+            '_token': '{{ csrf_token() }}',
+            'id':id,
+            'grupo_id': grupo_id,
+            'name':name,
+            'email':email,
+            'telefono':telefono,
+            'rut':rut,
+            'password':$("#password_grupo").val(),
+            'password_confirmation':$("#password_grupo").val(),
+        },
+        success: function(response){
+            if(response.success){
+                $(tr).find('[name="id"]').val(response.id_usuario);
+                //$('#users-table').DataTable().ajax.reload();
+            }else{
+                var errors = "";
+                $.each(response.errors, function(key, value){
+                errors += value[0] + "\n";
+                errores.push(errors);
+                });
+            }
+            if(total_columnas == key + 1) {
+                if(errores.length === 0){
+                    swal({
+                    title: 'Confirmación',
+                    text: 'Guardado con Exito',
+                    type: 'success',
+                    })    
+                }else{
+                    swal({
+                    title: 'Error',
+                    text: 'Ha ocurrido un error revise sus datos nuevamente',
+                    type: 'error',
+                    confirmButtonText: 'Aceptar'
+                    });
+                }
+            }
+        },
+    });
+    }); 
+    }
 
 
 </script>

@@ -8,6 +8,7 @@ use App\Grupos_usuarios;
 use App\Grupos;
 use App\User;
 use App\Grupos_temarios;
+use App\Users_temarios;
 use Yajra\DataTables\DataTables;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
@@ -50,25 +51,41 @@ class GruposUsuariosController extends Controller
 
             $user->name = $request->input('name');
             $user->email = $request->input('email');
-
-           /* if ($request->filled('password')) {
-                $user->password = bcrypt($request->input('password'));
-            }*/
-            
-            //$temarios_id = $request->get("temarios_id", []);
-
+            $user->telefono = $request->input('telefono');
+            $user->rut = $request->input('rut');
+            $user->password = $request->input('password');
             $user->save();
-            //$user->temarios()->sync($temarios_id);
 
+            if(!$id){
             $ultimo_id = User::latest('id')->first();
             $ultimo_id = $ultimo_id->id;
+            }else{
+            $ultimo_id = $id;
+            }
 
-        if(!$id){
-            $grupos_usuarios = new Grupos_usuarios();
-            $grupos_usuarios->grupo_id = $request->input('grupo_id');
-            $grupos_usuarios->users_id = $ultimo_id;
-            $grupos_usuarios->save();
-        }
+            if($id){
+            $users_temarios = Users_temarios::select('*')->where('user_id', $id)->get();
+            if ($users_temarios) {
+            foreach ($users_temarios as $key => $value) {
+            $value->delete();
+            }
+            }
+            }
+
+            $temarios = Grupos_temarios::select('temario_id')->where('grupo_id', $request->input('grupo_id'))->get();
+            foreach ($temarios as $key => $value) {
+            $grupos_temarios = new Users_temarios();
+            $grupos_temarios->user_id = $ultimo_id;
+            $grupos_temarios->temario_id = $value->temario_id;
+            $grupos_temarios->save();
+            }
+
+            if(!$id){
+                $grupos_usuarios = new Grupos_usuarios();
+                $grupos_usuarios->grupo_id = $request->input('grupo_id');
+                $grupos_usuarios->users_id = $ultimo_id;
+                $grupos_usuarios->save();
+            }
 
         return response()->json(['success' => true, 'id_usuario' => $ultimo_id]);
     }
@@ -144,7 +161,8 @@ class GruposUsuariosController extends Controller
         $id = $request->input('id');
         $grupo = Grupos::where('id', $id)->get();
         foreach ($grupo as $key => $value) {
-            $value->temarios = grupos_temarios::where('grupo_id',$id)->get();
+           $value->temarios = Grupos_temarios::where('grupo_id', $id)->get();
+
         }
         return $grupo[0];
 
