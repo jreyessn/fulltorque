@@ -50,6 +50,7 @@ Route::get('users/{id}', 'UserController@show')->name('users.show');
 Route::get('/grupo_usuario/datatable/{id?}', 'GruposUsuariosController@datatable');
 
 Route::post('/grupo_usuario/store/{id?}', 'GruposUsuariosController@store')->name('grupo_usuario.store');
+Route::post('/grupo_usuario/storeMultiple', 'GruposUsuariosController@storeMultiple')->name('grupo_usuario.store_multiple');
 Route::post('/grupo_usuario/getGrupo', 'GruposUsuariosController@getGrupo');
 Route::get('/grupo_usuario/excel/{id?}', 'GruposUsuariosController@excel')->name('grupo_usuario.excel');
 Route::delete('/grupo_usuario/{id}', 'GruposUsuariosController@destroy')->name('grupo_usuario.destroy');
@@ -59,11 +60,6 @@ Route::get('/excel/{id}', function ($id) {
    return Excel::download(new UsersExport($id), 'Reporte.xlsx');
 
 });
-Route::get('/pdf/{id}', function ($id) {
-   return Excel::download(new UsersExport($id), 'Reporte.pdf', \Maatwebsite\Excel\Excel::DOMPDF);
-
-});
-
 
 
 /*Route::get('/users', [UserController::class, 'index']);

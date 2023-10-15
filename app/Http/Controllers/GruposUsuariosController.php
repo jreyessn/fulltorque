@@ -32,6 +32,36 @@ class GruposUsuariosController extends Controller
         return view('grupos_usuarios', compact('grupo','temarios'));
     }
 
+    public function storeMultiple(Request $request) {
+
+        $group_users = $request->get("groups");
+
+        DB::beginTransaction();
+
+        foreach ($group_users as $key => $group_user) {
+            $newRequest = new Request($group_user);
+
+            $response = $this->store($newRequest)->getOriginalContent();
+            
+            if ($response["errors"] ?? false) {
+                DB::rollBack();
+
+                return response([
+                    "index" => $key,
+                    "errors" => $response["errors"]
+                ], 200);
+            }
+
+        }
+
+        DB::commit();
+
+        return response()->json([
+            "message" => "Actualización exitosa"
+        ], 200);
+
+    }
+
     public function store(Request $request)
     {
         $id = $request->input('id');
@@ -164,6 +194,7 @@ class GruposUsuariosController extends Controller
            $value->temarios = Grupos_temarios::where('grupo_id', $id)->get();
 
         }
+
         return $grupo[0];
 
     }

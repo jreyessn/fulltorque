@@ -39,7 +39,7 @@
 </div>
 
 <div class="modal fade" id="addGruposModal" tabindex="-1" aria-labelledby="addGruposModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="addGruposModalLabel">Nuevo Grupo</h5>
@@ -52,56 +52,75 @@
                     @csrf
                     <input type="hidden" name="id" id="id_grupo">
                     <div>
-                        <div class="mt-2">
-                            <div class="form-group">
-                                <label for="nombre">Nombre </label>
-                                <input type="text" class="form-control" id="nombre" name="nombre">
+                        <div class="row mt-2">
+                            <div class="col-sm-12 col-lg-6">
+                                <div class="form-group">
+                                    <label for="nombre">Nombre </label>
+                                    <input type="text" class="form-control" id="nombre" name="nombre">
+                                </div>
                             </div>
-                            <div class="form-group">
-                                <label for="curso">Curso</label>
-                                <input type="text" class="form-control" id="curso" name="curso">
+                            <div class="col-sm-12 col-lg-6">
+                                <div class="form-group">
+                                    <label for="curso">Curso</label>
+                                    <input type="text" class="form-control" id="curso" name="curso">
+                                </div>
                             </div>
-                            <div class="form-group">
-                                <label for="cliente">Cliente</label>
-                                <input type="text" class="form-control" id="cliente" name="cliente">
+                            <div class="col-sm-12 col-lg-6">
+                                <div class="form-group">
+                                    <label for="cliente">Cliente</label>
+                                    <input type="text" class="form-control" id="cliente" name="cliente">
+                                </div>
                             </div>
-                            <div class="form-group">
-                                <label for="tutor">Tutor</label>
-                                <input type="text" class="form-control" id="tutor" name="tutor">
+                            <div class="col-sm-12 col-lg-6">
+                                <div class="form-group">
+                                    <label for="tutor">Tutor</label>
+                                    <input type="text" class="form-control" id="tutor" name="tutor">
+                                </div>
                             </div>
-                            <div class="form-group">
-                                <label for="fecha">Fecha</label>
-                                <input type="date" class="form-control" id="fecha" name="fecha">
+                            <div class="col-sm-12 col-lg-6">
+                                <div class="form-group">
+                                    <label for="fecha">Fecha</label>
+                                    <input type="date" class="form-control" id="fecha" name="fecha">
+                                </div>
                             </div>
-                            <div class="form-group">
-                                <label for="hora">Hora</label>
-                                <input type="time" class="form-control" id="hora" name="hora">
+                            <div class="col-sm-12 col-lg-6">
+                                <div class="form-group">
+                                    <label for="hora">Hora</label>
+                                    <input type="time" class="form-control" id="hora" name="hora">
+                                </div>
                             </div>
-                            <div class="form-group">
-                                <label for="password">Contraseña</label>
-                                <input type="password" class="form-control" id="password" name="password">
+                            <div class="col-sm-12 col-lg-6">
+                                <div class="form-group">
+                                    <label for="password">Contraseña</label>
+                                    <input type="password" class="form-control" id="password" name="password">
+                                </div>
                             </div>
-                            <div class="form-group">
-                                <label for="password_confirmation">Confirmar Contraseña</label>
-                                <input type="password" class="form-control" id="password_confirmation" name="password_confirmation">
+                            <div class="col-sm-12 col-lg-6">
+                                <div class="form-group">
+                                    <label for="password_confirmation">Confirmar Contraseña</label>
+                                    <input type="password" class="form-control" id="password_confirmation" name="password_confirmation">
+                                </div>
                             </div>
-                            <h4 class="mt-0 header-title">Temarios</h4>
-                        <div class="dropdown-divider"></div>
-
-                        <div class="mt-2">
-                            <div class="form-group">
-                                <label>Temarios Disponibles</label>
-                                <div>
-                                    @foreach ($temarios as $key => $temario)                       
-                                        <div class="custom-control custom-checkbox">
-                                            <input type="checkbox" value="{{ $temario->id }}" name="temarios_id[]" class="custom-control-input" id="temario-{{ $key }}">
-                                            <label class="custom-control-label" for="temario-{{ $key }}">{{ $temario->name }}</label>
+                            
+                            <div class="col-sm-12">
+                                <h4 class="mt-0 header-title">Temarios</h4>
+                                <div class="dropdown-divider"></div>
+    
+                                <div class="mt-2">
+                                    <div class="form-group">
+                                        <label>Temarios Disponibles</label>
+                                        <div>
+                                            @foreach ($temarios as $key => $temario)                       
+                                                <div class="custom-control custom-checkbox">
+                                                    <input type="checkbox" value="{{ $temario->id }}" name="temarios_id[]" class="custom-control-input" id="temario-{{ $key }}">
+                                                    <label class="custom-control-label" for="temario-{{ $key }}">{{ $temario->name }}</label>
+                                                </div>
+                                            @endforeach
                                         </div>
-                                    @endforeach
+                                    </div>
                                 </div>
                             </div>
 
-                        </div>
                         </div>
                     </div>
                     
@@ -330,7 +349,7 @@
                                             <div class="d-flex" style="gap: 0.5rem">
                                                 <a data-toggle="modal" data-target="#addGruposModal" data-title-modal="Editar Grupo" data-id_grupo=${row.id} href="#"><i class="fas fa-edit"></i> Editar</a>
                                                 <a href="/gestion_usuarios/${row.id}"><i class="fas fa-tasks"></i> Gestionar Usuarios</a>
-                                                <a class="text-danger" href="/pdf/${row.id}"><i class="fas fa-regular fa-file-pdf"></i> PDF</a>
+                                                <a hidden class="text-danger" href="/pdf/${row.id}"><i class="fas fa-regular fa-file-pdf"></i> PDF</a>
                                                 <a class="text-success" href="/excel/${row.id}"><i class="fas fa-regular fa-file-excel"></i> Excel</a>
                                                 <a class="text-danger" href="#" onclick="deleteGrupo('/grupos/${row.id}')"><i class="fas fa-trash-alt"></i> Eliminar</a>    
                                             </div>
@@ -399,7 +418,7 @@
                                             <div class="d-flex" style="gap: 0.5rem">
                                                 <a data-toggle="modal" data-target="#addGruposModal" data-title-modal="Editar Grupo" data-id_grupo=${data.id} href="#"><i class="fas fa-edit"></i> Editar</a>
                                                 <a href="/gestion_usuarios/${data.id}"><i class="fas fa-tasks"></i> Gestionar Usuarios</a>
-                                                <a class="text-danger" href="/pdf/${row.id}"><i class="fas fa-regular fa-file-pdf"></i> PDF</a>
+                                                <a hidden class="text-danger" href="/pdf/${row.id}"><i class="fas fa-regular fa-file-pdf"></i> PDF</a>
                                                 <a class="text-success" href="/excel/${data.id}"><i class="fas fa-regular fa-file-excel"></i> Excel</a>
                                                 <a class="text-danger" href="#" onclick="deleteGrupo('/grupos/${data.id}')"><i class="fas fa-trash-alt"></i> Eliminar</a>    
                                             </div>

@@ -3,12 +3,19 @@
         display: grid;
         grid-template-columns: 1fr 1fr;
     }
+
+    .table > tbody > tr > td, .table > tfoot > tr > td, .table > thead > tr > td {
+        padding: 6px 5px;
+    }
 </style>
 
 <div class="page-title-box mx-4">
-    <div class="row align-items-center">
-        <div class="col-sm-6">
+    <div class="row">
+        <div class="col-sm-6 d-flex align-items-center" style="gap: 0.5rem">
             <h1 class="page-title text-uppercase" id="page-title"></h1>
+            <a href="#" data-toggle="modal" data-target="#editGrupoModal" data-title-modal="Editar Grupo">
+                <i class="fa fa-edit"></i>
+            </a>
         </div>
         <div class="col-sm-6 d-flex justify-content-end">
             <ol class="breadcrumb float-right">
@@ -17,82 +24,89 @@
                 <li class="breadcrumb-item active" aria-current="page">Grupos</li>
             </ol>
         </div>
-    </div><br>
-    <div class="col-sm-12 d-flex justify-content-end">
-        <a href="#" class="btn btn-primary text-white" data-toggle="modal" data-target="#editGrupoModal" data-title-modal="Editar Grupo">Editar</a>
     </div>
-    <!-- end row -->
-    <div class="float-right">
-       
-    </div>
+    <div class="dropdown-divider"></div>
 </div>
-<div class="te">
-<input type="hidden" id="grupo_id" name="grupo_id" value="{{ $grupo[0]->id }}">
- <div style="text-align: center;">
+
+<div class="te container-fluid">
+    <input type="hidden" id="grupo_id" name="grupo_id" value="{{ $grupo[0]->id }}">
+
     <div class="row">   
-     <div class="form-group col">
-        <label for="">Curso</label>
-        <div id="div_curso">
-           
-        </div>
-      </div>
-
-      <div class="form-group col">
-        <label for="">Cliente</label>
-        <div id="div_cliente">
-        </div>
-      </div>
-
-      <div class="form-group col">
-        <label for="">Tutor</label>
-        <div id="div_tutor">
-        </div>
-      </div>
-    </div>
-    <div class="row">
-      <div class="form-group col">
-        <label for="">Fecha</label>
-        <div id="div_fecha">
-        </div>
-      </div>
-      <div class="form-group col">
-        <label for="">Hora</label>
-        <div id="div_hora">
-        </div>
-      </div>
-      <div class="form-group col">
-        <label for=""></label>
+        <div class="col-sm-12 col-lg-4">
         <div>
+            <p class="font-14 text-left my-1"> <b>Curso:</b> <span id="div_curso"></span> </p>
+            <p class="font-14 text-left my-1"> <b>Fecha y Hora:</b> <span id="div_fecha"></span> <span id="div_hora"></span></p>
+            <p class="font-14 text-left my-1"> <b>Cliente:</b> <span id="div_cliente"></span></p>
+            <p class="font-14 text-left my-1"> <b>Tutor:</b> <span id="div_tutor"></span></p>
         </div>
-      </div>
+        </div>
+        <div class="col-sm-12 col-lg-4">
+        <div>
+            {{-- <p class="font-14 text-left my-1"> 
+                <b>Contraseña:</b> <span id="div_curso">********</span> 
+                <a href="javascript:void"><i class="fa fa-eye"></i></a> 
+            </p> --}}
+        </div>
+        </div>
+        <div class="col-sm-12 col-lg-4">
+        <div>
+            <p class="font-14 text-left my-1"> <b>Temarios</b> </p>
+            <p class="font-14 text-left my-1"> 
+                <ul id="lista-temarios"></ul>
+            </p>
+        </div>
+        </div>
     </div>
-  </div>
-  <div class="col-sm-6 ml-4">
-        <h5 class="page-title text-uppercase">Usuarios</h5>
-    </div><br>
-    <table id="users-table" class="table table-striped dt-responsive nowrap mx-auto" style="border-collapse: collapse; border-spacing: 0; width: 95%; text-align: center;">
-        <thead style="text-align:center;">
-            <tr>
-                <th>Nombre</th>
-                <th>Correo electrónico</th>
-                <th>Tel&eacute;fono</th>
-                <th>Rut</th>
-                <th><button  onclick="agregar_fila()" class="btn btn-success"><i class="fas fa-plus" style="color: #fff;"></i></button></th>
-            </tr>
-        </thead>
-        <tbody>
-           
-        </tbody>
-    </table>
-    <div class="" style="display: flex; justify-content: center">
-        <a href="{{url('/grupos_usuarios')}}" type="button" class="btn btn-secondary">Regresar</a>&nbsp;
-        <button type="button" class="btn btn-primary" onclick="validacion()">Guardar</button>
-    </div><br>
-    <div style="padding: 20px 30px 20px; width: 100%"></div>
+
+    <div class="dropdown-divider"></div>
+
+    <div class="row">
+        <div class="col-sm-12">
+            
+            <div class="d-flex justify-content-between align-items-center">
+                <h5 class="text-uppercase">Gestión de Usuarios</h5>
+
+                <div>
+                    <button  onclick="agregar_fila()" class="btn btn-sm btn-success">
+                        <i class="fas fa-plus" style="color: #fff;"></i> Agregar linea
+                    </button>
+                </div>
+            </div>
+
+            <div class="table-responsive">
+                <table id="users-table" class="table table-sm table-bordered w-full table-hover table-striped dt-responsive">
+                    <thead>
+                        <tr>
+                            <th style="width: 25%" class="text-center">Nombre</th>
+                            <th style="width: 25%" class="text-center">Correo electrónico</th>
+                            <th style="width: 20%" class="text-center">Tel&eacute;fono</th>
+                            <th style="width: 20%" class="text-center">Rut</th>
+                            <th style="width: 10%" class="text-center">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                       
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="" style="display: flex; justify-content: center">
+                <a href="{{url('/grupos_usuarios')}}" type="button" class="btn btn-secondary">Regresar</a>&nbsp;
+                <button type="button" class="btn btn-primary" onclick="validacion()">Guardar</button>
+            </div>
+        </div>
+    </div>
     
+    <div style="padding: 50px 30px 20px; width: 100%"></div>
+
 </div>
+
 <div class="modal fade" id="editGrupoModal" tabindex="-1" aria-labelledby="addGruposModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="editGruposModalLabel">Editar Grupo</h5>
@@ -105,56 +119,75 @@
                     @csrf
                     <input type="hidden" name="id" id="id_grupo" value="{{ $grupo[0]->id }}">
                     <div>
-                        <div class="mt-2">
-                            <div class="form-group">
-                                <label for="nombre">Nombre </label>
-                                <input type="text" class="form-control" id="nombre" name="nombre">
-                            </div>
-                            <div class="form-group">
-                                <label for="curso">Curso</label>
-                                <input type="text" class="form-control" id="curso" name="curso">
-                            </div>
-                            <div class="form-group">
-                                <label for="cliente">Cliente</label>
-                                <input type="text" class="form-control" id="cliente" name="cliente">
-                            </div>
-                            <div class="form-group">
-                                <label for="tutor">Tutor</label>
-                                <input type="text" class="form-control" id="tutor" name="tutor">
-                            </div>
-                            <div class="form-group">
-                                <label for="fecha">Fecha</label>
-                                <input type="date" class="form-control" id="fecha" name="fecha">
-                            </div>
-                            <div class="form-group">
-                                <label for="hora">Hora</label>
-                                <input type="time" class="form-control" id="hora" name="hora">
-                            </div>
-                            <div class="form-group">
-                                <input type="hidden" name="password_grupo" id="password_grupo" value="{{ $grupo[0]->password }}">
-                                <label for="password">Contraseña</label>
-                                <input type="password" class="form-control" id="password" name="password">
-                            </div>
-                            <div class="form-group">
-                                <label for="password_confirmation">Confirmar Contraseña</label>
-                                <input type="password" class="form-control" id="password_confirmation" name="password_confirmation">
-                            </div>
-                            <h4 class="mt-0 header-title">Temarios</h4>
-                        <div class="dropdown-divider"></div>
-
-                        <div class="mt-2">
-                            <div class="form-group">
-                                <label>Temarios Disponibles</label>
-                                <div>
-                                    @foreach ($temarios as $key => $temario)                       
-                                        <div class="custom-control custom-checkbox">
-                                            <input type="checkbox" value="{{ $temario->id }}" name="temarios_id[]" class="custom-control-input" id="temario-{{ $key }}">
-                                            <label class="custom-control-label" for="temario-{{ $key }}">{{ $temario->name }}</label>
-                                        </div>
-                                    @endforeach
+                        <div class="row mt-2">
+                            <div class="col-sm-12 col-lg-6">
+                                <div class="form-group">
+                                    <label for="nombre">Nombre </label>
+                                    <input type="text" class="form-control" id="nombre" name="nombre">
                                 </div>
                             </div>
-                        </div>
+                            <div class="col-sm-12 col-lg-6">
+                                <div class="form-group">
+                                    <label for="curso">Curso</label>
+                                    <input type="text" class="form-control" id="curso" name="curso">
+                                </div>
+                            </div>
+                            <div class="col-sm-12 col-lg-6">
+                                <div class="form-group">
+                                    <label for="cliente">Cliente</label>
+                                    <input type="text" class="form-control" id="cliente" name="cliente">
+                                </div>
+                            </div>
+                            <div class="col-sm-12 col-lg-6">
+                                <div class="form-group">
+                                    <label for="tutor">Tutor</label>
+                                    <input type="text" class="form-control" id="tutor" name="tutor">
+                                </div>
+                            </div>
+                            <div class="col-sm-12 col-lg-6">
+                                <div class="form-group">
+                                    <label for="fecha">Fecha</label>
+                                    <input type="date" class="form-control" id="fecha" name="fecha">
+                                </div>
+                            </div>
+                            <div class="col-sm-12 col-lg-6">
+                                <div class="form-group">
+                                    <label for="hora">Hora</label>
+                                    <input type="time" class="form-control" id="hora" name="hora">
+                                </div>
+                            </div>
+                            <div class="col-sm-12 col-lg-6">
+                                <div class="form-group">
+                                    <input type="hidden" name="password_grupo" id="password_grupo" value="{{ $grupo[0]->password }}">
+                                    <label for="password">Contraseña</label>
+                                    <input type="password" class="form-control" id="password" name="password">
+                                </div>
+                            </div>
+                            <div class="col-sm-12 col-lg-6">
+                                <div class="form-group">
+                                    <label for="password_confirmation">Confirmar Contraseña</label>
+                                    <input type="password" class="form-control" id="password_confirmation" name="password_confirmation">
+                                </div>
+                            </div>
+
+                            <div class="col-sm-12">
+                                <h4 class="mt-0 header-title">Temarios</h4>
+                                <div class="dropdown-divider"></div>
+        
+                                <div class="mt-2">
+                                    <div class="form-group">
+                                        <label>Temarios Disponibles</label>
+                                        <div>
+                                            @foreach ($temarios as $key => $temario)                       
+                                                <div class="custom-control custom-checkbox">
+                                                    <input type="checkbox" value="{{ $temario->id }}" name="temarios_id[]" class="custom-control-input" id="temario-{{ $key }}">
+                                                    <label class="custom-control-label" for="temario-{{ $key }}">{{ $temario->name }}</label>
+                                                </div>
+                                            @endforeach
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div> 
                 </form>
@@ -167,8 +200,6 @@
         </div>
     </div>
 </div>
-<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-
     
 <script>
     var datos = {
@@ -184,6 +215,8 @@
                 id: $("#id_grupo").val() 
             },
             success: function(response){
+                $("#lista-temarios").empty()
+
                 $("#page-title").text('Grupo '+response.nombre)
                 $("#div_curso").text(response.curso)
                 $("#div_cliente").text(response.cliente)
@@ -197,12 +230,21 @@
                 $("#tutor").val(response.tutor)
                 $("#fecha").val(formatDate(response.fecha))
                 $("#hora").val(response.hora)
-                const temariosIds = response.temarios.map(temario => temario.temario_id)
+                const temariosIds = response.temarios.map(temario => {
+
+                    $("#lista-temarios").append(`<li>${temario?.temario?.name}</li>`)
+                    
+                    return temario.temario_id
+                })
+                
                 $('input[name="temarios_id[]"]').each(function() {
-                const checkboxValue = $(this).val();
-                if (temariosIds.includes(parseInt(checkboxValue))) {
-                    $(this).prop('checked', true);
-                }
+
+                    const checkboxValue = $(this).val();
+
+                    if (temariosIds.includes(parseInt(checkboxValue))) {
+                        $(this).prop('checked', true);
+                    }
+
                 });
             },
         });  
@@ -225,7 +267,7 @@
             <td> 
                 <input type="text" class="form-control" id="rut" name="rut">    
             </td>
-            <td><button type="button" class="btn btn-danger" onclick="removeFila(this)"><i class="fas fa-trash"></i></button></td>
+            <td><button type="button" class="btn btn-sm btn-danger" onclick="removeFila(this)"><i class="fas fa-trash"></i></button></td>
             </tr>
         `);
 
@@ -434,10 +476,11 @@
                 
             },
             {
-                    data: 'id', 
+                    data: 'id',
+                    className: "text-center",
                     name: 'button',
                         render: function(data, type, row, meta) {
-                            return '<button type="button" class="btn btn-danger" onclick="removeFila(this)"><i class="fas fa-trash"></i></button>'
+                            return `<button type="button" class="btn btn-sm btn-danger" onclick="removeFila(this)"><i class="fas fa-trash"></i></button>`
                     }
                 
             },
@@ -448,82 +491,84 @@
     });
 
     function validacion(){
-    var emails = [];
-    $("#users-table #email").each(function(key, value) {
-        emails.push($(this).val())
-    });
-    var repetidos = new Set(emails).size!==emails.length
-    if(repetidos == true){
-    swal(
-        'Error',
-        'Un correo electrónico ha sido repetido',
-        'error'
-    );
-    }else{
-     store_user()
-    }
+        var emails = [];
+
+        $("#users-table #email").each(function(key, value) {
+            emails.push($(this).val())
+        });
+
+        var repetidos = new Set(emails).size!==emails.length
+
+        if(repetidos == true){
+            swal(
+                'Error',
+                'Se ha detectado un correo repetido en el formulario',
+                'error'
+            );
+        }else{
+            store_user()
+        }
 
     }
 
     function store_user(){
-    var errores = [];
-    var total_columnas = $("#users-table tbody tr").length;
-    $("#users-table tbody tr").each(function(key, value){
-    let tr = $(this).closest('tr');
-    var name = $(tr).find('[name="name"]').val(); 
-    var email = $(tr).find('[name="email"]').val();
-    var telefono = $(tr).find('[name="telefono"]').val(); 
-    var rut = $(tr).find('[name="rut"]').val();
-    var id = $(tr).find('[name="id"]').val();
-    var grupo_id = $("#grupo_id").val();
-    $.ajax({
-        method: "POST",
-        url: "{{ route('grupo_usuario.store') }}",
-        data: {
-            '_token': '{{ csrf_token() }}',
-            'id':id,
-            'grupo_id': grupo_id,
-            'name':name,
-            'email':email,
-            'telefono':telefono,
-            'rut':rut,
-            'password':$("#password_grupo").val(),
-            'password_confirmation':$("#password_grupo").val(),
-        },
-        success: function(response){
-            if(response.success){
-                $(tr).find('[name="id"]').val(response.id_usuario);
-            }else{
-                var errors = "";
-                $.each(response.errors, function(key, value){
-                errors += value[0] + "\n";
-                errores.push(errors);
-                });
+        var errores = [];
+        var total_columnas = $("#users-table tbody tr").length;
+        var users = []
+
+        $("#users-table tbody tr").each(function(key, value){
+            let tr = $(this).closest('tr');
+            var name = $(tr).find('[name="name"]').val(); 
+            var email = $(tr).find('[name="email"]').val();
+            var telefono = $(tr).find('[name="telefono"]').val(); 
+            var rut = $(tr).find('[name="rut"]').val();
+            var id = $(tr).find('[name="id"]').val();
+            var grupo_id = $("#grupo_id").val();
+            
+            const body = {
+                'id':id,
+                'grupo_id': grupo_id,
+                'name':name,
+                'email':email,
+                'telefono':telefono,
+                'rut':rut,
+                'password':$("#password_grupo").val(),
+                'password_confirmation':$("#password_grupo").val(),
             }
-            if(total_columnas == key + 1) {
-                if(errores.length === 0){
-                    swal({
+
+            users.push(body)
+        }); 
+
+        $.ajax({
+            method: "POST",
+            url: "{{ route('grupo_usuario.store_multiple') }}",
+            data: {
+                '_token': '{{ csrf_token() }}',
+                'groups': users
+            },
+            success: function(response){
+
+                if (response.errors) {
+                    const errorsMsg = Object.values(response.errors).map(err => `- ${err[0]}`).join("<br>")
+
+                        swal({
+                            title: 'Revise sus datos nuevamente',
+                            html: `Error en la fila ${response.index + 1} <br> ${errorsMsg}`,
+                            type: 'error',
+                            confirmButtonText: 'Aceptar'
+                        });
+                    return;
+                }
+
+                swal({
                     title: 'Confirmación',
                     text: 'Guardado con Exito',
                     type: 'success',
-                    })    
-                    $('#users-table').DataTable().ajax.reload();
-                    setTimeout(function(){
-                        window.history.back();
-                    }, 3000);
+                })    
 
-                }else{
-                    swal({
-                    title: 'Error',
-                    text: 'Ha ocurrido un error revise sus datos nuevamente',
-                    type: 'error',
-                    confirmButtonText: 'Aceptar'
-                    });
-                }
-            }
-        },
-    });
-    }); 
+                $('#users-table').DataTable().ajax.reload();
+            },
+        });
     }
 
 

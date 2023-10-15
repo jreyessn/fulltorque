@@ -7,6 +7,8 @@ use App\Temarios;
 use App\Grupos;
 use App\Grupos_usuarios;
 use App\Grupos_temarios;
+use App\User;
+use App\Users_temarios;
 use Yajra\DataTables\DataTables;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
@@ -48,6 +50,29 @@ class GruposController extends Controller
 
         $grupo->save();
         $grupo->temarios_grupos()->sync($temarios_id);
+
+        // Actualizar todos los usuarios con la contraseña nueva y temarios
+        
+        $grupos_usuarios = Grupos_usuarios::where("grupo_id", $grupo->id)->get();
+
+        foreach ($grupos_usuarios as $grupo_usuario) {
+            $user = $grupo_usuario->user;
+            
+            if ($request->filled('password')) {
+                $user->password = $grupo->password;
+                $user->save();
+            }
+
+            Users_temarios::where("user_id", $user->id)->delete();
+
+            foreach ($temarios_id as $key => $temario_id) {
+                $grupos_temarios = new Users_temarios();
+                $grupos_temarios->user_id = $user->id;
+                $grupos_temarios->temario_id = $temario_id;
+                $grupos_temarios->save();
+            }
+            
+        }
 
         $ultimo_id = Grupos::latest('id')->first();
         $ultimo_id = $ultimo_id->id;
