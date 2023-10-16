@@ -347,11 +347,11 @@
                                             <h5 class="card-title text-uppercase"> ${row.nombre}</h5>
                                             
                                             <div class="d-flex" style="gap: 0.5rem">
-                                                <a data-toggle="modal" data-target="#addGruposModal" data-title-modal="Editar Grupo" data-id_grupo=${row.id} href="#"><i class="fas fa-edit"></i> Editar</a>
-                                                <a href="/gestion_usuarios/${row.id}"><i class="fas fa-tasks"></i> Gestionar Usuarios</a>
-                                                <a hidden class="text-danger" href="/pdf/${row.id}"><i class="fas fa-regular fa-file-pdf"></i> PDF</a>
-                                                <a class="text-success" href="/excel/${row.id}"><i class="fas fa-regular fa-file-excel"></i> Excel</a>
-                                                <a class="text-danger" href="#" onclick="deleteGrupo('/grupos/${row.id}')"><i class="fas fa-trash-alt"></i> Eliminar</a>    
+                                                <a data-toggle="modal" data-target="#addGruposModal" data-title-modal="Editar Grupo" data-id_grupo=${row.id} href="#"><i class="fas fa-edit"></i></a>
+                                                <a href="/gestion_usuarios/${row.id}" title="Gestionar Usuarios"><i class="fas fa-users"></i></a>
+                                                <a hidden class="text-danger" href="/pdf/${row.id}"><i class="fas fa-regular fa-file-pdf"></i></a>
+                                                <a class="text-success" href="/excel/${row.id}"><i class="fas fa-regular fa-file-excel"></i></a>
+                                                <a class="text-danger" href="#" onclick="deleteGrupo('/grupos/${row.id}')"><i class="fas fa-trash-alt"></i></a>    
                                             </div>
 
                                         </div>
@@ -366,7 +366,7 @@
                                                 </div>
                                             </div>
                                             <div class="row">
-                                                <div class="col-sm-4 mb-2">
+                                                <div class="col-sm-4 mb-2" style="white-space: normal;">
                                                     <strong><i class="text-primary fas fa-book"></i> Curso:</strong> ${row.curso}
                                                 </div>
                                                 <div class="col-sm-4 mb-2">
@@ -416,11 +416,11 @@
                                             <h5 class="card-title text-uppercase"> ${data.nombre}</h5>
                                             
                                             <div class="d-flex" style="gap: 0.5rem">
-                                                <a data-toggle="modal" data-target="#addGruposModal" data-title-modal="Editar Grupo" data-id_grupo=${data.id} href="#"><i class="fas fa-edit"></i> Editar</a>
-                                                <a href="/gestion_usuarios/${data.id}"><i class="fas fa-tasks"></i> Gestionar Usuarios</a>
-                                                <a hidden class="text-danger" href="/pdf/${row.id}"><i class="fas fa-regular fa-file-pdf"></i> PDF</a>
-                                                <a class="text-success" href="/excel/${data.id}"><i class="fas fa-regular fa-file-excel"></i> Excel</a>
-                                                <a class="text-danger" href="#" onclick="deleteGrupo('/grupos/${data.id}')"><i class="fas fa-trash-alt"></i> Eliminar</a>    
+                                                <a data-toggle="modal" data-target="#addGruposModal" data-title-modal="Editar Grupo" data-id_grupo=${data.id} href="#"><i class="fas fa-edit"></i></a>
+                                                <a href="/gestion_usuarios/${data.id}" title="Gestionar Usuarios"><i class="fas fa-users"></i></a>
+                                                <a hidden class="text-danger" href="/pdf/${row.id}"><i class="fas fa-regular fa-file-pdf"></i></a>
+                                                <a class="text-success" href="/excel/${data.id}"><i class="fas fa-regular fa-file-excel"></i></a>
+                                                <a class="text-danger" href="#" onclick="deleteGrupo('/grupos/${data.id}')"><i class="fas fa-trash-alt"></i></a>    
                                             </div>
 
                                         </div>
